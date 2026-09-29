@@ -2,7 +2,8 @@
    Rules that are easy to break by accident:
    - buttons are WHITE text on the deep gradient, and never carry an emoji
    - no coloured stripe down the left edge of any card, quote or row
-   - orange, yellow and pink are fills; deep pink is the only brand colour that may be text */
+   - orange, yellow and pink are fills; deep pink is the only brand colour that may be text
+   - no capitalised eyebrows or labels, ever: every small label is sentence case (no text-transform: uppercase) */
 
 :root {
   --yellow: #FFD166;
@@ -89,7 +90,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ---------- hero ---------- */
 .hero { background: var(--gradient-bg); padding-block: 72px 64px; text-align: center; border-bottom: 1px solid var(--gray-200); }
-.pill { display: inline-block; padding: 7px 16px; border-radius: 999px; background: var(--white); border: 1px solid var(--gray-200); font-weight: 600; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-700); }
+.pill { display: inline-block; padding: 7px 16px; border-radius: 999px; background: var(--white); border: 1px solid var(--gray-200); font-weight: 600; font-size: .88rem; color: var(--gray-700); }
 .hero h1 { font-size: clamp(2.3rem, 6.4vw, 4rem); letter-spacing: -.035em; margin: 22px auto 0; max-width: 15ch; }
 .hero h1 .grad, .grad { background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero__lede { margin: 20px auto 0; max-width: 56ch; font-size: 1.15rem; color: var(--gray-600); }
@@ -104,18 +105,18 @@ a:hover { text-decoration-thickness: 2px; }
 .am-live__row { display: flex; align-items: stretch; justify-content: center; gap: 20px; }
 .am-live__item { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0; min-width: 0; }
 .am-live__num { font-family: var(--font-heading); font-weight: 700; font-size: 2.3rem; line-height: 1.05; background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.am-live__label { margin-top: 5px; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--gray-500); }
+.am-live__label { margin-top: 5px; font-size: .84rem; font-weight: 500; color: var(--gray-500); }
 .am-live__sep { width: 1px; background: var(--gray-200); }
 .am-live__bar { height: 6px; border-radius: 99px; background: var(--gray-100); margin-top: 16px; overflow: hidden; }
 .am-live__fill { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--gradient); transition: width .8s ease; }
-.am-live__foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font-size: .74rem; font-weight: 600; letter-spacing: .02em; color: var(--gray-500); }
+.am-live__foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font-size: .78rem; font-weight: 600; color: var(--gray-500); }
 .am-live__pulse { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); margin-right: 6px; vertical-align: 1px; animation: amPulse 2.4s ease-in-out infinite; }
 @keyframes amPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 140, 66, .55); } 50% { box-shadow: 0 0 0 6px rgba(255, 140, 66, 0); } }
 
 /* ---------- sections ---------- */
 .section { padding-block: 72px; }
 .section--tint { background: var(--gradient-bg); border-block: 1px solid var(--gray-200); }
-.section__label { font-weight: 600; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--pink-deep); }
+.section__label { font-weight: 600; font-size: .95rem; color: var(--pink-deep); }
 .section h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin-top: 10px; max-width: 22ch; }
 .section__intro { margin-top: 14px; max-width: 60ch; color: var(--gray-600); font-size: 1.05rem; }
 
@@ -127,7 +128,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
 .card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 24px; }
-.card__tag { display: inline-block; padding: 4px 11px; border-radius: 999px; background: var(--gradient-subtle); font-weight: 600; font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-800); }
+.card__tag { display: inline-block; padding: 4px 11px; border-radius: 999px; background: var(--gradient-subtle); font-weight: 600; font-size: .82rem; color: var(--gray-800); }
 .card h3 { font-size: 1.15rem; margin-top: 14px; }
 .card p { margin-top: 8px; color: var(--gray-600); font-size: .95rem; }
 .taglist { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
@@ -212,7 +213,7 @@ a:hover { text-decoration-thickness: 2px; }
 .am-option input { width: 18px; height: 18px; accent-color: var(--pink-deep); flex-shrink: 0; margin: 0; }
 .am-option:has(input:checked) { border-color: var(--pink-deep); background: var(--gradient-subtle); }
 .am-option:has(input:focus-visible) { box-shadow: 0 0 0 3px rgba(209, 30, 110, .2); }
-.am-group-title { font-family: var(--font-heading); font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--gray-500); margin: 18px 0 10px; }
+.am-group-title { font-family: var(--font-heading); font-size: .95rem; font-weight: 600; color: var(--gray-600); margin: 18px 0 10px; }
 .am-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .am-chip { position: relative; }
 .am-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
@@ -267,7 +268,7 @@ a:hover { text-decoration-thickness: 2px; }
   .am-live { padding: 16px 16px 14px; }
   .am-live__row { gap: 12px; }
   .am-live__num { font-size: 1.75rem; }
-  .am-live__label { font-size: .66rem; letter-spacing: .05em; }
+  .am-live__label { font-size: .78rem; }
   .logo__word { font-size: 1.15rem; }
   .site-header .btn--sm { padding: 9px 15px; font-size: .85rem; }
   .site-header__in { gap: 10px; }

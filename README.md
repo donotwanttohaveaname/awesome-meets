@@ -21,7 +21,17 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 | `assets/css/site.css` | All styles, built on the brand kit tokens |
 | `assets/js/site.js` | Waitlist or open, the live strip, the counter, the waitlist forms |
 | `assets/js/form.js` | The sign-up form: questions, validation, sending |
+| `assets/css/home.css`, `assets/js/home.js` | Homepage only: the animated hero, the try-it card builder, scroll effects |
 | `assets/img/` | Logo files, favicon, share image |
+
+## The homepage
+
+The homepage is a small app in one page:
+
+- **Hero:** two example marketers meet, a heart pops, an invitation slides in. It changes every few seconds and on tap. The marketers are made up (a role and an industry, never a name). The list is `PAIRS` in `assets/js/home.js`.
+- **Try it:** three taps (what to do, topics, area) build "your card", then "Show me a match" reveals an example match. It is a preview: **nothing tapped there is saved or sent**, and the data page relies on that. Example people are `PERSONAS` in `home.js`.
+- **How it works:** the line fills in as you scroll to it.
+- People who have "reduce motion" switched on see everything at once, with nothing moving by itself.
 
 ## The two modes
 
@@ -77,6 +87,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 - The logo heart is the text glyph ♥ in `#FF8C42`. In the header and on horizontal logos it sits straight on the background, with no tile around it.
 - The credit is always "by the creators of The Awesome Marketers".
 - No em dashes. British spelling. Never promise a round every month.
+- No capitalised eyebrows or labels, ever. Every small label is sentence case; `text-transform: uppercase` is not used anywhere.
 - Every page shows the version and date at the bottom. Bump it with every change.
 - The data note inside the form is what people agree to. Change a word of it and `consentVersion` in `config.js` goes up.
 
@@ -85,3 +96,4 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v1.1 | 29 Sep 2026 | Homepage rebuilt as an interactive one-pager: animated hero with example matches, "Try it" card builder with a match reveal, timeline that fills in, scroll progress, a button that stays within reach on phones. All capitalised labels changed to sentence case. |
