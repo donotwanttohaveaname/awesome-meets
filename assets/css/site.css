@@ -185,6 +185,8 @@ a:hover { text-decoration-thickness: 2px; }
 .site-footer nav a { color: var(--gray-700); text-decoration: none; font-size: .95rem; }
 .site-footer nav a:hover { color: var(--pink-deep); }
 .site-version { margin-top: 28px; text-align: center; font-size: .78rem; color: var(--gray-500); }
+.site-version a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.site-version a:hover { color: var(--pink-deep); }
 
 /* ---------- sign-up form ---------- */
 .am-wrap { max-width: 760px; margin: 0 auto; }

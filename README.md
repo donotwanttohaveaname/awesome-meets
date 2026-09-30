@@ -99,7 +99,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 - No em dashes. British spelling. Never promise a round every month.
 - No capitalised eyebrows or labels, ever. Every small label is sentence case; `text-transform: uppercase` is not used anywhere.
 - The waitlist is always called "the waitlist for <month>" ("Join the waitlist for November"), never just "the waitlist". In the HTML write the month as `<span data-am="label">November</span>` so it follows `round.label` in config.js.
-- **No visible version number on the site** (Anna, 30 Sep 2026): the footer says "© 2026 Awesome Meets". The version lives in `config.js`, in a hidden `<meta name="am-version">` tag and in the `?v=` of the asset links. **Before every commit run `python3 release.py 2.5`** (the next number): it updates all three, so a visitor never gets a new page with an old stylesheet. Change the year in the five footers each January.
+- **No visible version number on the site** (Anna, 30 Sep 2026): the footer line is "Made with ❤️ in Helsinki. © 2026 by Anna Pogrebniak" (her wording, the same line as on awesomemarketers.fi; the name links to awesomemarketer.fi). The version lives in `config.js`, in a hidden `<meta name="am-version">` tag and in the `?v=` of the asset links. **Before every commit run `python3 release.py 2.5`** (the next number): it updates all three, so a visitor never gets a new page with an old stylesheet. Change the year in the five footers each January.
 - **Thumbnails:** everything that matters sits inside the white card in the middle, because several apps crop link previews to a square. After changing a thumbnail, LinkedIn keeps the old one until the link is run through its Post Inspector.
 - The data note inside the form is what people agree to. Change a word of it and `consentVersion` in `config.js` goes up.
 
@@ -113,6 +113,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | v2.7 | 30 Sep 2026 | Hero subline set as two even lines, one sentence each (it broke into three with one word alone). |
 | v2.8 | 30 Sep 2026 | Thumbnails redone plain: white ground, soft warm glow, the name and one big line (the version with a card and shapes was "really really ugly and too much"). Site icon is now the plain orange heart with no tile (`favicon.ico` + `assets/img/icon-*.png`). Footer link "Anna's website" is now "Who is Anna?". |
 | v2.9 | 30 Sep 2026 | Buy Me a Coffee button (Anna's embed code, account `awesomemeets`) on Home, Join, About and the data policy. On phones it is smaller and moves above the docked waitlist button. One row about it added to the services list in the data policy. |
+| v2.10 | 30 Sep 2026 | Footer line is now "Made with ❤️ in Helsinki. © 2026 by Anna Pogrebniak", as on awesomemarketers.fi. |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
