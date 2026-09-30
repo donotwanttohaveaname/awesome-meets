@@ -294,3 +294,16 @@ a:hover { text-decoration-thickness: 2px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- Buy Me a Coffee button (third-party widget, added to the page by its own script) ----------
+   The script writes its styles inline, hence the !important. #bmc-wbtn is the round button, the div right
+   after it is the message that shows for a few seconds. */
+#bmc-wbtn + div { font-family: var(--font-body) !important; font-size: 15px !important; line-height: 1.4 !important; padding: 12px 16px !important; border-radius: 16px !important; max-width: 230px !important; }
+@media (max-width: 720px) {
+  #bmc-wbtn { width: 52px !important; height: 52px !important; right: 14px !important; bottom: calc(14px + env(safe-area-inset-bottom)) !important; }
+  #bmc-wbtn img { width: 30px !important; height: 30px !important; }
+  #bmc-wbtn + div { right: 76px !important; bottom: calc(14px + env(safe-area-inset-bottom)) !important; }
+  /* while the waitlist button is docked at the bottom, the coffee button sits above it, never on it */
+  .dock.is-up ~ #bmc-wbtn { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+  .dock.is-up ~ #bmc-wbtn + div { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+}

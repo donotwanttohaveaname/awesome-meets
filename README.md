@@ -112,6 +112,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | v2.6 | 30 Sep 2026 | Search and AI-search pass (b2b-saas-seo-geo skill): keyword-first titles, 143 to 147 character descriptions, canonical tags, `robots.txt`, `sitemap.xml`, `llms.txt`, Organization + WebSite + FAQPage structured data, "Questions people ask" on the About page, one H1 on the Join page, and the category ("one-to-one networking in Helsinki") said in the first lines of every page. `noindex` is still on. |
 | v2.7 | 30 Sep 2026 | Hero subline set as two even lines, one sentence each (it broke into three with one word alone). |
 | v2.8 | 30 Sep 2026 | Thumbnails redone plain: white ground, soft warm glow, the name and one big line (the version with a card and shapes was "really really ugly and too much"). Site icon is now the plain orange heart with no tile (`favicon.ico` + `assets/img/icon-*.png`). Footer link "Anna's website" is now "Who is Anna?". |
+| v2.9 | 30 Sep 2026 | Buy Me a Coffee button (Anna's embed code, account `awesomemeets`) on Home, Join, About and the data policy. On phones it is smaller and moves above the docked waitlist button. One row about it added to the services list in the data policy. |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
@@ -132,4 +133,10 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 - **Structured data**: the homepage has `Organization` + `WebSite`; the About page has `Organization` + `FAQPage`. The FAQPage answers must stay word for word the same as the visible "Questions people ask" answers (both live in `about/index.html`), and must agree with the data policy.
 - **`noindex` is still on all four pages** until Anna says go. While it is on, Google and Bing will not list the site, whatever else is done. At launch: remove the four `<meta name="robots" content="noindex">` lines (keep the one in `404.html`), then in Search Console submit `https://awesomemeets.com/sitemap.xml` and press "Request indexing" on the homepage.
 - **Known gap**: the sign-up form on `join/` is hidden in waitlist mode but still in the page source, and it is still worded for marketers. Crawlers read it. Fix when the form is rewritten for everyone.
+
+## Buy Me a Coffee button (v2.9)
+
+- The `<script data-name="BMC-Widget" …>` line sits just before `</body>` on Home, Join, About and the data policy (not on the 404 page). It is Anna's embed code, unchanged: to change the message, colour or side, edit the `data-` attributes in all four pages.
+- The script adds a round button (`#bmc-wbtn`) and a message that shows for a few seconds. Both are styled by the script itself; `assets/css/site.css` (last block) overrides the message font and, on phones, the size and position, so the button never sits on top of the docked waitlist button.
+- What it does in a visitor's browser: loads the script, a font and the cup picture from buymeacoffee.com, and saves a one-day cookie called `visited` so the message does not pop up on every page. The payment page only loads when someone clicks the button. The data policy says this in the services list (section 5): keep the two in step.
 
