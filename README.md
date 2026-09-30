@@ -28,13 +28,14 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 
 ## The homepage (v2)
 
-Three views, a lot of air, very large type. No eyebrows: no small label above a heading, no pill.
+Four views, and **each one fits a single screen** (sizes follow the height of the window as well as its width). No eyebrows: no small label above a heading, no pill.
 
 1. **The question.** One massive question and nothing else: "When did you last meet someone from your field who isn't a colleague?" It arrives word by word.
-2. **The case.** Anna's text about networking. Each line lights up as you scroll to it, and it ends on "So, again: when was the last time you truly networked?"
-3. **What we do**, as four illustrated steps that stack as you scroll (tell us about you · we validate everyone · we match you, one to one · you meet in Helsinki), then **"Where are you?"** with two cards:
+2. **The case.** Anna's text about networking as four short paragraphs, each opening with a bold sentence, then "So, again: when was the last time you truly networked?"
+3. **What we do.** "We do the introducing." and four step cards side by side, each with a small moving picture: tell us about you · we validate everyone · we match you, one to one · you meet in Helsinki. On phones they become four short rows without pictures.
+4. **Where are you?** Two cards:
    - **Helsinki:** the waitlist for November (email only), or a "Sign up" button while a round is open.
-   - **Another city:** email, LinkedIn profile, city and country, all four required. They land in the Sheet tab `Other cities waitlist`.
+   - **Another city:** email, LinkedIn profile, city and country, all four required. They land in the Sheet tab `Other cities waitlist`. (On a phone these two cards are taller than one screen.)
 
 People who have "reduce motion" switched on, or no JavaScript, get everything at once and readable.
 Homepage v1 (animated match cards, the try-it card builder, how it works, questions) is in the git history at commit `d38d0e9`.
@@ -105,6 +106,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
 | v2.1 | 30 Sep 2026 | Awesome Meets is not only for marketers: visible pages, the share image and the counter now say "people" or "someone new". The "We do the introducing" screen is now four illustrated steps. "Your data" removed from the top navigation (still in the footer). The sign-up form itself is unchanged and still written for marketers. |
 | v2.0 | 30 Sep 2026 | Homepage v2: one massive question, Anna's text on real networking, what we do, and two waitlists (Helsinki for November, another city with email + LinkedIn + city + country). Minimal, no eyebrows. The old "How it works" links on other pages now go to "What we do". Data policy covers the waitlist for another city. |

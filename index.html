@@ -21,8 +21,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <!-- 'js' lets sections fade in as you scroll. If the homepage script never arrives, show everything after 4 seconds. -->
   <script>document.documentElement.className = 'js'; setTimeout(function () { if (!window.AMHome) document.documentElement.className = ''; }, 4000);</script>
-  <link rel="stylesheet" href="assets/css/site.css?v=2.2">
-  <link rel="stylesheet" href="assets/css/home.css?v=2.2">
+  <link rel="stylesheet" href="assets/css/site.css?v=2.3">
+  <link rel="stylesheet" href="assets/css/home.css?v=2.3">
 </head>
 <body class="home has-dock">
 
@@ -52,29 +52,24 @@
     </a>
   </section>
 
-  <!-- 2. THE CASE. Anna's text, 30 Sep 2026. Each line lights up as it is read. -->
-  <section class="case" id="why">
+  <!-- 2. THE CASE. Anna's text, 30 Sep 2026. One screen: four short paragraphs and the question again. -->
+  <section class="case screen" id="why">
     <div class="case__in">
-      <p>The job market is really hard right now.</p>
-      <p>Your connections matter more than ever.</p>
-      <p>And yet so many of us have no time or energy left for networking.</p>
-      <p class="gap">Networking isn't saying &ldquo;Hello, my name is&rdquo; at a meetup or a conference.</p>
-      <p>Networking is making real connections. Learning about the other person, their work and what they've achieved.</p>
-      <p class="gap">Networking won't bring you a job tomorrow.</p>
-      <p>But a person you meet today might introduce you to a co-founder, an employer or a client years from now.</p>
-      <p class="gap">It's the part of work life you can't turn into KPIs.</p>
-      <p>Unless your KPI is happiness, thanks to a rich social life.</p>
-      <p class="again">So, again: when was the last time you <span class="grad">truly networked?</span></p>
+      <p class="reveal" style="--i:0"><strong>The job market is really hard right now.</strong> Your connections matter more than ever. And yet so many of us have no time or energy left for networking.</p>
+      <p class="reveal" style="--i:1"><strong>Networking isn't saying &ldquo;Hello, my name is&rdquo; at a meetup or a conference.</strong> It's making real connections: learning about the other person, their work and what they've achieved.</p>
+      <p class="reveal" style="--i:2"><strong>Networking won't bring you a job tomorrow.</strong> But a person you meet today might introduce you to a co-founder, an employer or a client years from now.</p>
+      <p class="reveal" style="--i:3"><strong>It's the part of work life you can't turn into KPIs.</strong> Unless your KPI is happiness, thanks to a rich social life.</p>
+      <p class="again reveal" style="--i:4">So, again: when was the last time you <span class="grad">truly networked?</span></p>
     </div>
   </section>
 
   <!-- 3. WHAT WE DO, and the two waitlists -->
-  <section class="what" id="what">
+  <section class="what screen" id="what">
     <div class="what__in">
       <h2 class="reveal">We do the introducing.</h2>
       <p class="what__lede reveal" style="--i:1">Awesome Meets matches you with someone new for a real one-to-one conversation.</p>
       <ol class="flow">
-        <li class="flow__step reveal" style="--n:0">
+        <li class="flow__step reveal" style="--i:0">
           <div class="flow__text">
             <span class="flow__num" aria-hidden="true">1</span>
             <h3>Tell us about you</h3>
@@ -91,7 +86,7 @@
             </div>
           </div>
         </li>
-        <li class="flow__step reveal" style="--n:1">
+        <li class="flow__step reveal" style="--i:1">
           <div class="flow__text">
             <span class="flow__num" aria-hidden="true">2</span>
             <h3>We validate everyone</h3>
@@ -105,7 +100,7 @@
             </div>
           </div>
         </li>
-        <li class="flow__step reveal" style="--n:2">
+        <li class="flow__step reveal" style="--i:2">
           <div class="flow__text">
             <span class="flow__num" aria-hidden="true">3</span>
             <h3>We match you, one to one</h3>
@@ -119,7 +114,7 @@
             </div>
           </div>
         </li>
-        <li class="flow__step reveal" style="--n:3">
+        <li class="flow__step reveal" style="--i:3">
           <div class="flow__text">
             <span class="flow__num" aria-hidden="true">4</span>
             <h3>You meet in Helsinki</h3>
@@ -139,7 +134,12 @@
         </li>
       </ol>
 
-      <div class="where">
+    </div>
+  </section>
+
+  <!-- 4. WHERE ARE YOU? The two waitlists. -->
+  <section class="where screen" id="where">
+    <div class="where__in">
         <h2 class="reveal">Where are you?</h2>
         <div class="cities">
 
@@ -186,7 +186,6 @@
           </div>
 
         </div>
-      </div>
     </div>
   </section>
 </main>
@@ -210,7 +209,7 @@
         <a href="mailto:anna@awesomemarketers.fi">Email Anna</a>
       </nav>
     </div>
-    <p class="site-version" data-am="version">Awesome Meets site v2.2 · 30 Sep 2026</p>
+    <p class="site-version" data-am="version">Awesome Meets site v2.3 · 30 Sep 2026</p>
   </div>
 </footer>
 
@@ -219,8 +218,8 @@
   <a class="btn btn--primary" href="join/" data-show="open" hidden>Sign up</a>
 </div>
 
-<script src="assets/js/config.js?v=2.2"></script>
-<script src="assets/js/site.js?v=2.2"></script>
-<script src="assets/js/home.js?v=2.2"></script>
+<script src="assets/js/config.js?v=2.3"></script>
+<script src="assets/js/site.js?v=2.3"></script>
+<script src="assets/js/home.js?v=2.3"></script>
 </body>
 </html>

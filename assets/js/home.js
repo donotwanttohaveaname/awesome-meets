@@ -1,5 +1,5 @@
-/* Awesome Meets homepage, v2: the question arrives word by word, the text of the second view
-   lights up line by line as you read, and the rest fades in. Nothing here collects anything:
+/* Awesome Meets homepage, v2: the question arrives word by word, and the rest fades in as it
+   arrives (the paragraphs of the second view one after another). Nothing here collects anything:
    the two waitlist forms are handled in site.js. */
 (function () {
   'use strict';
@@ -44,16 +44,11 @@
   window.addEventListener('resize', paint);
   paint();
 
-  // ---- lines that light up, and sections that fade in
-  var lines = $$('.case p'), reveals = $$('.reveal');
+  // ---- everything else fades in as it arrives (the paragraphs of the second view one after another)
+  var reveals = $$('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
-    lines.forEach(function (l) { l.classList.add('is-lit'); });
     reveals.forEach(function (r) { r.classList.add('is-in'); });
   } else {
-    var lit = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-lit'); lit.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -30% 0px', threshold: 0 });
-    lines.forEach(function (l) { lit.observe(l); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
