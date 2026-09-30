@@ -147,6 +147,12 @@ a:hover { text-decoration-thickness: 2px; }
 .prose ul li::before { content: ""; width: 10px; height: 10px; border-radius: 3px; margin-top: .55em; background: var(--gradient); }
 .prose strong { color: var(--gray-900); }
 .selectable { user-select: all; font-weight: 600; color: var(--gray-900); }
+.summary { margin-bottom: 8px; padding: 28px 30px 30px; border-radius: var(--radius-lg); background: var(--gradient-subtle); }
+.summary h2 { margin-top: 0; font-size: 1.35rem; }
+.services { margin: 18px 0 0; display: grid; gap: 10px; }
+.services div { padding: 16px 20px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); }
+.services dt { font-family: var(--font-heading); font-weight: 600; color: var(--gray-900); }
+.services dd { margin: 4px 0 0; font-size: .97rem; color: var(--gray-600); }
 
 /* ---------- questions ---------- */
 .faq { margin-top: 28px; display: grid; gap: 10px; }
@@ -256,6 +262,7 @@ a:hover { text-decoration-thickness: 2px; }
   .hero { padding-block: 52px 48px; }
   .section { padding-block: 52px; }
   .letter { padding: 24px 22px; }
+  .summary { padding: 22px 20px 24px; }
 }
 @media (max-width: 600px) {
   .container { padding-inline: 18px; }

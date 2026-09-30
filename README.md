@@ -6,7 +6,7 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 - **Live:** https://awesomemeets.com/ (the old address donotwanttohaveaname.github.io/awesome-meets forwards there)
 - **Domain:** awesomemeets.com, DNS in cPanel at hostingpalvelu: four A records to GitHub (185.199.108.153, .109.153, .110.153, .111.153) and `www` as a CNAME to `donotwanttohaveaname.github.io`. The `CNAME` file in this repo tells GitHub the name; do not delete it.
 - **Hosting:** GitHub Pages, straight from the `main` branch. A push is a publish. It takes a minute or two, and browsers keep the old version for up to 10 minutes.
-- **No build step.** Plain HTML, CSS and JavaScript. No cookies, no analytics.
+- **No build step.** Plain HTML, CSS and JavaScript. No cookies, no analytics. The data policy (`data/`) lists every service that handles data: add a new one there on the day it is added here.
 - **Backend:** the same Google Apps Script web app and private Google Sheet as before. The script lives in `networking-app/` on Anna's computer, not in this repo. No keys or secrets are in this repo, and none should ever be added.
 
 ## What is where
@@ -16,7 +16,7 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 | `assets/js/config.js` | **The one file to edit when a round opens or closes.** Dates, texts, mode, version. |
 | `index.html` | Home |
 | `join/index.html` | The waitlist, or the 5-step sign-up form while a round is open |
-| `data/index.html` | Your data (the data note) |
+| `data/index.html` | The data policy: a short version on top, then the full policy in ten sections |
 | `about/index.html` | About the creators |
 | `404.html` | Shown for any wrong address |
 | `assets/css/site.css` | All styles, built on the brand kit tokens |
@@ -30,7 +30,7 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 The homepage is a small app in one page:
 
 - **Hero:** two example marketers meet, a heart pops, an invitation slides in. It changes every few seconds and on tap. The marketers are made up (a role and an industry, never a name). The list is `PAIRS` in `assets/js/home.js`.
-- **Try it:** three taps (what to do, topics, area) build "your card", then "Show me a match" reveals an example match. It is a preview: **nothing tapped there is saved or sent**, and the data page relies on that. Example people are `PERSONAS` in `home.js`.
+- **Try it:** three taps (what to do, topics, area) build "your card", then "Show me a match" reveals an example match. It is a preview: **nothing tapped there is saved or sent**, and the page says so. Keep it true. Example people are `PERSONAS` in `home.js`.
 - **How it works:** the line fills in as you scroll to it.
 - People who have "reduce motion" switched on see everything at once, with nothing moving by itself.
 
@@ -97,6 +97,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v1.4 | 30 Sep 2026 | Data page rewritten as a proper data policy with a short version on top. The "This website" block (no cookies, saved counter, hosting and fonts) was removed at Anna's request; hosting and fonts are still named in the list of services. |
 | v1.3 | 30 Sep 2026 | Footer links to Awesome Meets on LinkedIn and to Anna's website (awesomemarketer.fi), on every page; both also on the About page. |
 | v1.2 | 30 Sep 2026 | Domain awesomemeets.com: share-image and page addresses moved to it. No visible change. |
 | v1.1 | 29 Sep 2026 | Homepage rebuilt as an interactive one-pager: animated hero with example matches, "Try it" card builder with a match reveal, timeline that fills in, scroll progress, a button that stays within reach on phones. All capitalised labels changed to sentence case. |
