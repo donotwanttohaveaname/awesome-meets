@@ -109,6 +109,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
 | v2.5 | 30 Sep 2026 | Copy fixes after outside feedback: the hero now says what Awesome Meets is and has a button; the networking text is about meeting someone new rather than the job market; "We match. You meet."; clearer step wording; "40 people joined round one. Round two opens in November."; "Bring Awesome Meets to my city". |
+| v2.6 | 30 Sep 2026 | Search and AI-search pass (b2b-saas-seo-geo skill): keyword-first titles, 143 to 147 character descriptions, canonical tags, `robots.txt`, `sitemap.xml`, `llms.txt`, Organization + WebSite + FAQPage structured data, "Questions people ask" on the About page, one H1 on the Join page, and the category ("one-to-one networking in Helsinki") said in the first lines of every page. `noindex` is still on. |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
@@ -120,3 +121,13 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | v1.3 | 30 Sep 2026 | Footer links to Awesome Meets on LinkedIn and to Anna's website (awesomemarketer.fi), on every page; both also on the About page. |
 | v1.2 | 30 Sep 2026 | Domain awesomemeets.com: share-image and page addresses moved to it. No visible change. |
 | v1.1 | 29 Sep 2026 | Homepage rebuilt as an interactive one-pager: animated hero with example matches, "Try it" card builder with a match reveal, timeline that fills in, scroll progress, a button that stays within reach on phones. All capitalised labels changed to sentence case. |
+
+## Search and AI search (v2.6)
+
+- **The category phrase is "one-to-one networking in Helsinki".** It sits in the homepage title, the hero subline, the first lines of Join and About, `llms.txt` and the structured data. Keep the wording identical everywhere: search engines and AI systems learn what Awesome Meets is from the repetition.
+- **Every page has**: a `<title>` of at most 60 characters with the topic first and the brand last, a description of 105 to 155 characters that makes sense on its own, a `<link rel="canonical">` with the full https address, and exactly one `<h1>`.
+- **`robots.txt`** lets every crawler in (AI crawlers too) and keeps them out of `/tools/`. **`sitemap.xml`** lists the four pages: change `lastmod` when a page changes. **`llms.txt`** is the plain-text summary for AI systems: update it when a round opens or closes.
+- **Structured data**: the homepage has `Organization` + `WebSite`; the About page has `Organization` + `FAQPage`. The FAQPage answers must stay word for word the same as the visible "Questions people ask" answers (both live in `about/index.html`), and must agree with the data policy.
+- **`noindex` is still on all four pages** until Anna says go. While it is on, Google and Bing will not list the site, whatever else is done. At launch: remove the four `<meta name="robots" content="noindex">` lines (keep the one in `404.html`), then in Search Console submit `https://awesomemeets.com/sitemap.xml` and press "Request indexing" on the homepage.
+- **Known gap**: the sign-up form on `join/` is hidden in waitlist mode but still in the page source, and it is still worded for marketers. Crawlers read it. Fix when the form is rewritten for everyone.
+

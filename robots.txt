@@ -1,0 +1,7 @@
+# awesomemeets.com
+# Everyone is welcome, including AI search crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended).
+User-agent: *
+Allow: /
+Disallow: /tools/
+
+Sitemap: https://awesomemeets.com/sitemap.xml

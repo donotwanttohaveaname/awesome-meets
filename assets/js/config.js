@@ -21,7 +21,7 @@
  *   (months count from 0: 9 = October, 10 = November)
  */
 window.AM = {
-  version: 'v2.5 · 30 Sep 2026',
+  version: 'v2.6 · 30 Sep 2026',
 
   // Same Apps Script web app as the sign-up page on awesomemarketers.fi. Saves to the private Sheet.
   endpoint: 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec',
