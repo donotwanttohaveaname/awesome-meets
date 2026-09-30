@@ -24,6 +24,7 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 | `assets/js/form.js` | The sign-up form: questions, validation, sending |
 | `assets/css/home.css`, `assets/js/home.js` | Homepage only: the big question, the text that lights up, the two city cards |
 | `assets/img/` | Logo files, favicon, share image |
+| `release.py` | Sets a new version number everywhere, including the `?v=` on stylesheet and script links. Run before every commit. |
 
 ## The homepage (v2)
 
@@ -96,7 +97,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 - No em dashes. British spelling. Never promise a round every month.
 - No capitalised eyebrows or labels, ever. Every small label is sentence case; `text-transform: uppercase` is not used anywhere.
 - The waitlist is always called "the waitlist for <month>" ("Join the waitlist for November"), never just "the waitlist". In the HTML write the month as `<span data-am="label">November</span>` so it follows `round.label` in config.js.
-- Every page shows the version and date at the bottom. Bump it with every change.
+- Every page shows the version and date at the bottom. **Before every commit run `python3 release.py 2.3`** (the next number): it sets the version everywhere and puts a new `?v=` on every stylesheet and script link, so a visitor never gets a new page with an old stylesheet.
 - The data note inside the form is what people agree to. Change a word of it and `consentVersion` in `config.js` goes up.
 
 ## Versions
@@ -104,6 +105,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
 | v2.1 | 30 Sep 2026 | Awesome Meets is not only for marketers: visible pages, the share image and the counter now say "people" or "someone new". The "We do the introducing" screen is now four illustrated steps. "Your data" removed from the top navigation (still in the footer). The sign-up form itself is unchanged and still written for marketers. |
 | v2.0 | 30 Sep 2026 | Homepage v2: one massive question, Anna's text on real networking, what we do, and two waitlists (Helsinki for November, another city with email + LinkedIn + city + country). Minimal, no eyebrows. The old "How it works" links on other pages now go to "What we do". Data policy covers the waitlist for another city. |
 | v1.6 | 30 Sep 2026 | Every mention of the waitlist now reads "waitlist for November" (the month comes from `round.label` in config.js). The docked phone button moved from the homepage to `site.js`, so About and the data policy have it too. |
