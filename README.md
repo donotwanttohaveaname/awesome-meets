@@ -121,6 +121,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | v2.15 | 30 Sep 2026 | Safety net for the hero: after 3.5 s, or at once when the page is opened hidden (link preview, background tab) or with "reduce motion", the question, subline and button are simply visible. A reader had sent a screenshot of an empty hero. |
 | v2.16 | 30 Sep 2026 | Data policy and About question: a match also sees your email address (the match email goes to both people at once). Changed before the first real match emails went out. |
 | v2.17 | 30 Sep 2026 | Google Analytics tag (G-60GBR73KYC) in the head of all five pages, as Anna sent it. Google Analytics added to the services list in the data policy. No cookie banner yet. |
+| v2.18 | 30 Sep 2026 | Ahrefs Web Analytics tag (cookieless) on all five pages, right after the Google tag; listed in the data policy. |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
