@@ -97,5 +97,6 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v1.3 | 30 Sep 2026 | Footer links to Awesome Meets on LinkedIn and to Anna's website (awesomemarketer.fi), on every page; both also on the About page. |
 | v1.2 | 30 Sep 2026 | Domain awesomemeets.com: share-image and page addresses moved to it. No visible change. |
 | v1.1 | 29 Sep 2026 | Homepage rebuilt as an interactive one-pager: animated hero with example matches, "Try it" card builder with a match reveal, timeline that fills in, scroll progress, a button that stays within reach on phones. All capitalised labels changed to sentence case. |
