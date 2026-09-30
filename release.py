@@ -5,7 +5,8 @@
 
 It changes three things in one go:
   1. the version in assets/js/config.js
-  2. the version line at the bottom of every page
+  2. the hidden version tag in every page (<meta name="am-version">). Anna asked for no visible
+     version on this site (30 Sep 2026): the footer only says "© 2026 Awesome Meets".
   3. the ?v=... on every stylesheet and script link
 
 Number 3 is the reason this file exists. Browsers keep stylesheets and scripts for ten minutes.
@@ -41,10 +42,10 @@ def main():
     for page in PAGES:
         path = ROOT / page
         text = path.read_text()
-        text, lines = re.subn(r'Awesome Meets site v[0-9.]+ · [0-9]+ [A-Za-z]+ [0-9]+', 'Awesome Meets site ' + stamp, text)
+        text, lines = re.subn(r'<meta name="am-version" content="[0-9.]+">', '<meta name="am-version" content="%s">' % number, text)
         text, links = re.subn(r'(assets/(?:css|js)/[a-z]+\.(?:css|js))(?:\?v=[0-9.]+)?"', r'\1?v=%s"' % number, text)
         if lines != 1 or links < 3:
-            sys.exit('%s: expected one version line and at least three asset links, found %d and %d' % (page, lines, links))
+            sys.exit('%s: expected one version tag and at least three asset links, found %d and %d' % (page, lines, links))
         path.write_text(text)
         print('%-18s %d asset links' % (page, links))
     print('Now at ' + stamp)

@@ -51,12 +51,12 @@
     lastMonth: last.month || '',
     lastSignups: String(last.signups || ''),
     email: AM.contactEmail || '',
-    version: 'Awesome Meets site ' + (AM.version || '')
+    year: String(new Date().getFullYear())
   };
   each('[data-am]', function (n) { var k = n.getAttribute('data-am'); if (text[k] !== undefined) n.textContent = text[k]; });
   each('[data-show]', function (n) { n.hidden = n.getAttribute('data-show') !== state; });
   each('[data-am-cta]', function (n) { n.textContent = state === 'open' ? 'Sign up' : 'Join the waitlist for ' + text.label; });
-  if (AM.preview) each('[data-am="version"]', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
+  if (AM.preview) each('.site-version', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
 
   // ---- live strip
   var strip = document.getElementById('amLive');

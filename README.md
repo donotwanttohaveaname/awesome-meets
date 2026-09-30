@@ -23,7 +23,8 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 | `assets/js/site.js` | Waitlist or open, the live strip, the counter, the waitlist forms |
 | `assets/js/form.js` | The sign-up form: questions, validation, sending |
 | `assets/css/home.css`, `assets/js/home.js` | Homepage only: the big question, the text that lights up, the two city cards |
-| `assets/img/` | Logo files, favicon, share image |
+| `assets/img/` | Logo files, favicon, and the share thumbnails: `og-<page>.png` (1200×630 link previews) and `square-<page>.png` (1080×1080, for posts) |
+| `tools/thumb.html`, `tools/render_thumbs.sh` | The thumbnail design and the script that renders all eight PNGs. Change the text in `thumb.html`, run `./tools/render_thumbs.sh`. |
 | `release.py` | Sets a new version number everywhere, including the `?v=` on stylesheet and script links. Run before every commit. |
 
 ## The homepage (v2)
@@ -98,7 +99,8 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 - No em dashes. British spelling. Never promise a round every month.
 - No capitalised eyebrows or labels, ever. Every small label is sentence case; `text-transform: uppercase` is not used anywhere.
 - The waitlist is always called "the waitlist for <month>" ("Join the waitlist for November"), never just "the waitlist". In the HTML write the month as `<span data-am="label">November</span>` so it follows `round.label` in config.js.
-- Every page shows the version and date at the bottom. **Before every commit run `python3 release.py 2.3`** (the next number): it sets the version everywhere and puts a new `?v=` on every stylesheet and script link, so a visitor never gets a new page with an old stylesheet.
+- **No visible version number on the site** (Anna, 30 Sep 2026): the footer says "© 2026 Awesome Meets". The version lives in `config.js`, in a hidden `<meta name="am-version">` tag and in the `?v=` of the asset links. **Before every commit run `python3 release.py 2.5`** (the next number): it updates all three, so a visitor never gets a new page with an old stylesheet. Change the year in the five footers each January.
+- **Thumbnails:** everything that matters sits inside the white card in the middle, because several apps crop link previews to a square. After changing a thumbnail, LinkedIn keeps the old one until the link is run through its Post Inspector.
 - The data note inside the form is what people agree to. Change a word of it and `consentVersion` in `config.js` goes up.
 
 ## Versions
@@ -106,6 +108,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
 | v2.1 | 30 Sep 2026 | Awesome Meets is not only for marketers: visible pages, the share image and the counter now say "people" or "someone new". The "We do the introducing" screen is now four illustrated steps. "Your data" removed from the top navigation (still in the footer). The sign-up form itself is unchanged and still written for marketers. |
