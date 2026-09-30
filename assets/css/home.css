@@ -28,9 +28,12 @@
 .js .ask-hero .w { display: inline-block; opacity: 0; transform: translateY(.35em); filter: blur(10px); animation: word .9s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(var(--n) * 85ms + 150ms); }
 @keyframes word { to { opacity: 1; transform: none; filter: blur(0); } }
 .ask-hero__in { position: relative; }
-.ask-hero__sub { max-width: 40ch; margin: clamp(16px, 3.2vh, 30px) auto 0; font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.1rem, min(2.9vh, 4.6vw), 1.55rem); line-height: 1.3; letter-spacing: -.02em; color: var(--gray-600); }
+.ask-hero__sub { max-width: 62ch; margin: clamp(16px, 3.2vh, 30px) auto 0; font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.1rem, min(2.9vh, 4.6vw), 1.55rem); line-height: 1.3; letter-spacing: -.02em; color: var(--gray-600); }
 .ask-hero__cta { margin-top: clamp(16px, 3.2vh, 30px); }
 .ask-hero__cta .btn { padding: 16px 30px; font-size: 1.05rem; }
+/* one sentence per line, each line evenly broken when it has to wrap: never a single word left alone */
+.ask-hero__sub span { display: block; text-wrap: balance; }
+.ask-hero__sub span:first-child { color: var(--gray-900); }
 .js .ask-hero__sub, .js .ask-hero__cta { opacity: 0; animation: cueIn .8s ease 1.5s forwards; }
 .js .ask-hero__cta { animation-delay: 1.8s; }
 .ask-hero__cue { position: absolute; left: 50%; bottom: clamp(8px, 2.4vh, 30px); width: 44px; height: 44px; margin-left: -22px; display: grid; place-items: center; border-radius: 50%; color: var(--gray-500); text-decoration: none; opacity: 0; animation: cueIn .8s ease 2s forwards; }
