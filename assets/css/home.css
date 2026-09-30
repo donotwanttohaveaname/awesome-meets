@@ -32,8 +32,9 @@
 .ask-hero__cta { margin-top: clamp(16px, 3.2vh, 30px); }
 .ask-hero__cta .btn { padding: 16px 30px; font-size: 1.05rem; }
 /* one sentence per line, each line evenly broken when it has to wrap: never a single word left alone */
-.ask-hero__sub span { display: block; text-wrap: balance; }
-.ask-hero__sub span:first-child { color: var(--gray-900); }
+.ask-hero__sub > span { display: block; text-wrap: balance; }
+.ask-hero__sub > span:first-child { color: var(--gray-900); }
+.ask-hero__sub .nb { font-style: normal; white-space: nowrap; }   /* "one-to-one" never breaks across two lines */
 .js .ask-hero__sub, .js .ask-hero__cta { opacity: 0; animation: cueIn .8s ease 1.5s forwards; }
 .js .ask-hero__cta { animation-delay: 1.8s; }
 .ask-hero__cue { position: absolute; left: 50%; bottom: clamp(8px, 2.4vh, 30px); width: 44px; height: 44px; margin-left: -22px; display: grid; place-items: center; border-radius: 50%; color: var(--gray-500); text-decoration: none; opacity: 0; animation: cueIn .8s ease 2s forwards; }

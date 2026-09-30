@@ -115,6 +115,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | v2.9 | 30 Sep 2026 | Buy Me a Coffee button (Anna's embed code, account `awesomemeets`) on Home, Join, About and the data policy. On phones it is smaller and moves above the docked waitlist button. One row about it added to the services list in the data policy. |
 | v2.10 | 30 Sep 2026 | Footer line is now "Made with ❤️ in Helsinki. © 2026 by Anna Pogrebniak", as on awesomemarketers.fi. |
 | v2.11 | 30 Sep 2026 | Footer link "Who is Anna?" removed again (her site is linked from the About page and the footer line). Short paragraph about Anna added to "Who runs Awesome Meets" on the About page. |
+| v2.12 | 30 Sep 2026 | Hero subline no longer says "in Helsinki": "Awesome Meets is one-to-one networking. We introduce you to someone new for a real conversation." |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
@@ -129,7 +130,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 
 ## Search and AI search (v2.6)
 
-- **The category phrase is "one-to-one networking in Helsinki".** It sits in the homepage title, the hero subline, the first lines of Join and About, `llms.txt` and the structured data. Keep the wording identical everywhere: search engines and AI systems learn what Awesome Meets is from the repetition.
+- **The category phrase is "one-to-one networking in Helsinki".** It sits in the homepage title and description, the first lines of Join and About, `llms.txt` and the structured data. **Not in the hero**: Anna had "in Helsinki" taken out of the hero subline (v2.12), which now reads "Awesome Meets is one-to-one networking." Keep the wording identical everywhere: search engines and AI systems learn what Awesome Meets is from the repetition.
 - **Every page has**: a `<title>` of at most 60 characters with the topic first and the brand last, a description of 105 to 155 characters that makes sense on its own, a `<link rel="canonical">` with the full https address, and exactly one `<h1>`.
 - **`robots.txt`** lets every crawler in (AI crawlers too) and keeps them out of `/tools/`. **`sitemap.xml`** lists the four pages: change `lastmod` when a page changes. **`llms.txt`** is the plain-text summary for AI systems: update it when a round opens or closes.
 - **Structured data**: the homepage has `Organization` + `WebSite`; the About page has `Organization` + `FAQPage`. The FAQPage answers must stay word for word the same as the visible "Questions people ask" answers (both live in `about/index.html`), and must agree with the data policy.
