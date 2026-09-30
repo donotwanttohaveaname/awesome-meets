@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Awesome Meets | Get matched with marketers in Helsinki</title>
-  <meta name="description" content="Awesome Meets matches you with 1 or 2 marketers in Helsinki. You meet in person over lunch, an after-work coffee or a walk. By the creators of The Awesome Marketers.">
+  <title>Awesome Meets | When did you last meet someone new from your field?</title>
+  <meta name="description" content="Awesome Meets matches you with another marketer in Helsinki for a real one-to-one conversation, over lunch, an after-work coffee or a walk. By the creators of The Awesome Marketers.">
   <!-- LAUNCH: remove this line once the old page redirects here (see README) -->
   <meta name="robots" content="noindex">
   <meta property="og:type" content="website">
@@ -35,8 +35,7 @@
       <span class="logo__word">Awesome <span>Meets</span></span>
     </a>
     <nav class="site-nav" aria-label="Main">
-      <a href="#try">Try it</a>
-      <a href="#how">How it works</a>
+      <a href="#what">What we do</a>
       <a href="about/">About</a>
       <a href="data/">Your data</a>
       <a class="btn btn--primary btn--sm" href="#waitlist" data-show="waitlist">Join the waitlist for <span data-am="label">November</span></a>
@@ -46,299 +45,96 @@
 </header>
 
 <main>
-  <!-- 1. HERO -->
-  <section class="hero hero--app" id="top">
-    <span class="hero__blob hero__blob--1" aria-hidden="true"></span>
-    <span class="hero__blob hero__blob--2" aria-hidden="true"></span>
-    <span class="hero__blob hero__blob--3" aria-hidden="true"></span>
-    <div class="container hero__grid">
-      <div class="hero__copy">
-        <span class="pill" data-show="waitlist">✨ Round one is full · Waitlist for <span data-am="label">November</span> is open</span>
-        <span class="pill" data-show="open" hidden>✨ Sign-ups are open</span>
-        <h1>Meet <span class="grad">marketers</span> you'd never bump into otherwise</h1>
-        <p class="hero__lede">Awesome Meets matches you with 1 or 2 marketers in Helsinki. You meet in person, over lunch, an after-work coffee or a walk.</p>
+  <!-- 1. THE QUESTION. Nothing else in this view. -->
+  <section class="ask-hero" id="top">
+    <h1>When did you last meet someone from your field who <span class="grad">isn't a colleague?</span></h1>
+    <a class="ask-hero__cue" href="#why" aria-label="Read on">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </section>
 
-        <div class="am-wait js-waitlist" data-show="waitlist">
-          <form class="am-wait__form" novalidate>
-            <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
-            <input type="email" placeholder="you@company.com" autocomplete="email" aria-label="Your email">
-            <button type="submit" class="btn btn--primary">Keep me posted</button>
-          </form>
-          <p class="am-wait__note">Leave your email and you'll be first to know when the next round opens. <a href="data/">What happens to it</a></p>
-          <p class="am-wait__done">You're on the list 🧡 I'll email you when <span data-am="label">November</span> opens.</p>
-          <p class="am-status" role="alert"></p>
-        </div>
-
-        <div class="hero__cta" data-show="open" hidden>
-          <a class="btn btn--primary" href="join/">Sign up</a>
-          <a class="btn btn--outline" href="#try">Try it first</a>
-        </div>
-
-        <div class="am-live" id="amLive" aria-live="polite">
-          <div class="am-live__row">
-            <div class="am-live__item" id="amCountItem">
-              <span class="am-live__num" id="amCountNum">40</span>
-              <span class="am-live__label" id="amCountLabel">marketers in round one</span>
-            </div>
-            <div class="am-live__sep" id="amLiveSep" aria-hidden="true"></div>
-            <div class="am-live__item" id="amLeftItem">
-              <span class="am-live__num" id="amLeftNum">Nov</span>
-              <span class="am-live__label" id="amLeftLabel">next round</span>
-            </div>
-          </div>
-          <div class="am-live__bar" id="amLiveBar" hidden><span class="am-live__fill" id="amLiveFill"></span></div>
-          <div class="am-live__foot">
-            <span><i class="am-live__pulse" aria-hidden="true"></i><span id="amLiveState">Waitlist for November open</span></span>
-            <span id="amLiveClose">Round one: October 2026</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Made-up examples: a role and an industry, never a real person -->
-      <div class="hero__show">
-      <div class="stage" id="stage">
-        <div class="stage__bubbles" aria-hidden="true">
-          <span class="bubble" style="--x:0%;--y:2%;--d:14;--t:8s"><span>Copywriting</span></span>
-          <span class="bubble" style="--x:31%;--y:-1%;--d:9;--t:11s;--delay:-5s"><span>Using AI in marketing</span></span>
-          <span class="bubble" style="--x:82%;--y:3%;--d:20;--t:10s;--delay:-3s"><span>Brand</span></span>
-          <span class="bubble" style="--x:0%;--y:70%;--d:18;--t:12s;--delay:-7s"><span>SEO</span></span>
-          <span class="bubble" style="--x:88%;--y:72%;--d:12;--t:10s;--delay:-4s"><span>ABM</span></span>
-          <span class="bubble" style="--x:3%;--y:91%;--d:22;--t:9s;--delay:-1s"><span>Growth experiments</span></span>
-          <span class="bubble" style="--x:62%;--y:92%;--d:10;--t:11s;--delay:-6s"><span>Community building</span></span>
-        </div>
-        <div class="duo">
-          <article class="pcard pcard--a">
-            <span class="pcard__face" aria-hidden="true"></span>
-            <p class="pcard__role">Brand lead</p>
-            <p class="pcard__where">Consumer brands</p>
-            <ul class="pcard__tags"><li class="is-shared">Positioning and messaging</li><li>Brand</li></ul>
-          </article>
-          <span class="duo__heart" aria-hidden="true"><img src="assets/img/heart.png" alt="" width="66" height="66"></span>
-          <article class="pcard pcard--b">
-            <span class="pcard__face" aria-hidden="true"></span>
-            <p class="pcard__role">Freelance copywriter</p>
-            <p class="pcard__where">Freelance</p>
-            <ul class="pcard__tags"><li class="is-shared">Positioning and messaging</li><li>Copywriting</li></ul>
-          </article>
-        </div>
-        <div class="ticket">
-          <span class="card__tag">Example match</span>
-          <p class="ticket__what">Lunch</p>
-          <p class="ticket__when">Hakaniemi · Tuesday at 12PM</p>
-        </div>
-      </div>
-      <button type="button" class="am-tool stage__more" id="stageMore">Show another example</button>
-      </div>
+  <!-- 2. THE CASE. Anna's text, 30 Sep 2026. Each line lights up as it is read. -->
+  <section class="case" id="why">
+    <div class="case__in">
+      <p>The job market is really hard right now.</p>
+      <p>Your connections matter more than ever.</p>
+      <p>And yet so many of us have no time or energy left for networking.</p>
+      <p class="gap">Networking isn't saying &ldquo;Hello, my name is&rdquo; at a meetup or a conference.</p>
+      <p>Networking is making real connections. Learning about the other person, their work and what they've achieved.</p>
+      <p class="gap">Networking won't bring you a job tomorrow.</p>
+      <p>But a person you meet today might introduce you to a co-founder, an employer or a client years from now.</p>
+      <p class="gap">It's the part of work life you can't turn into KPIs.</p>
+      <p>Unless your KPI is happiness, thanks to a rich social life.</p>
+      <p class="again">So, again: when was the last time you <span class="grad">truly networked?</span></p>
     </div>
   </section>
 
-  <!-- 2. TRY IT -->
-  <section class="section section--tint" id="try">
-    <div class="container">
-      <p class="section__label reveal">Try it</p>
-      <h2 class="reveal" style="--i:1">Build your card in three taps</h2>
-      <p class="section__intro reveal" style="--i:2">A quick taste of the sign-up form. It's only a preview: nothing you tap here is saved or sent.</p>
+  <!-- 3. WHAT WE DO, and the two waitlists -->
+  <section class="what" id="what">
+    <div class="what__in">
+      <h2 class="reveal">We do the introducing.</h2>
+      <p class="what__lede reveal" style="--i:1">Awesome Meets matches you with another marketer for a real one-to-one conversation.</p>
+      <ul class="trio">
+        <li class="reveal" style="--i:1">
+          <h3>Matched on what matters</h3>
+          <p>Your interests, your industry and your profession decide who you meet.</p>
+        </li>
+        <li class="reveal" style="--i:2">
+          <h3>Everyone is validated</h3>
+          <p>Every person in the community is checked before they are matched with anyone.</p>
+        </li>
+        <li class="reveal" style="--i:3">
+          <h3>Only in Helsinki</h3>
+          <p>In person, over lunch, an after-work coffee or a walk. One city for now.</p>
+        </li>
+      </ul>
 
-      <div class="app reveal" style="--i:3" id="app">
-        <div class="app__build" id="appBuild">
-          <div class="app__panel">
-            <div class="app__progress" aria-hidden="true">
-              <span class="app__seg is-done"><i></i></span><span class="app__seg"><i></i></span><span class="app__seg"><i></i></span>
-              <span class="app__count" id="appCount">Step 1 of 3</span>
-            </div>
+      <div class="where">
+        <h2 class="reveal">Where are you?</h2>
+        <div class="cities">
 
-            <div class="app__step is-active" data-app-step="1" role="group" aria-labelledby="appQ1">
-              <h3 id="appQ1">What would you like to do?</h3>
-              <p class="form__hint">Pick everything that sounds good.</p>
-              <div class="tiles">
-                <button type="button" class="tile" data-act="Have lunch" aria-pressed="false">
-                  <span class="tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v6a3 3 0 0 0 6 0V3"/><path d="M8 3v18"/><path d="M18 3v18"/><path d="M18 3c-2.2 1.8-3.2 4.4-3.2 8H18"/></svg></span>
-                  Have lunch<small>11AM to 1PM</small>
-                </button>
-                <button type="button" class="tile" data-act="After-work coffee" aria-pressed="false">
-                  <span class="tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3v3"/><path d="M12 3v3"/></svg></span>
-                  After-work coffee<small>4PM to 6PM</small>
-                </button>
-                <button type="button" class="tile" data-act="Walk and talk" aria-pressed="false">
-                  <span class="tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.7"/><path d="M9.5 21l2.2-6.2-2.4-2.6 1.2-4.7 3.2 3 3 1"/><path d="M10.5 7.5L7.5 9.2 6.8 12"/><path d="M12 15l2.6 2.2.9 3.8"/></svg></span>
-                  Walk and talk<small>On foot</small>
-                </button>
+          <div class="city city--here reveal" id="waitlist" style="--i:1">
+            <h3>Helsinki</h3>
+            <div data-show="waitlist">
+              <p class="city__text">Round one is full. Leave your email and you'll be first to know when <span data-am="label">November</span> opens.</p>
+              <div class="js-waitlist">
+                <form novalidate>
+                  <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
+                  <label>Your email<input type="email" placeholder="you@company.com" autocomplete="email"></label>
+                  <button type="submit" class="btn btn--primary">Join the waitlist for <span data-am="label">November</span></button>
+                </form>
+                <p class="city__note">Only your email, used only for that invitation. <a href="data/">Data policy</a></p>
+                <p class="city__done">You're on the waitlist for <span data-am="label">November</span> 🧡 I'll email you when it opens.</p>
+                <p class="am-status" role="alert"></p>
               </div>
+              <p class="city__fact"><strong data-am="lastSignups">40</strong> marketers signed up for round one, in October 2026.</p>
             </div>
-
-            <div class="app__step" data-app-step="2" role="group" aria-labelledby="appQ2">
-              <h3 id="appQ2">What could you talk about?</h3>
-              <p class="form__hint">Pick up to 5. Not expertise, just things you know from your day job or your own career. 🔒 Personal topics are only shared with a match who picked the same topic.</p>
-              <div class="picks" id="appTopics"></div>
-              <p class="am-counter" id="appTopicCount">0 of 5 picked</p>
-            </div>
-
-            <div class="app__step" data-app-step="3" role="group" aria-labelledby="appQ3">
-              <h3 id="appQ3">Which area suits you best?</h3>
-              <p class="form__hint">Eight areas around Helsinki. In the real form you can add every area you could easily get to.</p>
-              <div class="picks" id="appAreas"></div>
-            </div>
-
-            <p class="app__hint" id="appHint" role="status"></p>
-            <div class="app__nav">
-              <button type="button" class="btn btn--outline" id="appBack" hidden>Back</button>
-              <button type="button" class="btn btn--primary" id="appNext">Next</button>
+            <div data-show="open" hidden>
+              <p class="city__text">Sign-ups are open until <span data-am="closesLong"></span>.</p>
+              <div class="hero__cta" style="justify-content:flex-start"><a class="btn btn--primary" href="join/">Sign up</a></div>
             </div>
           </div>
 
-          <aside class="app__preview" aria-live="polite">
-            <p class="app__preview-title">Your card</p>
-            <div class="mycard">
-              <span class="pcard__face" aria-hidden="true"></span>
-              <p class="pcard__role">You</p>
-              <p class="pcard__where">A marketer in Helsinki</p>
-              <dl class="mycard__rows">
-                <div><dt>I'd like to</dt><dd id="myActs"><span class="ghost">your pick</span></dd></div>
-                <div><dt>I could talk about</dt><dd id="myTopics"><span class="ghost">up to 5 topics</span></dd></div>
-                <div><dt>Near</dt><dd id="myArea"><span class="ghost">your area</span></dd></div>
-              </dl>
+          <div class="city reveal" id="elsewhere" style="--i:2">
+            <h3>Another city</h3>
+            <p class="city__text">Tell us where you are. If Awesome Meets comes to your city, you'll be the first to know.</p>
+            <div class="js-citylist">
+              <form novalidate>
+                <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
+                <label>Your email<input type="email" name="email" placeholder="you@company.com" autocomplete="email" maxlength="160" required></label>
+                <label>Your LinkedIn profile<input type="url" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300" required></label>
+                <div class="two">
+                  <label>City<input type="text" name="city" autocomplete="address-level2" maxlength="80" required></label>
+                  <label>Country<input type="text" name="country" autocomplete="country-name" maxlength="60" required></label>
+                </div>
+                <button type="submit" class="btn btn--primary">Join the waitlist for my city</button>
+              </form>
+              <p class="city__note">All four are needed. They are used only to tell you if Awesome Meets opens where you live. <a href="data/">Data policy</a></p>
+              <p class="city__done">Got it 🧡 If Awesome Meets comes to <span data-city>your city</span>, you'll be the first to know.</p>
+              <p class="am-status" role="alert"></p>
             </div>
-          </aside>
-        </div>
-
-        <div class="app__result is-apart" id="appResult" hidden>
-          <div class="duo">
-            <article class="pcard pcard--a">
-              <span class="pcard__face" aria-hidden="true"></span>
-              <p class="pcard__role">You</p>
-              <p class="pcard__where">A marketer in Helsinki</p>
-              <ul class="pcard__tags"></ul>
-            </article>
-            <span class="duo__heart" aria-hidden="true"><img src="assets/img/heart.png" alt="" width="66" height="66"></span>
-            <article class="pcard pcard--b">
-              <span class="pcard__face" aria-hidden="true"></span>
-              <p class="pcard__role"></p>
-              <p class="pcard__where"></p>
-              <ul class="pcard__tags"></ul>
-            </article>
           </div>
-          <p class="match__shared" aria-live="polite">You both like talking about <strong id="appShared"></strong>.</p>
-          <div class="ticket">
-            <span class="card__tag">Example match</span>
-            <p class="ticket__what"></p>
-            <p class="ticket__when"></p>
-          </div>
-          <p class="app__note">This one is made up, to show the idea. In a real round I read every answer and put the matches together myself, then send you both the place, the date and the time.</p>
-          <div class="app__actions">
-            <a class="btn btn--primary" href="#waitlist" data-show="waitlist">Join the waitlist for <span data-am="label">November</span></a>
-            <a class="btn btn--primary" href="join/" data-show="open" hidden>Sign up</a>
-            <button type="button" class="btn btn--outline" id="appAgain">Show me another</button>
-          </div>
-          <button type="button" class="am-tool app__reset" id="appReset">Start over</button>
-        </div>
-      </div>
 
-      <noscript>
-        <p class="section__intro">You can meet over lunch, an after-work coffee or a walk, in eight areas around Helsinki: Helsinki center, Ruoholahti and Jätkäsaari, Espoo Keilaniemi, Vantaa Tikkurila, Pasila, Hakaniemi, Sörnäinen and Kalasatama.</p>
-      </noscript>
-    </div>
-  </section>
-
-  <!-- 3. HOW IT WORKS -->
-  <section class="section" id="how">
-    <div class="container">
-      <p class="section__label reveal">How it works</p>
-      <h2 class="reveal" style="--i:1">From a short form to a real conversation</h2>
-      <p class="section__intro" data-show="open" hidden>Sign-ups close on <strong data-am="closesLong"></strong>. By <strong data-am="matchedByLong"></strong> everyone gets their match, and you meet between <span data-am="meetWindow"></span>.</p>
-      <ol class="timeline watch">
-        <li class="timeline__item reveal" style="--i:0">
-          <span class="timeline__num" style="--i:0">1</span>
-          <h3>You fill in the form</h3>
-          <p>It takes a few minutes: who you are, what you could talk about, and where and when you could meet.</p>
-        </li>
-        <li class="timeline__item reveal" style="--i:2">
-          <span class="timeline__num" style="--i:1">2</span>
-          <h3>I put the matches together</h3>
-          <p>I read every answer and match you with 1 or 2 marketers. Claude, an AI assistant, helps me find good matches.</p>
-        </li>
-        <li class="timeline__item reveal" style="--i:4">
-          <span class="timeline__num" style="--i:2">3</span>
-          <h3>You get your match</h3>
-          <p>A message on LinkedIn and an email, with the place, the date and the time.</p>
-        </li>
-        <li class="timeline__item reveal" style="--i:6">
-          <span class="timeline__num" style="--i:3">4</span>
-          <h3>You meet</h3>
-          <p>In person, in Helsinki. From there it's up to you and your match.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- 4. FROM ANNA -->
-  <section class="section section--tint">
-    <div class="container narrow">
-      <div class="letter reveal" style="background:var(--white);border:1px solid var(--gray-200)">
-        <p>Hey awesome marketers 🧡</p>
-        <p>For years we've preached that networking is everything. After talking to so many of you, I wanna make it actually happen: in person, over food, with marketers you'd never bump into otherwise.</p>
-        <p>Round one was Awesome Autumn Meets. <span data-am="lastSignups">40</span> marketers signed up for October 2026.</p>
-        <p class="letter__sign">See you out there ✨<br>Anna</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. QUESTIONS -->
-  <section class="section" id="faq">
-    <div class="container narrow">
-      <p class="section__label reveal">Good to know</p>
-      <h2 class="reveal" style="--i:1">Questions you might have</h2>
-      <div class="faq reveal" style="--i:2">
-        <details>
-          <summary>Who is it for?</summary>
-          <p>Marketers in and around Helsinki. In-house, agency, freelance, students and interns, and marketers between jobs are all welcome.</p>
-        </details>
-        <details>
-          <summary>How many people will I meet?</summary>
-          <p>You choose: 1 or 2 marketers per round.</p>
-        </details>
-        <details>
-          <summary>Who sees my answers?</summary>
-          <p>Only me, Anna. I use Claude, an AI assistant, to help me find good matches. 🔒 topics are never shared with your match, unless you both picked the same one. The details are on <a href="data/">Your data</a>.</p>
-        </details>
-        <details>
-          <summary>What if I change my mind?</summary>
-          <p>Just reply to any email from me and I'll take you off the list.</p>
-        </details>
-        <details>
-          <summary>What if I can't make it on the day?</summary>
-          <p>Reply to your match email and I'll let your match know.</p>
-        </details>
-        <details>
-          <summary>When is the next round?</summary>
-          <p>Rounds are announced one at a time. Leave your email and you'll be first to know when the next one opens.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. THE ASK -->
-  <section class="section" id="waitlist" style="padding-top:0">
-    <div class="container narrow">
-      <div class="ask reveal">
-        <img class="ask__heart" src="assets/img/heart.png" alt="" width="54" height="54">
-        <div data-show="waitlist">
-          <h2>Want in for <span data-am="label">November</span>?</h2>
-          <p class="section__intro">Leave your email and you'll be first to know when the next round opens.</p>
-          <div class="am-wait js-waitlist">
-            <form class="am-wait__form" novalidate>
-              <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
-              <input type="email" placeholder="you@company.com" autocomplete="email" aria-label="Your email">
-              <button type="submit" class="btn btn--primary">Keep me posted</button>
-            </form>
-            <p class="am-wait__note">Only your email, in a private Sheet, used only to send that invitation. Ask me any time to take it off.</p>
-            <p class="am-wait__done">You're on the list 🧡 I'll email you when <span data-am="label">November</span> opens.</p>
-            <p class="am-status" role="alert"></p>
-          </div>
-        </div>
-        <div data-show="open" hidden>
-          <h2>Ready to meet someone new?</h2>
-          <p class="section__intro">Sign-ups close on <span data-am="closesLong"></span>.</p>
-          <div class="hero__cta"><a class="btn btn--primary" href="join/">Sign up</a></div>
         </div>
       </div>
     </div>
@@ -364,7 +160,7 @@
         <a href="mailto:anna@awesomemarketers.fi">Email Anna</a>
       </nav>
     </div>
-    <p class="site-version" data-am="version">Awesome Meets site v1.6 · 30 Sep 2026</p>
+    <p class="site-version" data-am="version">Awesome Meets site v2.0 · 30 Sep 2026</p>
   </div>
 </footer>
 

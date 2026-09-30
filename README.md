@@ -22,23 +22,27 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 | `assets/css/site.css` | All styles, built on the brand kit tokens |
 | `assets/js/site.js` | Waitlist or open, the live strip, the counter, the waitlist forms |
 | `assets/js/form.js` | The sign-up form: questions, validation, sending |
-| `assets/css/home.css`, `assets/js/home.js` | Homepage only: the animated hero, the try-it card builder, scroll effects |
+| `assets/css/home.css`, `assets/js/home.js` | Homepage only: the big question, the text that lights up, the two city cards |
 | `assets/img/` | Logo files, favicon, share image |
 
-## The homepage
+## The homepage (v2)
 
-The homepage is a small app in one page:
+Three views, a lot of air, very large type. No eyebrows: no small label above a heading, no pill.
 
-- **Hero:** two example marketers meet, a heart pops, an invitation slides in. It changes every few seconds and on tap. The marketers are made up (a role and an industry, never a name). The list is `PAIRS` in `assets/js/home.js`.
-- **Try it:** three taps (what to do, topics, area) build "your card", then "Show me a match" reveals an example match. It is a preview: **nothing tapped there is saved or sent**, and the page says so. Keep it true. Example people are `PERSONAS` in `home.js`.
-- **How it works:** the line fills in as you scroll to it.
-- People who have "reduce motion" switched on see everything at once, with nothing moving by itself.
+1. **The question.** One massive question and nothing else: "When did you last meet someone from your field who isn't a colleague?" It arrives word by word.
+2. **The case.** Anna's text about networking. Each line lights up as you scroll to it, and it ends on "So, again: when was the last time you truly networked?"
+3. **What we do**, three facts, then **"Where are you?"** with two cards:
+   - **Helsinki:** the waitlist for November (email only), or a "Sign up" button while a round is open.
+   - **Another city:** email, LinkedIn profile, city and country, all four required. They land in the Sheet tab `Other cities waitlist`.
+
+People who have "reduce motion" switched on, or no JavaScript, get everything at once and readable.
+Homepage v1 (animated match cards, the try-it card builder, how it works, questions) is in the git history at commit `d38d0e9`.
 
 ## The two modes
 
 The site is always in one of two states, decided by `config.js`:
 
-- **waitlist**: collects emails for the next round. They land in the `November waitlist` tab of the Sheet.
+- **waitlist**: collects emails for the next round. They land in the `November waitlist` tab of the Sheet. (The waitlist for another city is always there, in both modes, and lands in `Other cities waitlist`.)
 - **open**: shows the sign-up form. This needs `mode: 'open'` **and** a `closesAt` in the future. At `closesAt` the site turns itself back into the waitlist, to the minute, with nobody touching anything.
 
 ## Opening a round
@@ -98,6 +102,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v2.0 | 30 Sep 2026 | Homepage v2: one massive question, Anna's text on real networking, what we do, and two waitlists (Helsinki for November, another city with email + LinkedIn + city + country). Minimal, no eyebrows. The old "How it works" links on other pages now go to "What we do". Data policy covers the waitlist for another city. |
 | v1.6 | 30 Sep 2026 | Every mention of the waitlist now reads "waitlist for November" (the month comes from `round.label` in config.js). The docked phone button moved from the homepage to `site.js`, so About and the data policy have it too. |
 | v1.5 | 30 Sep 2026 | Data policy: the GitHub and Google Fonts row removed from the list of services, at Anna's request. |
 | v1.4 | 30 Sep 2026 | Data page rewritten as a proper data policy with a short version on top. The "This website" block (no cookies, saved counter, hosting and fonts) was removed at Anna's request; hosting and fonts are still named in the list of services. |

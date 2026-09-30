@@ -176,6 +176,52 @@
     });
   });
 
+  // ---- waitlist for another city: email, LinkedIn, city and country, all four required
+  each('.js-citylist', function (wrap) {
+    var form = wrap.querySelector('form'), status = wrap.querySelector('.am-status');
+    var trap = wrap.querySelector('.js-trap'), btn = wrap.querySelector('button[type="submit"]');
+    function field(name) { return form.querySelector('[name="' + name + '"]'); }
+    var asks = {
+      email: "That email doesn't look quite right. Mind checking it?",
+      linkedin: 'Paste the link to your LinkedIn profile, like linkedin.com/in/yourname',
+      city: 'Which city are you in?',
+      country: 'And which country?'
+    };
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.textContent = '';
+      var d = { email: field('email').value.trim(), linkedin: field('linkedin').value.trim(), city: field('city').value.trim(), country: field('country').value.trim() };
+      var bad = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email) ? 'email' : !/linkedin\.com\/.+/i.test(d.linkedin) ? 'linkedin' : d.city.length < 2 ? 'city' : d.country.length < 2 ? 'country' : '';
+      if (bad) { status.textContent = asks[bad]; field(bad).focus(); return; }
+      function done() { var c = wrap.querySelector('[data-city]'); if (c) c.textContent = d.city; wrap.classList.add('is-done'); }
+      if (!AM.endpoint) { done(); return; }
+      var label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+      var body = JSON.stringify({ cityWaitlist: d, website: trap ? trap.value : '', startedAt: loadedAt });
+      var wait = Math.max(0, 5500 - (Date.now() - loadedAt));   // same bot rule as the other forms
+      function fail(msg) { btn.disabled = false; btn.textContent = label; status.textContent = msg; }
+      function send(attempt) {
+        var ctrl = new AbortController();
+        var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+        fetch(AM.endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body, signal: ctrl.signal })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            clearTimeout(timer);
+            if (res && res.ok) { done(); return; }
+            if (res && asks[res.error]) { fail(asks[res.error]); field(res.error).focus(); return; }
+            throw new Error('failed');
+          })
+          .catch(function () {
+            clearTimeout(timer);
+            if (attempt < 3) { setTimeout(function () { send(attempt + 1); }, attempt * 1500); return; }
+            fail('That did not save. Please email ' + (AM.contactEmail || 'anna@awesomemarketers.fi') + ' and I will add you by hand.');
+          });
+      }
+      setTimeout(function () { send(1); }, wait);
+    });
+  });
+
   // ---- phones: a button docked at the bottom. It shows once you have scrolled a little,
   //      and steps aside whenever an email box or the main buttons are on screen.
   var dock = document.getElementById('dock');
@@ -186,7 +232,7 @@
       entries.forEach(function (e) { seen += e.isIntersecting ? 1 : (e.target._in ? -1 : 0); e.target._in = e.isIntersecting; });
       sync();
     }, { threshold: 0.1 });
-    each('.js-waitlist form, .hero__cta', function (n) { watch.observe(n); });
+    each('.js-waitlist form, .js-citylist form, .hero__cta', function (n) { watch.observe(n); });
     window.addEventListener('scroll', function () { var p = window.scrollY > 420; if (p !== past) { past = p; sync(); } }, { passive: true });
   }
 })();
