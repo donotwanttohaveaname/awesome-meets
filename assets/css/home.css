@@ -140,9 +140,6 @@
 .ask .section__intro { margin-inline: auto; }
 .ask__heart { display: block; width: 54px; height: 54px; margin: 0 auto 14px; animation: beat 1.7s ease-in-out infinite; }
 
-/* ---------- phone: a button that stays within reach ---------- */
-.dock { display: none; }
-
 @media (max-width: 900px) {
   .hero--app { text-align: center; padding-block: 44px 52px; }
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
@@ -163,13 +160,6 @@
   .timeline__num { grid-row: span 2; box-shadow: none; }
   .timeline h3 { margin-top: 2px; }
   .timeline p { margin-top: 4px; }
-}
-@media (max-width: 720px) {
-  .dock { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(255, 253, 251, .94); backdrop-filter: blur(10px); border-top: 1px solid var(--gray-200); transform: translateY(110%); transition: transform .3s ease; }
-  .dock.is-up { transform: none; }
-  .dock .btn { width: 100%; }
-  .home .site-footer { padding-bottom: 96px; }
-  .home .site-header .btn { display: none; }   /* the button at the bottom does this job on a phone */
 }
 @media (max-width: 600px) {
   .duo { gap: 18px; }

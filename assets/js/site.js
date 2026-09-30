@@ -55,7 +55,7 @@
   };
   each('[data-am]', function (n) { var k = n.getAttribute('data-am'); if (text[k] !== undefined) n.textContent = text[k]; });
   each('[data-show]', function (n) { n.hidden = n.getAttribute('data-show') !== state; });
-  each('[data-am-cta]', function (n) { n.textContent = state === 'open' ? 'Sign up' : 'Join the waitlist'; });
+  each('[data-am-cta]', function (n) { n.textContent = state === 'open' ? 'Sign up' : 'Join the waitlist for ' + text.label; });
   if (AM.preview) each('[data-am="version"]', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
 
   // ---- live strip
@@ -83,7 +83,7 @@
         rightLabel.textContent = 'next round';
         countLabel.textContent = last.countLabel || 'marketers signed up last round';
         bar.hidden = true;
-        footLeft.textContent = 'Waitlist open';
+        footLeft.textContent = 'Waitlist for ' + (round.label || 'the next round') + ' open';
         footRight.textContent = last.month ? 'Round one: ' + last.month : '';
       }
     }
@@ -175,4 +175,18 @@
       setTimeout(function () { send(1); }, wait);
     });
   });
+
+  // ---- phones: a button docked at the bottom. It shows once you have scrolled a little,
+  //      and steps aside whenever an email box or the main buttons are on screen.
+  var dock = document.getElementById('dock');
+  if (dock && 'IntersectionObserver' in window) {
+    var seen = 0, past = false;
+    var sync = function () { dock.classList.toggle('is-up', past && seen === 0); };
+    var watch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen += e.isIntersecting ? 1 : (e.target._in ? -1 : 0); e.target._in = e.isIntersecting; });
+      sync();
+    }, { threshold: 0.1 });
+    each('.js-waitlist form, .hero__cta', function (n) { watch.observe(n); });
+    window.addEventListener('scroll', function () { var p = window.scrollY > 420; if (p !== past) { past = p; sync(); } }, { passive: true });
+  }
 })();

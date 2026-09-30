@@ -288,18 +288,4 @@
       if (input) setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); } }, reduce ? 50 : 700);
     });
   });
-
-  // ---- phone: the button at the bottom shows once the hero form is out of sight,
-  //      and steps aside whenever an email box is on screen
-  var dock = $('#dock');
-  if (dock && 'IntersectionObserver' in window) {
-    var seen = 0, past = false;
-    var sync = function () { dock.classList.toggle('is-up', past && seen === 0); };
-    var forms = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { seen += e.isIntersecting ? 1 : (e.target._in ? -1 : 0); e.target._in = e.isIntersecting; });
-      sync();
-    }, { threshold: 0.1 });
-    $$('.js-waitlist form, .hero__cta').forEach(function (n) { forms.observe(n); });
-    window.addEventListener('scroll', function () { var p = window.scrollY > 420; if (p !== past) { past = p; sync(); } }, { passive: true });
-  }
 })();

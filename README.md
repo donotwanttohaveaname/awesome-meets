@@ -89,6 +89,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 - The credit is always "by the creators of The Awesome Marketers".
 - No em dashes. British spelling. Never promise a round every month.
 - No capitalised eyebrows or labels, ever. Every small label is sentence case; `text-transform: uppercase` is not used anywhere.
+- The waitlist is always called "the waitlist for <month>" ("Join the waitlist for November"), never just "the waitlist". In the HTML write the month as `<span data-am="label">November</span>` so it follows `round.label` in config.js.
 - Every page shows the version and date at the bottom. Bump it with every change.
 - The data note inside the form is what people agree to. Change a word of it and `consentVersion` in `config.js` goes up.
 
@@ -97,6 +98,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v1.6 | 30 Sep 2026 | Every mention of the waitlist now reads "waitlist for November" (the month comes from `round.label` in config.js). The docked phone button moved from the homepage to `site.js`, so About and the data policy have it too. |
 | v1.5 | 30 Sep 2026 | Data policy: the GitHub and Google Fonts row removed from the list of services, at Anna's request. |
 | v1.4 | 30 Sep 2026 | Data page rewritten as a proper data policy with a short version on top. The "This website" block (no cookies, saved counter, hosting and fonts) was removed at Anna's request; hosting and fonts are still named in the list of services. |
 | v1.3 | 30 Sep 2026 | Footer links to Awesome Meets on LinkedIn and to Anna's website (awesomemarketer.fi), on every page; both also on the About page. |

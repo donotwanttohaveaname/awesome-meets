@@ -80,7 +80,7 @@ a:hover { text-decoration-thickness: 2px; }
 .site-nav a:not(.btn):hover { color: var(--pink-deep); }
 
 /* ---------- buttons ---------- */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; padding: 13px 28px; border: 0; border-radius: var(--radius-xl); font-family: var(--font-body); font-weight: 600; font-size: 1rem; line-height: 1.2; cursor: pointer; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .28em; white-space: nowrap; padding: 13px 28px; border: 0; border-radius: var(--radius-xl); font-family: var(--font-body); font-weight: 600; font-size: 1rem; line-height: 1.2; cursor: pointer; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
 .btn--primary { background: var(--gradient-btn); color: #FFFFFF; box-shadow: var(--shadow-warm); }
 .btn--primary:hover { background: var(--gradient-btn-hover); transform: translateY(-1px); }
 .btn--primary[disabled] { opacity: .7; cursor: default; transform: none; }
@@ -251,6 +251,16 @@ a:hover { text-decoration-thickness: 2px; }
 .am-done { text-align: center; padding: 24px 8px; }
 .am-done h2 { font-size: 1.6rem; margin: 0 auto 10px; }
 .am-done p { color: var(--gray-600); max-width: 52ch; margin-inline: auto; }
+
+/* ---------- phones: a button that stays within reach ---------- */
+.dock { display: none; }
+@media (max-width: 720px) {
+  .dock { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(255, 253, 251, .94); backdrop-filter: blur(10px); border-top: 1px solid var(--gray-200); transform: translateY(110%); transition: transform .3s ease; }
+  .dock.is-up { transform: none; }
+  .dock .btn { width: 100%; }
+  .has-dock .site-footer { padding-bottom: 96px; }
+  .has-dock .site-header .btn { display: none; }   /* the button at the bottom does this job on a phone */
+}
 
 /* ---------- small screens ---------- */
 @media (max-width: 900px) {
