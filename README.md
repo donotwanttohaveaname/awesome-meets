@@ -3,7 +3,8 @@
 The website for Awesome Meets, the matching format by the creators of The Awesome Marketers.
 Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 marketers, and they meet over lunch, an after-work coffee or a walk.
 
-- **Live:** https://donotwanttohaveaname.github.io/awesome-meets/
+- **Live:** https://awesomemeets.com/ (the old address donotwanttohaveaname.github.io/awesome-meets forwards there)
+- **Domain:** awesomemeets.com, DNS in cPanel at hostingpalvelu: four A records to GitHub (185.199.108.153, .109.153, .110.153, .111.153) and `www` as a CNAME to `donotwanttohaveaname.github.io`. The `CNAME` file in this repo tells GitHub the name; do not delete it.
 - **Hosting:** GitHub Pages, straight from the `main` branch. A push is a publish. It takes a minute or two, and browsers keep the old version for up to 10 minutes.
 - **No build step.** Plain HTML, CSS and JavaScript. No cookies, no analytics.
 - **Backend:** the same Google Apps Script web app and private Google Sheet as before. The script lives in `networking-app/` on Anna's computer, not in this repo. No keys or secrets are in this repo, and none should ever be added.
@@ -75,7 +76,7 @@ The site is live on the GitHub address but deliberately quiet until Anna says go
 - [ ] Remove `<meta name="robots" content="noindex">` from `index.html`, `join/`, `data/` and `about/`
 - [ ] Redirect `awesomemarketers.fi/awesome-meets/` to this site (keep `awesome-meets/thanks/` alive: the one-click links in sent emails point at it)
 - [ ] Point the banner on awesomemarketers.fi at this site
-- [ ] If a domain is attached: add a `CNAME` file, set the domain in the repo's Pages settings, and replace `donotwanttohaveaname.github.io/awesome-meets` in the `og:image` and `og:url` tags of the four pages. Everything else uses relative paths and keeps working.
+- [x] Domain attached 30 Sep 2026: awesomemeets.com (`CNAME` file, share addresses in the four pages point at it)
 
 ## Rules
 
@@ -96,4 +97,5 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v1.2 | 30 Sep 2026 | Domain awesomemeets.com: share-image and page addresses moved to it. No visible change. |
 | v1.1 | 29 Sep 2026 | Homepage rebuilt as an interactive one-pager: animated hero with example matches, "Try it" card builder with a match reveal, timeline that fills in, scroll progress, a button that stays within reach on phones. All capitalised labels changed to sentence case. |
