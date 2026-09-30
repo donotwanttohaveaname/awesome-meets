@@ -44,6 +44,10 @@
     label: round.label || 'the next round',
     roundName: round.name || 'Awesome Meets',
     closesLong: round.closesLong || '',
+    // whole sentences that only exist while a round is open: the page source holds no half-sentence
+    // (a reader without JavaScript once saw "Sign-ups are open until .")
+    openUntil: round.closesLong ? 'Sign-ups are open until ' + round.closesLong + '.' : '',
+    openLede: round.closesLong ? 'Five short steps. Sign-ups close on ' + round.closesLong + '.' : '',
     closesShort: round.closesShort || '',
     matchedByLong: round.matchedByLong || '',
     meetWindow: round.meetWindow || '',
