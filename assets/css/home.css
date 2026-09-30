@@ -37,6 +37,15 @@
 .ask-hero__sub .nb { font-style: normal; white-space: nowrap; }   /* "one-to-one" never breaks across two lines */
 .js .ask-hero__sub, .js .ask-hero__cta { opacity: 0; animation: cueIn .8s ease 1.5s forwards; }
 .js .ask-hero__cta { animation-delay: 1.8s; }
+/* Safety net (30 Sep 2026, a reader's screenshot showed an empty hero): once the entrance is over, or when the page
+   is opened where animations do not run (a link preview, a background tab, "reduce motion"), everything is simply
+   visible. home.js adds .settled after 3.5 s or straight away when the page is hidden. */
+html.settled .ask-hero .w, html.settled .ask-hero__sub, html.settled .ask-hero__cta { opacity: 1; transform: none; filter: none; animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .ask-hero .w, .js .ask-hero__sub, .js .ask-hero__cta { opacity: 1; transform: none; filter: none; animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .ask-hero::before, .ask-hero__cue svg, .art-heart { animation: none; }
+}
 .ask-hero__cue { position: absolute; left: 50%; bottom: clamp(8px, 2.4vh, 30px); width: 44px; height: 44px; margin-left: -22px; display: grid; place-items: center; border-radius: 50%; color: var(--gray-500); text-decoration: none; opacity: 0; animation: cueIn .8s ease 2s forwards; }
 .ask-hero__cue svg { width: 22px; height: 22px; animation: nudge 1.8s ease-in-out infinite; }
 .ask-hero__cue:hover { color: var(--pink-deep); }

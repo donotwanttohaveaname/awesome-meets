@@ -26,6 +26,13 @@
   });
   $$('.ask-hero .w').forEach(function (w) { w.style.setProperty('--n', n++); });
 
+  // ---- safety net: the entrance must never leave the page empty. After 3.5 s everything in the hero is simply
+  // visible (the animations are over by then anyway). If the page is opened somewhere animations and scrolling do
+  // not happen (a link preview, a tab opened in the background), show everything at once.
+  var hidden = document.visibilityState === 'hidden';
+  function settle() { document.documentElement.classList.add('settled'); }
+  if (hidden || reduce) settle(); else setTimeout(settle, 3500);
+
   // ---- scrolling: the progress line, the header hairline, and the question easing back as you leave it
   var fill = document.getElementById('scrollFill'), hero = document.querySelector('.ask-hero'), title = hero && hero.querySelector('h1');
   var ticking = false;
@@ -46,7 +53,7 @@
 
   // ---- everything else fades in as it arrives (the paragraphs of the second view one after another)
   var reveals = $$('.reveal');
-  if (reduce || !('IntersectionObserver' in window)) {
+  if (reduce || hidden || !('IntersectionObserver' in window)) {
     reveals.forEach(function (r) { r.classList.add('is-in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
