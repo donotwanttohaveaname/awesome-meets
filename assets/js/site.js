@@ -73,7 +73,7 @@
         if (left > 172800000) { rightNum.textContent = days; rightLabel.textContent = 'days left to join'; }
         else if (hours >= 1) { rightNum.textContent = hours; rightLabel.textContent = hours === 1 ? 'hour left to join' : 'hours left to join'; }
         else { rightNum.textContent = Math.max(1, mins); rightLabel.textContent = 'minutes left to join'; }   // rounded down, never promises extra time
-        countLabel.textContent = 'marketers signed up';
+        countLabel.textContent = 'people signed up';
         bar.hidden = false;
         if (round.opensAt) fill.style.width = Math.max(4, Math.min(100, (Date.now() - round.opensAt) / (round.closesAt - round.opensAt) * 100)).toFixed(1) + '%';
         footLeft.textContent = 'Sign-ups open';
@@ -81,7 +81,7 @@
       } else {
         rightNum.textContent = (round.label || 'Soon').slice(0, 3);
         rightLabel.textContent = 'next round';
-        countLabel.textContent = last.countLabel || 'marketers signed up last round';
+        countLabel.textContent = last.countLabel || 'people signed up last round';
         bar.hidden = true;
         footLeft.textContent = 'Waitlist for ' + (round.label || 'the next round') + ' open';
         footRight.textContent = last.month ? 'Round one: ' + last.month : '';
