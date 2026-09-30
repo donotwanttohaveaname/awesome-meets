@@ -2,123 +2,60 @@
 <!-- Share thumbnails for awesomemeets.com. One template, four pages, two shapes.
      Open with  thumb.html#home  |  #join  |  #about  |  #data   and add  ,square  for the 1080x1080 version.
      Rendered to PNG by tools/render_thumbs.sh (headless Chrome).
-     The white card in the middle is the part that survives a square crop: everything that matters is inside it. -->
+     Deliberately plain (Anna, 30 Sep 2026: the busy version with a card and shapes was "really really ugly and too much"):
+     a white ground with a soft warm glow, the name, and one big line. Nothing else. Everything sits in the middle
+     630px of the wide version, so a square crop loses nothing. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1200px; height: 630px; overflow: hidden; }
-  body.square, html.square { width: 1080px; height: 1080px; }
-  body { position: relative; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #FFD166 0%, #FF8C42 46%, #FF5FA2 100%); }
+  html.square, body.square { width: 1080px; height: 1080px; }
+  body { position: relative; font-family: 'Space Grotesk', sans-serif; background:
+      radial-gradient(60% 70% at 50% 108%, rgba(255, 209, 102, .42), rgba(255, 209, 102, 0) 70%),
+      radial-gradient(45% 60% at 84% 100%, rgba(255, 95, 162, .20), rgba(255, 95, 162, 0) 70%),
+      radial-gradient(45% 60% at 16% 100%, rgba(255, 140, 66, .18), rgba(255, 140, 66, 0) 70%),
+      #FFFFFF; }
 
-  /* the glow and the shapes around the card */
-  .glow { position: absolute; border-radius: 50%; filter: blur(60px); }
-  .glow--a { width: 520px; height: 520px; left: -160px; top: -200px; background: rgba(255, 255, 255, .55); }
-  .glow--b { width: 560px; height: 560px; right: -200px; bottom: -260px; background: rgba(255, 60, 140, .45); }
-  .ring { position: absolute; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .5); }
-  .disc { position: absolute; border-radius: 50%; }
-  .heart { position: absolute; font-family: "Apple Symbols", "Arial Unicode MS", "Segoe UI Symbol", "Noto Sans Symbols2", sans-serif; line-height: 1; color: #FFFFFF; }
-  .pill { position: absolute; height: 34px; border-radius: 99px; background: rgba(255, 255, 255, .7); }
+  .brand { position: absolute; left: 0; right: 0; top: 54px; display: flex; align-items: center; justify-content: center; gap: 9px; }
+  .brand .h { font-family: "Apple Symbols", "Arial Unicode MS", "Segoe UI Symbol", "Noto Sans Symbols2", sans-serif; font-size: 40px; line-height: 1; color: #FF8C42; transform: translateY(9%); }
+  .brand .w { font-weight: 700; font-size: 26px; letter-spacing: -.035em; color: #171717; }
+  .brand .w span { color: #D11E6E; }
 
-  /* the card */
-  .card { position: absolute; left: 50%; top: 50%; width: 548px; height: 548px; margin: -274px 0 0 -274px; padding: 44px 46px 40px; border-radius: 60px; background: #FFFFFF; box-shadow: 0 50px 90px rgba(150, 40, 10, .30), 0 8px 20px rgba(150, 40, 10, .12); display: flex; flex-direction: column; }
-  .square .card { transform: scale(1.62); }
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .brand .h { font-family: "Apple Symbols", "Arial Unicode MS", "Segoe UI Symbol", "Noto Sans Symbols2", sans-serif; font-size: 52px; line-height: 1; color: #FF8C42; transform: translateY(9%); }
-  .brand .w { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -.035em; color: #171717; }
-  .g { background: linear-gradient(120deg, #FF8C42, #FF5FA2); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .art { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
-  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 47px; line-height: 1.04; letter-spacing: -.045em; color: #171717; }
-  h1 .g { padding-bottom: .08em; }
-  .by { margin-top: 16px; font-weight: 500; font-size: 17px; color: #737373; }
+  .stage { position: absolute; left: 50%; top: 0; bottom: 0; width: 600px; margin-left: -300px; padding-top: 34px; display: flex; align-items: center; justify-content: center; }
+  h1 { font-weight: 700; font-size: 62px; line-height: 1.03; letter-spacing: -.05em; color: #171717; text-align: center; text-wrap: balance; }
+  .g { background: linear-gradient(100deg, #FF8C42, #FF5FA2); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-bottom: .1em; }
 
-  /* art: two people and a heart */
-  .pair { display: flex; align-items: center; gap: 18px; }
-  .face { width: 118px; height: 118px; border-radius: 50%; background: linear-gradient(135deg, #FFD166, #FF8C42); box-shadow: 0 18px 34px rgba(217, 88, 10, .25); }
-  .face.b { background: linear-gradient(135deg, #FF8C42, #FF5FA2); }
-  .pair .h { font-family: "Apple Symbols", "Arial Unicode MS", "Segoe UI Symbol", "Noto Sans Symbols2", sans-serif; font-size: 96px; line-height: 1; color: #FF8C42; transform: translateY(9%); filter: drop-shadow(0 8px 14px rgba(255, 140, 66, .45)); }
-  /* art: three ways to meet */
-  .ways { display: flex; gap: 16px; }
-  .ways span { display: grid; place-items: center; width: 104px; height: 104px; border-radius: 50%; background: linear-gradient(135deg, rgba(255, 209, 102, .28), rgba(255, 95, 162, .2)); color: #171717; }
-  .ways span:nth-child(2) { background: linear-gradient(135deg, #FFD166, #FF8C42 48%, #FF5FA2); box-shadow: 0 18px 34px rgba(217, 88, 10, .25); transform: translateY(-10px) scale(1.12); }
-  .ways svg { width: 50px; height: 50px; }
-  /* art: the people behind it */
-  .crew { display: flex; }
-  .crew i { display: block; width: 100px; height: 100px; margin-left: -26px; border-radius: 50%; border: 6px solid #FFFFFF; background: linear-gradient(135deg, #FFD166, #FF8C42); box-shadow: 0 14px 28px rgba(217, 88, 10, .18); }
-  .crew i:first-child { margin-left: 0; }
-  .crew i:nth-child(2) { background: linear-gradient(135deg, #FF8C42, #FF5FA2); }
-  .crew i:nth-child(3) { background: linear-gradient(135deg, #FFD166, #FF5FA2); transform: translateY(-12px); }
-  .crew i:nth-child(4) { background: linear-gradient(135deg, #FF5FA2, #FF8C42); }
-  .crew i:nth-child(5) { background: linear-gradient(135deg, #FF8C42, #FFD166); }
-  /* art: a person, checked */
-  .safe { position: relative; display: flex; align-items: center; gap: 20px; padding: 26px 34px; border-radius: 28px; background: linear-gradient(135deg, rgba(255, 209, 102, .22), rgba(255, 95, 162, .16)); }
-  .safe .face { width: 84px; height: 84px; box-shadow: none; }
-  .safe .lines { display: grid; gap: 14px; }
-  .safe .lines i { display: block; height: 16px; border-radius: 99px; background: #FFFFFF; }
-  .safe .tick { position: absolute; right: -22px; top: -22px; display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #D9580A, #C81E63); color: #FFFFFF; box-shadow: 0 10px 22px rgba(217, 88, 10, .35); }
-  .safe .tick svg { width: 34px; height: 34px; }
+  .g.own { display: block; white-space: nowrap; }
+
+  /* the true square: the same thing, larger */
+  .square .brand { top: 96px; gap: 14px; }
+  .square .brand .h { font-size: 62px; }
+  .square .brand .w { font-size: 40px; }
+  .square .stage { width: 940px; margin-left: -470px; padding-top: 50px; }
+  .square h1 { font-size: calc(var(--size, 62px) * 1.62); }
 </style>
 </head>
 <body>
-  <span class="glow glow--a"></span><span class="glow glow--b"></span>
-
-  <!-- left of the card -->
-  <span class="ring" style="width:300px;height:300px;left:-90px;top:60px"></span>
-  <span class="disc" style="width:170px;height:170px;left:70px;top:330px;background:rgba(255,255,255,.92);box-shadow:0 24px 50px rgba(150,40,10,.22)"></span>
-  <span class="disc" style="width:120px;height:120px;left:190px;top:270px;background:linear-gradient(135deg,#D9580A,#C81E63);box-shadow:0 20px 40px rgba(150,40,10,.25)"></span>
-  <span class="heart" style="font-size:120px;left:60px;top:70px;transform:rotate(-14deg)">&#9829;</span>
-  <span class="pill" style="width:150px;left:36px;top:548px;transform:rotate(-8deg)"></span>
-  <!-- right of the card -->
-  <span class="ring" style="width:360px;height:360px;right:-130px;top:230px"></span>
-  <span class="disc" style="width:190px;height:190px;right:60px;top:60px;background:rgba(255,255,255,.92);box-shadow:0 24px 50px rgba(150,40,10,.22)"></span>
-  <span class="disc" style="width:110px;height:110px;right:210px;top:170px;background:#FFD166;box-shadow:0 20px 40px rgba(150,40,10,.2)"></span>
-  <span class="heart" style="font-size:170px;right:50px;top:380px;transform:rotate(12deg)">&#9829;</span>
-  <span class="pill" style="width:120px;right:230px;top:520px;transform:rotate(10deg)"></span>
-
-  <div class="card">
-    <div class="brand"><span class="h">&#9829;</span><span class="w">Awesome <span class="g">Meets</span></span></div>
-    <div class="art" id="art"></div>
-    <h1 id="line"></h1>
-    <p class="by" id="by"></p>
-  </div>
+  <div class="brand"><span class="h">&#9829;</span><span class="w">Awesome <span>Meets</span></span></div>
+  <div class="stage"><h1 id="line"></h1></div>
 
 <script>
-  var ICON = {
-    lunch: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v6a3 3 0 0 0 6 0V3"/><path d="M8 3v18"/><path d="M18 3v18"/><path d="M18 3c-2.2 1.8-3.2 4.4-3.2 8H18"/></svg>',
-    coffee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3v3"/><path d="M12 3v3"/></svg>',
-    walk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.7"/><path d="M9.5 21l2.2-6.2-2.4-2.6 1.2-4.7 3.2 3 3 1"/><path d="M10.5 7.5L7.5 9.2 6.8 12"/><path d="M12 15l2.6 2.2.9 3.8"/></svg>'
-  };
   var PAGES = {
-    home: {
-      art: '<div class="pair"><span class="face"></span><span class="h">&#9829;</span><span class="face b"></span></div>',
-      line: 'When did you last meet someone who <span class="g">isn’t a colleague?</span>',
-      by: 'One-to-one introductions in Helsinki'
-    },
-    join: {
-      art: '<div class="ways"><span>' + ICON.lunch + '</span><span>' + ICON.coffee + '</span><span>' + ICON.walk + '</span></div>',
-      line: 'Want in for <span class="g">November?</span>', size: 66,
-      by: 'Join the waitlist for November · Helsinki'
-    },
-    about: {
-      art: '<div class="crew"><i></i><i></i><i></i><i></i><i></i></div>',
-      line: 'Made by the creators of <span class="g">The Awesome Marketers</span>',
-      by: 'About Awesome Meets'
-    },
-    data: {
-      art: '<div class="safe"><span class="face"></span><span class="lines"><i style="width:170px"></i><i style="width:118px"></i></span><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>',
-      line: 'What happens to <span class="g">your data</span>', size: 58,
-      by: 'The data policy, in plain words'
-    }
+    home:  { line: 'When did you last meet someone who <span class="g">isn’t a colleague?</span>', size: 62 },
+    join:  { line: 'Want in for <span class="g">November?</span>', size: 96 },
+    about: { line: 'Made by the creators of <span class="g own">The Awesome Marketers</span>', size: 52 },
+    data:  { line: 'What happens to <span class="g">your data</span>', size: 84 }
   };
   var parts = location.hash.replace('#', '').split(',');
   var page = PAGES[parts[0]] || PAGES.home;
   if (parts[1] === 'square') { document.documentElement.className = 'square'; document.body.className = 'square'; }
-  document.getElementById('art').innerHTML = page.art;
-  document.getElementById('line').innerHTML = page.line;
-  if (page.size) document.getElementById('line').style.fontSize = page.size + 'px';
-  document.getElementById('by').textContent = page.by;
+  var line = document.getElementById('line');
+  line.innerHTML = page.line;
+  line.style.setProperty('--size', page.size + 'px');
+  if (parts[1] !== 'square') line.style.fontSize = page.size + 'px';
 </script>
 </body>
 </html>
