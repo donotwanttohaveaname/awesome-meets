@@ -31,9 +31,9 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 
 Four views, and **each one fits a single screen** (sizes follow the height of the window as well as its width). No eyebrows: no small label above a heading, no pill.
 
-1. **The question.** One massive question and nothing else: "When did you last meet someone from your field who isn't a colleague?" It arrives word by word.
-2. **The case.** Anna's text about networking as four short paragraphs, each opening with a bold sentence, then "So, again: when was the last time you truly networked?"
-3. **What we do.** "We do the introducing." and four step cards side by side, each with a small moving picture: tell us about you · we validate everyone · we match you, one to one · you meet in Helsinki. On phones they become four short rows without pictures.
+1. **The question**, one line on what Awesome Meets is, and one button: "When did you last meet someone from your field who isn't a colleague?" / "Awesome Meets introduces you to someone new for a one-to-one conversation."
+2. **The case.** Four short paragraphs, each opening with a bold sentence. The point is meeting someone genuinely new, not finding a job: "We all know people at work" · "Networking isn't saying 'Hello, my name is'" · "It might never lead to a job" · "It's the part of work life you can't turn into KPIs". It ends on "So, again: when was the last time you truly networked?"
+3. **What we do.** "We match. You meet." and four step cards side by side, each with a small moving picture: tell us a little about yourself · we check everyone · we find your match · you meet in person. On phones they become four short rows without pictures.
 4. **Where are you?** Two cards:
    - **Helsinki:** the waitlist for November (email only), or a "Sign up" button while a round is open.
    - **Another city:** email, LinkedIn profile, city and country, all four required. They land in the Sheet tab `Other cities waitlist`. (On a phone these two cards are taller than one screen.)
@@ -108,6 +108,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | Version | Date | What changed |
 |---|---|---|
 | v1.0 | 29 Sep 2026 | First version: home, join (waitlist and form), your data, about the creators, 404. Launched in waitlist mode. |
+| v2.5 | 30 Sep 2026 | Copy fixes after outside feedback: the hero now says what Awesome Meets is and has a button; the networking text is about meeting someone new rather than the job market; "We match. You meet."; clearer step wording; "40 people joined round one. Round two opens in November."; "Bring Awesome Meets to my city". |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |
