@@ -22,7 +22,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent
-PAGES = ['index.html', 'join/index.html', 'about/index.html', 'data/index.html', '404.html']
+PAGES = ['index.html', 'join/index.html', 'about/index.html', 'data/index.html', 'feedback/index.html', '404.html']
 
 
 def main():
