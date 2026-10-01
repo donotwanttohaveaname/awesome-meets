@@ -8,7 +8,7 @@
        ("Sorry, unable to open the file at this time") to anyone signed into more than one Google account.
        On purpose this page has NO Google Analytics, NO Ahrefs and NO Buy Me a Coffee button: the address carries
        a personal link code, and that code should not travel to any other service. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.20">
+  <meta name="am-version" content="2.21">
   <title>How did it go? | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.20">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.21">
 </head>
 <body class="fb-page">
 
@@ -38,12 +38,7 @@
     <div class="container">
       <div class="am-wrap fb__wrap">
 
-        <!-- 1. while the page checks the link -->
-        <div class="fb__state" id="fbLoading">
-          <p class="fb__wait">One moment…</p>
-        </div>
-
-        <!-- 2. the form -->
+        <!-- 1. the form. Shown at once: nothing on this page waits for the backend (see feedback.js) -->
         <div class="fb__state" id="fbForm" hidden>
           <h1 id="fbTitle">Thank you!</h1>
           <p class="fb__lead" id="fbLead"></p>
@@ -83,24 +78,23 @@
             </div>
 
             <button class="btn btn--primary" type="submit" id="fbSend">Send feedback</button>
-            <p class="am-status" id="fbStatus" role="alert" hidden></p>
             <p class="form__hint fb__private">Only Anna can read this. Your match does not see your answers.</p>
           </form>
         </div>
 
-        <!-- 3. sent -->
+        <!-- 2. the thank-you, shown the instant "Send feedback" is clicked; the line under the heading reports the saving -->
         <div class="fb__state fb__state--center" id="fbDone" hidden>
           <h1 id="fbDoneTitle">Thank you!</h1>
-          <p class="fb__lead" id="fbDoneLead">Your feedback is in.</p>
+          <p class="fb__lead" id="fbDoneLead" aria-live="polite">Saving your answers…</p>
+          <button class="btn btn--outline" type="button" id="fbResend" hidden>Try again</button>
           <p class="fb__sign">See you out there ✨<br>Anna<br>Awesome Meets</p>
         </div>
 
-        <!-- 4. the link is wrong, or the connection failed -->
+        <!-- 3. the link is wrong -->
         <div class="fb__state fb__state--center" id="fbError" hidden>
           <h1 id="fbErrorTitle">That link is not valid</h1>
           <p class="fb__lead" id="fbErrorLead">Please reply to my email instead and tell me how it went.</p>
           <p class="fb__sign">Anna</p>
-          <button class="btn btn--outline" type="button" id="fbRetry" hidden>Try again</button>
         </div>
 
         <noscript><p class="fb__lead">This page needs JavaScript. If it does not open, please reply to my email instead and tell me how it went. Anna</p></noscript>
@@ -115,7 +109,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.20"></script>
-<script src="../assets/js/feedback.js?v=2.20"></script>
+<script src="../assets/js/config.js?v=2.21"></script>
+<script src="../assets/js/feedback.js?v=2.21"></script>
 </body>
 </html>

@@ -183,7 +183,6 @@ a:hover { text-decoration-thickness: 2px; }
 .fb__state h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); letter-spacing: -.03em; }
 .fb__lead { margin-top: 12px; font-size: 1.08rem; color: var(--gray-600); text-wrap: pretty; }
 .fb__lead strong { color: var(--gray-900); white-space: nowrap; }
-.fb__wait { color: var(--gray-500); text-align: center; padding-block: 18vh; }
 .am-card.fb__card { margin-top: 30px; padding: 32px; }
 .fb__card .am-q legend, .fb__card .am-q__label { font-size: 1rem; }
 .fb__card .am-q legend { margin-bottom: 12px; }
@@ -191,7 +190,7 @@ a:hover { text-decoration-thickness: 2px; }
 .fb__private { margin-top: 18px; }
 .fb__state--center { text-align: center; padding-block: 10vh; }
 .fb__state--center .fb__lead { max-width: 44ch; margin-inline: auto; }
-.fb__state--center .btn { margin-top: 26px; }
+.fb__state--center .btn { margin-top: 18px; }
 .fb__sign { margin-top: 22px; font-family: var(--font-heading); font-weight: 600; color: var(--gray-900); }
 .fb-nps { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px; }
 .fb-nps .am-chip span { display: block; padding: 10px 0; text-align: center; font-size: .95rem; font-weight: 600; }
