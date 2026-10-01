@@ -83,12 +83,17 @@
 
   // ---- after "It didn't happen": one question, why, instead of the score questions (Anna, 1 Oct 2026:
   //      "if they click 'it didn't happen' could you instead ask why with a selection of options + other").
-  //      The chosen sentence is saved as written here, in the Sheet column "Why it didn't happen".
+  //      Several can be ticked (Anna, same day: "make it multiple options possible"; she also added "neither of us
+  //      got in touch" and "I changed my mind"). The ticked sentences are saved as written here, joined with "; ",
+  //      in the Sheet column "Why it didn't happen". The backend keeps 500 characters: all options plus a full
+  //      "Other" text fit, so shorten the text box if this list grows.
   var REASONS = [
     'We couldn\'t find a time',
+    'Neither of us got in touch',
     'My match didn\'t reply',
     'My match cancelled',
     'I had to cancel',
+    'I changed my mind about taking part',
     'We moved it to a later date',
     'Other'
   ];
@@ -96,16 +101,17 @@
     var option = document.createElement('label');
     option.className = 'am-option';
     var input = document.createElement('input');
-    input.type = 'radio'; input.name = 'reason'; input.value = text;
+    input.type = 'checkbox'; input.name = 'reason'; input.value = text;
     var span = document.createElement('span');
     span.textContent = text;
     option.appendChild(input); option.appendChild(span);
     $('fbReasons').appendChild(option);
   });
   $('fbReasons').addEventListener('change', function () {
-    var other = document.querySelector('input[name="reason"]:checked').value === 'Other';
+    var other = document.querySelector('input[name="reason"][value="Other"]').checked;
+    var opening = other && $('fbOtherBox').hidden;
     $('fbOtherBox').hidden = !other;
-    if (other) $('fbOther').focus();
+    if (opening) $('fbOther').focus();
   });
 
   // ---- "share publicly" opens the name, job and company fields
@@ -176,9 +182,10 @@
   $('fbFormEl').addEventListener('submit', function (e) {
     e.preventDefault();
     if (didNotHappen) {
-      var why = document.querySelector('input[name="reason"]:checked');
       var typed = $('fbOther').value.trim();
-      var reason = !why ? '' : why.value === 'Other' ? 'Other' + (typed ? ': ' + typed : '') : why.value;
+      var reason = Array.prototype.map.call(document.querySelectorAll('input[name="reason"]:checked'), function (box) {
+        return box.value === 'Other' ? 'Other' + (typed ? ': ' + typed : '') : box.value;
+      }).join('; ');
       answers = { token: token, step: 'form', reason: reason, note: $('fbNote').value };
     } else {
       var picked = document.querySelector('input[name="nps"]:checked');

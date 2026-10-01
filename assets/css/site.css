@@ -186,6 +186,8 @@ a:hover { text-decoration-thickness: 2px; }
 .am-card.fb__card { margin-top: 30px; padding: 32px; }
 .fb__card .am-q legend, .fb__card .am-q__label { font-size: 1rem; }
 .fb__card .am-q legend { margin-bottom: 12px; }
+.fb__card .am-q legend + .form__hint { margin-top: -6px; }
+.fb__card .am-option span { text-wrap: balance; }
 .fb__card .am-q textarea { min-height: 104px; }
 .fb__private { margin-top: 18px; }
 .fb__state--center { text-align: center; padding-block: 10vh; }
