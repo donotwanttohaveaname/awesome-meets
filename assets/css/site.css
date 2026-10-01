@@ -195,6 +195,7 @@ a:hover { text-decoration-thickness: 2px; }
 .fb-nps { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px; }
 .fb-nps .am-chip span { display: block; padding: 10px 0; text-align: center; font-size: .95rem; font-weight: 600; }
 .fb-nps__ends { display: flex; justify-content: space-between; margin-top: 8px; font-size: .82rem; color: var(--gray-500); }
+.fb-other { margin-top: 10px; }
 .fb-share .am-option { align-items: flex-start; }
 .fb-share .am-option input { margin-top: 3px; }
 .fb-share__more { margin-top: 10px; padding: 16px 18px; border-radius: var(--radius-md); background: var(--gradient-subtle); display: grid; gap: 10px; }

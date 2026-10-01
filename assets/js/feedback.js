@@ -81,6 +81,33 @@
     nps.appendChild(label);
   }
 
+  // ---- after "It didn't happen": one question, why, instead of the score questions (Anna, 1 Oct 2026:
+  //      "if they click 'it didn't happen' could you instead ask why with a selection of options + other").
+  //      The chosen sentence is saved as written here, in the Sheet column "Why it didn't happen".
+  var REASONS = [
+    'We couldn\'t find a time',
+    'My match didn\'t reply',
+    'My match cancelled',
+    'I had to cancel',
+    'We moved it to a later date',
+    'Other'
+  ];
+  REASONS.forEach(function (text) {
+    var option = document.createElement('label');
+    option.className = 'am-option';
+    var input = document.createElement('input');
+    input.type = 'radio'; input.name = 'reason'; input.value = text;
+    var span = document.createElement('span');
+    span.textContent = text;
+    option.appendChild(input); option.appendChild(span);
+    $('fbReasons').appendChild(option);
+  });
+  $('fbReasons').addEventListener('change', function () {
+    var other = document.querySelector('input[name="reason"]:checked').value === 'Other';
+    $('fbOtherBox').hidden = !other;
+    if (other) $('fbOther').focus();
+  });
+
   // ---- "share publicly" opens the name, job and company fields
   $('fbShare').addEventListener('change', function () { $('fbPub').hidden = !this.checked; });
 
@@ -90,7 +117,9 @@
   function thanks() { return 'Thank you' + (firstName ? ', ' + firstName : '') + '!'; }
 
   $('fbTitle').textContent = didNotHappen ? 'Sorry it didn\'t happen' : thanks();
-  $('fbLead').textContent = didNotHappen ? 'Two questions would still help me a lot.' : 'Two more minutes for the questions that really help?';
+  $('fbLead').textContent = didNotHappen ? 'One question would help me a lot.' : 'Two more minutes for the questions that really help?';
+  $('fbWhyNot').hidden = !didNotHappen;
+  $('fbScore').hidden = didNotHappen;
 
   // What the backend sends back: the first name for the greeting, and the name, job and company for the "share publicly" box.
   function greet(res) {
@@ -146,9 +175,16 @@
 
   $('fbFormEl').addEventListener('submit', function (e) {
     e.preventDefault();
-    var picked = document.querySelector('input[name="nps"]:checked');
-    answers = { token: token, step: 'form', nps: picked ? picked.value : '', why: $('fbWhy').value, share: $('fbShare').checked,
-      pubName: $('fbPubName').value, pubJob: $('fbPubJob').value, pubCompany: $('fbPubCompany').value, note: $('fbNote').value };
+    if (didNotHappen) {
+      var why = document.querySelector('input[name="reason"]:checked');
+      var typed = $('fbOther').value.trim();
+      var reason = !why ? '' : why.value === 'Other' ? 'Other' + (typed ? ': ' + typed : '') : why.value;
+      answers = { token: token, step: 'form', reason: reason, note: $('fbNote').value };
+    } else {
+      var picked = document.querySelector('input[name="nps"]:checked');
+      answers = { token: token, step: 'form', nps: picked ? picked.value : '', why: $('fbWhy').value, share: $('fbShare').checked,
+        pubName: $('fbPubName').value, pubJob: $('fbPubJob').value, pubCompany: $('fbPubCompany').value, note: $('fbNote').value };
+    }
     $('fbDoneTitle').textContent = thanks();
     show('fbDone');
     save();
