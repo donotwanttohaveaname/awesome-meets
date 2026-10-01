@@ -41,11 +41,20 @@
         }, 400);
       });
     }
-    var ctrl = new AbortController();
-    var timer = setTimeout(function () { ctrl.abort(); }, 25000);
-    return fetch(AM.endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ feedback: payload }), signal: ctrl.signal })
-      .then(function (r) { return r.json(); })
-      .finally(function () { clearTimeout(timer); });
+    // Google's script sometimes answers with an error page instead of data (seen for a few minutes after the
+    // script was republished on 1 Oct 2026). Saving an answer twice is harmless (same row), so try up to three times.
+    function attempt(n) {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+      return fetch(AM.endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ feedback: payload }), signal: ctrl.signal })
+        .then(function (r) { return r.json(); })
+        .finally(function () { clearTimeout(timer); })
+        .catch(function (err) {
+          if (n >= 3) throw err;
+          return new Promise(function (resolve) { setTimeout(resolve, 1500 * n); }).then(function () { return attempt(n + 1); });
+        });
+    }
+    return attempt(1);
   }
 
   // ---- the two error pages
@@ -79,6 +88,9 @@
   var firstName = '';
   function arrive() {
     show('fbLoading');
+    var wait = document.querySelector('#fbLoading .fb__wait');
+    wait.textContent = 'One moment…';
+    setTimeout(function () { wait.textContent = 'Still loading, one more moment…'; }, 7000);
     call({ token: token, step: 'click', quick: quick }).then(function (res) {
       if (!res || !res.ok) return res && res.error === 'bad_link' ? badLink() : noConnection(arrive);
       firstName = res.firstName || '';
