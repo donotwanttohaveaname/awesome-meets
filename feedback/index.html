@@ -8,7 +8,7 @@
        ("Sorry, unable to open the file at this time") to anyone signed into more than one Google account.
        On purpose this page has NO Google Analytics, NO Ahrefs and NO Buy Me a Coffee button: the address carries
        a personal link code, and that code should not travel to any other service. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.23">
+  <meta name="am-version" content="2.24">
   <title>How did it go? | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.23">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.24">
 </head>
 <body class="fb-page">
 
@@ -68,6 +68,17 @@
               <label class="am-q__label" for="fbWhy">What's the main reason for your score?</label>
               <textarea id="fbWhy" name="why" maxlength="2000"></textarea>
             </div>
+
+            <!-- Anna, 2 Oct 2026: "add a question in the feedback form if they knew the person beforehand". The match's first name replaces "your match" once it arrives. -->
+            <fieldset class="am-q">
+              <legend id="fbKnewQ">Did you know your match before?</legend>
+              <div class="am-list">
+                <label class="am-option"><input type="radio" name="knew" value="No, we'd never met"><span>No, we'd never met</span></label>
+                <label class="am-option"><input type="radio" name="knew" value="Only online, for example on LinkedIn"><span>Only online, for example on LinkedIn</span></label>
+                <label class="am-option"><input type="radio" name="knew" value="We'd met once or twice"><span>We'd met once or twice</span></label>
+                <label class="am-option"><input type="radio" name="knew" value="Yes, we already knew each other"><span>Yes, we already knew each other</span></label>
+              </div>
+            </fieldset>
 
             <div class="am-q fb-share">
               <label class="am-option" for="fbShare">
@@ -124,7 +135,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.23"></script>
-<script src="../assets/js/feedback.js?v=2.23"></script>
+<script src="../assets/js/config.js?v=2.24"></script>
+<script src="../assets/js/feedback.js?v=2.24"></script>
 </body>
 </html>

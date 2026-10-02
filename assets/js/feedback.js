@@ -130,6 +130,7 @@
   // What the backend sends back: the first name for the greeting, and the name, job and company for the "share publicly" box.
   function greet(res) {
     firstName = res.firstName || '';
+    if (res.other) $('fbKnewQ').textContent = 'Did you know ' + res.other + ' before?';
     if (!didNotHappen) $('fbTitle').textContent = thanks();
     $('fbDoneTitle').textContent = thanks();
     if (res.quick && !$('fbLead').querySelector('strong')) {
@@ -189,7 +190,8 @@
       answers = { token: token, step: 'form', reason: reason, note: $('fbNote').value };
     } else {
       var picked = document.querySelector('input[name="nps"]:checked');
-      answers = { token: token, step: 'form', nps: picked ? picked.value : '', why: $('fbWhy').value, share: $('fbShare').checked,
+      var knew = document.querySelector('input[name="knew"]:checked');
+      answers = { token: token, step: 'form', nps: picked ? picked.value : '', why: $('fbWhy').value, knew: knew ? knew.value : '', share: $('fbShare').checked,
         pubName: $('fbPubName').value, pubJob: $('fbPubJob').value, pubCompany: $('fbPubCompany').value, note: $('fbNote').value };
     }
     $('fbDoneTitle').textContent = thanks();
