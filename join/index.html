@@ -13,7 +13,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.24">
+  <meta name="am-version" content="2.25">
   <title>Join the waitlist for November | Awesome Meets</title>
   <meta name="description" content="Join the waitlist for November. Awesome Meets introduces you to someone new in Helsinki for a one-to-one conversation over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/join/">
@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.24">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.25">
 </head>
 <body>
 
@@ -55,8 +55,6 @@
 <main>
   <section class="hero" style="padding-block:52px 44px">
     <div class="container">
-      <span class="pill" data-show="waitlist">✨ Round one is full</span>
-      <span class="pill" data-show="open" hidden>✨ Sign-ups are open</span>
       <h1 style="max-width:18ch"><span data-show="waitlist">Want in for <span class="grad" data-am="label">November</span>?</span><span data-show="open" hidden>Sign up for <span class="grad">Awesome Meets</span></span></h1>
       <p class="hero__lede" data-show="waitlist">Leave your email and you'll be first to know when the next round of one-to-one networking in Helsinki opens.</p>
       <p class="hero__lede" data-show="open" data-am="openLede" hidden></p>
@@ -115,7 +113,7 @@
           <form id="amForm" novalidate>
             <div class="am-progress" aria-hidden="true">
               <div class="am-progress__bar"><div class="am-progress__fill" id="amProgress"></div></div>
-              <span class="am-progress__label" id="amProgressLabel">Step 1 of 5</span>
+              <span class="am-progress__label" id="amProgressLabel">Step 1 of 4</span>
             </div>
 
             <div class="am-hp" aria-hidden="true">
@@ -123,23 +121,21 @@
               <input type="text" id="amWebsite" name="website" tabindex="-1" autocomplete="off">
             </div>
 
+            <!-- The November form (Anna, 6 Oct 2026): no topics, no days or times; job function, city, one-to-one or trio.
+                 Option lists live in assets/js/form.js and must match R2_OPTIONS in the backend script letter for letter. -->
             <!-- Step 1 -->
             <div class="am-step is-active" data-step="1">
               <div class="am-letter">
-                <p>Hey awesome marketers 🧡</p>
-                <p>For years we've preached that networking is everything. After talking to so many of you, I wanna make it actually happen: in person, over food, with marketers you'd never bump into otherwise.</p>
+                <p>Hi there 🧡</p>
+                <p>Awesome Meets introduces you to someone new for a real conversation: one-to-one, or in a trio if you'd like.</p>
                 <p>Here's how it works:</p>
                 <ol>
-                  <li>You fill in this questionnaire. It takes a few minutes.</li>
+                  <li>You fill in this form. It takes a couple of minutes.</li>
                   <li>Sign-ups close on <strong data-am="closesLong">the closing date</strong>.</li>
-                  <li>By <strong data-am="matchedByLong"></strong>, everyone gets matched with 1 or 2 marketers in Helsinki.</li>
-                  <li>You meet over lunch, an after-work coffee or a walk between <span data-am="meetWindow"></span>.</li>
+                  <li>By <strong data-am="matchedByLong"></strong>, you get your match by email: one person, or two if you'd like to meet as a trio.</li>
+                  <li>You meet whenever suits you in <span data-am="label"></span>, over lunch, an after-work coffee or a walk.</li>
                 </ol>
-                <p>About the survey:</p>
-                <ul>
-                  <li>a few profiling questions on what kind of marketers you want to meet</li>
-                  <li>your answers are only viewed by me (Anna) and Claude</li>
-                </ul>
+                <p>Your answers are only seen by me (Anna) and Claude, the AI assistant that helps me find good matches.</p>
                 <p class="am-sign">See you out there ✨<br>Anna</p>
               </div>
               <h2 class="am-step__title">Let's start with you</h2>
@@ -151,13 +147,13 @@
               </div>
               <div class="am-q" data-q="email">
                 <label class="am-q__label" for="email">Where can I email you?</label>
-                <p class="form__hint">Your match details land here.</p>
+                <p class="form__hint">Your match lands here.</p>
                 <input type="email" id="email" name="email" autocomplete="email" maxlength="160" required>
                 <p class="am-error">That email doesn't look quite right. Mind checking it?</p>
               </div>
               <div class="am-q" data-q="linkedin">
                 <label class="am-q__label" for="linkedin">Your LinkedIn profile <span class="am-q__opt">(optional)</span></label>
-                <p class="form__hint">I'll introduce you and your match on LinkedIn, and send the details by email too.</p>
+                <p class="form__hint">Your match sees it in the match email, so they know who to look for.</p>
                 <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300">
                 <p class="am-error">Paste the link to your profile, like linkedin.com/in/yourname</p>
               </div>
@@ -167,10 +163,11 @@
             <div class="am-step" data-step="2">
               <h2 class="am-step__title">Your work life</h2>
               <p class="am-step__intro">So I can find people you'll click with.</p>
-              <fieldset class="am-q" data-q="employmentType">
-                <legend>What best fits your work right now?</legend>
-                <div class="am-list am-list--2" data-options="employmentType" data-type="radio"></div>
-                <p class="am-error">Pick the one that fits best.</p>
+              <fieldset class="am-q" data-q="jobFunction">
+                <legend>What do you do?</legend>
+                <p class="form__hint">Pick the one closest to your job.</p>
+                <div class="am-list am-list--2" data-options="jobFunction" data-type="radio"></div>
+                <p class="am-error">Pick the closest one, "Other" works too.</p>
               </fieldset>
               <div class="am-q" data-q="jobTitle">
                 <label class="am-q__label" for="jobTitle">What's your job title? <span class="am-q__opt">(or your most recent one, optional)</span></label>
@@ -194,25 +191,34 @@
 
             <!-- Step 3 -->
             <div class="am-step" data-step="3">
-              <h2 class="am-step__title">Over lunch, you could tell someone about…</h2>
-              <p class="am-step__intro">Not expertise. Things you know from your day job or your own career: your industry, what your team tried, what you've been through.</p>
-              <fieldset class="am-q" data-q="topics">
-                <legend>Which topics could you happily talk about over lunch? <span class="am-q__opt">(pick up to 5)</span></legend>
-                <p class="form__hint">🔒 Personal topics are only shared with a match who picked the same topic.</p>
-                <div data-topics="topics"></div>
-                <p class="am-counter" data-counter="topics">0 of 5 picked</p>
-                <p class="am-error">Pick at least one topic you enjoy talking about.</p>
+              <h2 class="am-step__title">Where and how</h2>
+              <p class="am-step__intro">You pick the day, the time and the place with your match. These help me find the right person.</p>
+              <fieldset class="am-q" data-q="city">
+                <legend>Where are you based?</legend>
+                <p class="form__hint">I can't promise a meetup in your own city, but if enough people from your area sign up, I'll match you there.</p>
+                <div class="am-list am-list--2" data-options="city" data-type="radio"></div>
+                <p class="am-error">Pick your city, or "Other".</p>
               </fieldset>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="am-step" data-step="4">
-              <h2 class="am-step__title">What, where and when?</h2>
-              <p class="am-step__intro">Tick everything that could work. More options mean an easier match.</p>
-              <fieldset class="am-q" data-q="matchCount">
-                <legend>How many marketers would you like to meet in <span data-am="label"></span>?</legend>
-                <div class="am-list am-list--2" data-options="matchCount" data-type="radio"></div>
-                <p class="am-error">Pick 1 or 2.</p>
+              <div class="am-q" data-q="cityOther" hidden>
+                <label class="am-q__label" for="cityOther">Which city?</label>
+                <input type="text" id="cityOther" name="cityOther" maxlength="80" autocomplete="address-level2">
+                <p class="am-error">Tell me which city you're in.</p>
+              </div>
+              <fieldset class="am-q" data-q="travelHelsinki" hidden>
+                <legend>Could you travel to Helsinki for a meetup?</legend>
+                <div class="am-list am-list--2" data-options="travelHelsinki" data-type="radio"></div>
+                <p class="am-error">Pick yes or no.</p>
+              </fieldset>
+              <fieldset class="am-q" data-q="travelTampere" hidden>
+                <legend>Could you travel to Tampere for a meetup?</legend>
+                <div class="am-list am-list--2" data-options="travelTampere" data-type="radio"></div>
+                <p class="am-error">Pick yes or no.</p>
+              </fieldset>
+              <fieldset class="am-q" data-q="format">
+                <legend>One-to-one or a trio?</legend>
+                <p class="form__hint">You get one match either way: one person, or two people and you meet as three.</p>
+                <div class="am-list" data-options="format" data-type="radio"></div>
+                <p class="am-error">Pick one.</p>
               </fieldset>
               <fieldset class="am-q" data-q="activities">
                 <legend>What would you like to do?</legend>
@@ -220,33 +226,10 @@
                 <div class="am-list" data-options="activities" data-type="checkbox"></div>
                 <p class="am-error">Pick at least one.</p>
               </fieldset>
-              <fieldset class="am-q" data-q="preferredArea">
-                <legend>Which area suits you best?</legend>
-                <div class="am-list am-list--2" data-options="preferredArea" data-type="radio"></div>
-                <p class="am-error">Pick the area that suits you best.</p>
-              </fieldset>
-              <fieldset class="am-q" data-q="areas">
-                <legend>All areas that work for you</legend>
-                <p class="form__hint">Your favourite is ticked for you. Add any others you could easily get to.</p>
-                <div class="am-list am-list--2" data-options="areas" data-type="checkbox"></div>
-                <p class="am-error">Pick at least one area that works for you.</p>
-              </fieldset>
-              <fieldset class="am-q" data-q="availability">
-                <legend>When could you meet? <span class="am-q__opt">(pick at least 4 days)</span></legend>
-                <p class="form__hint">Weekdays between <span data-am="meetWindow"></span>. Tap the times that work on at least 4 different days, and "Not this day" for days that don't.</p>
-                <div class="am-tools">
-                  <button type="button" class="am-tool" data-fill="lunch">All lunch times</button>
-                  <button type="button" class="am-tool" data-fill="after">All after-work times</button>
-                  <button type="button" class="am-tool" data-fill="clear">Clear all</button>
-                </div>
-                <div id="amDays"></div>
-                <p class="am-counter" id="amDayCount">0 of 4 days picked</p>
-                <p class="am-error">Pick times on at least 4 different days, so there's room to find a slot that works for you and your match.</p>
-              </fieldset>
             </div>
 
-            <!-- Step 5 -->
-            <div class="am-step" data-step="5">
+            <!-- Step 4 -->
+            <div class="am-step" data-step="4">
               <h2 class="am-step__title">Almost there!</h2>
               <p class="am-step__intro">Two quick optional ones, then you're in.</p>
               <fieldset class="am-q" data-q="meetingCriteria">
@@ -254,7 +237,7 @@
                 <div class="am-list" data-options="meetingCriteria" data-type="checkbox"></div>
               </fieldset>
               <div class="am-q" data-q="feedback">
-                <label class="am-q__label" for="feedback">Any thoughts on this format? <span class="am-q__opt">(optional)</span></label>
+                <label class="am-q__label" for="feedback">Any thoughts or ideas for Awesome Meets? <span class="am-q__opt">(optional)</span></label>
                 <p class="form__hint">I'd love to hear what you think and how to make it better.</p>
                 <textarea id="feedback" name="feedback" maxlength="2000"></textarea>
               </div>
@@ -263,16 +246,16 @@
                 <h3>Your data in Awesome Meets</h3>
                 <ul>
                   <li><strong>Who has access:</strong> only me, Anna. No one else can see your answers. I use Claude, an AI assistant, to help me find good matches.</li>
-                  <li><strong>What it's used for:</strong> matching you with 1 or 2 marketers. Nothing else.</li>
-                  <li><strong>How you'll hear from me:</strong> when you're matched, I send you a message on LinkedIn and by email with the place, date and time. From there it's up to you and your match to continue. Emails come from anna@meet.awesomemarketers.fi and are sent through Resend, an email delivery service. Replies land in my normal inbox.</li>
-                  <li><strong>After the meetup:</strong> I send you a short follow-up questionnaire asking for your feedback.</li>
-                  <li><strong>🔒 topics:</strong> never shared with your match, unless you both picked the same one.</li>
+                  <li><strong>What it's used for:</strong> matching you with one person, or two for a trio. Nothing else.</li>
+                  <li><strong>What your match sees:</strong> your name, job title, company, LinkedIn and email address, so you can get in touch.</li>
+                  <li><strong>How you'll hear from me:</strong> by email, from anna@meet.awesomemarketers.fi, sent through Resend, an email delivery service. Replies land in my normal inbox.</li>
+                  <li><strong>After the meetup:</strong> I send you a short feedback questionnaire. Answering is up to you.</li>
                   <li><strong>Where it's stored:</strong> a private Google Sheet in The Awesome Marketers' Google Workspace.</li>
                   <li><strong>How long:</strong> deleted within 12 months, or sooner if you ask.</li>
                 </ul>
               </div>
               <div class="am-q" data-q="agreeData">
-                <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used as described above, including any 🔒 topics I picked</label>
+                <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used as described above</label>
                 <p class="am-error">I can only match you if you're OK with this.</p>
               </div>
             </div>
@@ -287,7 +270,8 @@
 
           <div class="am-done" id="amDone" hidden>
             <h2>You're in! 🧡</h2>
-            <p>Sign-ups close on <span data-am="closesLong">the closing date</span>. By <span data-am="matchedByLong">then</span> I'll send you your match on LinkedIn and by email, with the place, date and time.</p>
+            <p>Sign-ups close on <span data-am="closesLong">the closing date</span>. By <span data-am="matchedByLong">then</span> I'll email you your match.</p>
+            <p>A confirmation email is on its way. Can't see it? Peek in your spam folder.</p>
           </div>
         </div>
       </div>
@@ -317,9 +301,9 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.24"></script>
-<script src="../assets/js/site.js?v=2.24"></script>
-<script src="../assets/js/form.js?v=2.24"></script>
+<script src="../assets/js/config.js?v=2.25"></script>
+<script src="../assets/js/site.js?v=2.25"></script>
+<script src="../assets/js/form.js?v=2.25"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

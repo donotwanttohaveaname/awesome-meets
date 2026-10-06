@@ -12,14 +12,10 @@
     AM.mode = 'open';
     AM.endpoint = '';
     AM.round = {
-      label: 'November', name: 'Awesome Meets',
-      opensAt: loadedAt - 5 * 86400000, closesAt: loadedAt + 9 * 86400000 + 3600000,
-      closesLong: 'Monday 9 November at 4PM', closesShort: 'Mon 9 Nov, 4PM',
-      matchedByLong: 'Friday 13 November', meetWindow: '16 and 27 November',
-      weeks: [
-        ['Week 47', [['November 16, Monday', 'Mon 16 Nov'], ['November 17, Tuesday', 'Tue 17 Nov'], ['November 18, Wednesday', 'Wed 18 Nov'], ['November 19, Thursday', 'Thu 19 Nov'], ['November 20, Friday', 'Fri 20 Nov']]],
-        ['Week 48', [['November 23, Monday', 'Mon 23 Nov'], ['November 24, Tuesday', 'Tue 24 Nov'], ['November 25, Wednesday', 'Wed 25 Nov'], ['November 26, Thursday', 'Thu 26 Nov'], ['November 27, Friday', 'Fri 27 Nov']]]
-      ]
+      key: 'november', label: 'November', name: 'Awesome Meets',
+      opensAt: loadedAt - 2 * 86400000, closesAt: loadedAt + 9 * 86400000 + 3600000,
+      closesLong: 'Monday 26 October at 4PM', closesShort: 'Mon 26 Oct, 4PM',
+      matchedByLong: 'Monday 2 November', meetWindow: 'November', weeks: []
     };
     AM.preview = true;
   }
@@ -47,7 +43,7 @@
     // whole sentences that only exist while a round is open: the page source holds no half-sentence
     // (a reader without JavaScript once saw "Sign-ups are open until .")
     openUntil: round.closesLong ? 'Sign-ups are open until ' + round.closesLong + '.' : '',
-    openLede: round.closesLong ? 'Five short steps. Sign-ups close on ' + round.closesLong + '.' : '',
+    openLede: round.closesLong ? 'Four short steps. Sign-ups close on ' + round.closesLong + '.' : '',
     closesShort: round.closesShort || '',
     matchedByLong: round.matchedByLong || '',
     meetWindow: round.meetWindow || '',
@@ -124,7 +120,7 @@
       if (!AM.endpoint) return;
       var ctrl = new AbortController();
       var timer = setTimeout(function () { ctrl.abort(); }, 25000);
-      fetch(AM.endpoint + '?count=1', { signal: ctrl.signal })
+      fetch(AM.endpoint + '?count=1' + (state === 'open' && round.key ? '&round=' + encodeURIComponent(round.key) : ''), { signal: ctrl.signal })
         .then(function (r) { return r.json(); })
         .then(function (res) {
           clearTimeout(timer);

@@ -1,39 +1,33 @@
-/* Awesome Meets: the 5-step sign-up form. Only runs while a round is open (see config.js).
-   Option lists must match OPTIONS in networking-app/awesome-meets-backend.gs letter for letter:
-   the script refuses any value it does not know. */
+/* Awesome Meets: the 4-step sign-up form. Only runs while a round is open (see config.js).
+   November round (Anna, 6 Oct 2026): no topics and no days or times; a job function, a city (with travel questions
+   for people outside the Helsinki region), one-to-one or trio, and what they'd like to do.
+   Option values must match R2_OPTIONS in networking-app/awesome-meets-backend.gs letter for letter: the script
+   refuses any value it does not know. An option is either 'value' or ['value', 'label shown on the page']. */
 (function () {
   var AM = window.AM || {};
   var form = document.getElementById('amForm');
   if (!form || !AM.state || AM.state() !== 'open') return;
 
   var ENDPOINT = AM.endpoint;
+  var HELSINKI = 'Helsinki region', TAMPERE = 'Tampere', OTHER = 'Other';
   var OPTIONS = {
-    employmentType: ['In-house', 'Agency', 'Freelance', 'Student or intern', 'Between jobs'],
+    jobFunction: ['Founder / CEO', 'Marketing', 'Sales and business development', 'Product', 'Customer success and support', 'Communications and PR', 'HR and people', 'Design and creative', 'Engineering and IT', 'Data and analytics', 'Operations', 'Finance', 'Consulting', 'Other'],
     industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
-    seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'CMO / VP', 'Founder'],
+    seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'C-level / VP', 'Founder'],
+    city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa, Kauniainen)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else']],
+    travelHelsinki: ['Yes', 'No'],
+    travelTampere: ['Yes', 'No'],
+    format: [['One-to-one', 'One-to-one: one person, just the two of you'], ['In a trio', 'In a trio: two people, three of you together'], 'Either is fine'],
     activities: ['Have lunch', 'After-work coffee', 'Walk and talk'],
-    matchCount: ['1 marketer', '2 marketers'],
-    preferredArea: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
-    areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
     meetingCriteria: [
       'I would prefer to meet people in my industry',
       'I would prefer to meet people outside my industry',
+      'I would prefer to meet people in my job function',
       'I would prefer to meet people around my seniority (one level up or down)',
-      'Similar topics are the most important criteria for my choice of match',
       'No criteria, match me with anyone as long as they\'re awesome'
     ]
   };
-  var TOPICS = [
-    ['Channels', ['SEO', 'AEO and AI search', 'LinkedIn Ads', 'Google Ads', 'Meta and TikTok Ads', 'Organic social', 'Content marketing', 'Email and CRM', 'Video and podcasts', 'Influencer and creator marketing', 'PR and comms', 'Events and webinars', 'ABM', 'Community building']],
-    ['Strategy and craft', ['Brand', 'Positioning and messaging', 'Copywriting', 'Product marketing', 'Customer marketing and advocacy', 'Landing pages and CRO', 'Growth experiments', 'Market and customer research', 'Analytics and attribution', 'Marketing automation and ops', 'Using AI in marketing']],
-    ['Career and leadership', ['Leading a marketing team', 'Being a marketing team of one', 'How to hire good marketing talent', 'Building a personal brand on LinkedIn', 'Job hunting in marketing', 'Changing careers', 'Freelancing and pricing', 'Budgets and reporting to management', 'Women in marketing careers 🔒', 'LGBTQ+ at work 🔒', 'Expat life and careers in Finland 🔒', 'Coming back from parental leave 🔒', 'Avoiding burnout 🔒']]
-  ];
-  var WEEKS = (AM.round && AM.round.weeks) || [];
-  var TIMES = ['11AM', '12PM', '1PM', '4PM', '5PM', '6PM'];
-  var NOT_THIS_DAY = 'Not this day';
-  var LUNCH = ['11AM', '12PM', '1PM'], AFTER = ['4PM', '5PM', '6PM'];
-  var MIN_DAYS = 4;
-  var MAX_TOPICS = 5, NO_CRITERIA = 'No criteria, match me with anyone as long as they\'re awesome';
+  var NO_CRITERIA = 'No criteria, match me with anyone as long as they\'re awesome';
   var OPPOSITES = [['I would prefer to meet people in my industry', 'I would prefer to meet people outside my industry']];
   var SUBMIT_LABEL = 'Count me in';   // no emoji inside a button
 
@@ -41,90 +35,44 @@
   var current = 0;
   var startedAt = AM.loadedAt || Date.now();
 
-  function el(tag, attrs, text) {
-    var n = document.createElement(tag);
-    for (var k in attrs) n.setAttribute(k, attrs[k]);
-    if (text) n.textContent = text;
-    return n;
-  }
-  function chip(name, value, label, extraClass) {
-    var l = el('label', { 'class': 'am-chip' + (extraClass ? ' ' + extraClass : '') });
-    l.appendChild(el('input', { type: 'checkbox', name: name, value: value }));
-    l.appendChild(el('span', {}, label || value));
-    return l;
-  }
-
   [].forEach.call(form.querySelectorAll('[data-options]'), function (box) {
     var name = box.getAttribute('data-options');
     var type = box.getAttribute('data-type');
-    OPTIONS[name].forEach(function (value) {
-      var label = el('label', { 'class': 'am-option' });
-      label.appendChild(el('input', { type: type, name: name, value: value }));
-      label.appendChild(document.createTextNode(' ' + value));
+    OPTIONS[name].forEach(function (option) {
+      var value = Array.isArray(option) ? option[0] : option, text = Array.isArray(option) ? option[1] : option;
+      var label = document.createElement('label');
+      label.className = 'am-option';
+      var input = document.createElement('input');
+      input.type = type; input.name = name; input.value = value;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(' ' + text));
       box.appendChild(label);
     });
-  });
-
-  [].forEach.call(form.querySelectorAll('[data-topics]'), function (box) {
-    var name = box.getAttribute('data-topics');
-    TOPICS.forEach(function (group) {
-      box.appendChild(el('p', { 'class': 'am-group-title' }, group[0]));
-      var chips = el('div', { 'class': 'am-chips' });
-      group[1].forEach(function (topic) { chips.appendChild(chip(name, topic)); });
-      box.appendChild(chips);
-    });
-  });
-
-  var days = document.getElementById('amDays');
-  WEEKS.forEach(function (week) {
-    var w = el('div', { 'class': 'am-week' });
-    w.appendChild(el('p', { 'class': 'am-group-title' }, week[0]));
-    week[1].forEach(function (day) {
-      var row = el('div', { 'class': 'am-day', 'data-day': day[0] });
-      row.appendChild(el('span', { 'class': 'am-day__label' }, day[1]));
-      var chips = el('div', { 'class': 'am-chips' });
-      TIMES.forEach(function (t) { chips.appendChild(chip('day:' + day[0], t)); });
-      chips.appendChild(chip('day:' + day[0], NOT_THIS_DAY, NOT_THIS_DAY, 'am-chip--no'));
-      row.appendChild(chips);
-      w.appendChild(row);
-    });
-    days.appendChild(w);
   });
 
   function checked(name) {
     return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
   }
   function value(id) { return (document.getElementById(id).value || '').trim(); }
-  // A day counts when at least one real time is ticked ("Not this day" doesn't count).
-  function daysPicked() {
-    var n = 0;
-    WEEKS.forEach(function (week) { week[1].forEach(function (day) { if (checked('day:' + day[0]).some(function (v) { return v !== NOT_THIS_DAY; })) n++; }); });
-    return n;
-  }
-  function syncDays() {
-    var n = daysPicked(), counter = document.getElementById('amDayCount');
-    counter.textContent = n >= MIN_DAYS ? n + ' days picked ✓' : n + ' of ' + MIN_DAYS + ' days picked';
-    if (n >= MIN_DAYS) setError('availability', false);
+  function q(name) { return form.querySelector('[data-q="' + name + '"]'); }
+  function setError(name, bad) { var n = q(name); if (n) n.classList.toggle('has-error', bad); return bad; }
+
+  // The city decides which follow-up questions show: "Which city?" for "Somewhere else", travel to Helsinki for everyone
+  // outside the Helsinki region, travel to Tampere for everyone outside the Helsinki region and Tampere.
+  function city() { return checked('city')[0] || ''; }
+  function needsHelsinki() { return city() !== '' && city() !== HELSINKI; }
+  function needsTampere() { return city() !== '' && city() !== HELSINKI && city() !== TAMPERE; }
+  function syncCity() {
+    q('cityOther').hidden = city() !== OTHER;
+    q('travelHelsinki').hidden = !needsHelsinki();
+    q('travelTampere').hidden = !needsTampere();
   }
 
   form.addEventListener('change', function (e) {
     var t = e.target;
-    if (t.name === 'topics') {
-      var picked = checked('topics').length;
-      form.querySelector('[data-counter="topics"]').textContent = picked + ' of ' + MAX_TOPICS + ' picked';
-      [].forEach.call(form.querySelectorAll('input[name="topics"]'), function (i) { i.disabled = !i.checked && picked >= MAX_TOPICS; });
-    }
-    if (t.name && t.name.indexOf('day:') === 0 && t.checked) {
-      [].forEach.call(form.querySelectorAll('input[name="' + t.name + '"]'), function (i) {
-        if (t.value === NOT_THIS_DAY ? i !== t : i.value === NOT_THIS_DAY) i.checked = false;
-      });
-    }
-    if (t.name && t.name.indexOf('day:') === 0) syncDays();
-    if (t.name === 'preferredArea' && t.checked) {
-      var match = [].slice.call(form.querySelectorAll('input[name="areas"]')).filter(function (i) { return i.value === t.value; })[0];
-      if (match) match.checked = true;
-      setError('areas', false);
-    }
+    if (t.name === 'city') { syncCity(); setError('city', false); }
+    if (t.name && t.type === 'radio') setError(t.name, false);
+    if (t.name === 'activities') setError('activities', !checked('activities').length);
     if (t.name === 'meetingCriteria' && t.checked) {
       var boxes = [].slice.call(form.querySelectorAll('input[name="meetingCriteria"]'));
       if (t.value === NO_CRITERIA) boxes.forEach(function (b) { if (b !== t) b.checked = false; });
@@ -136,19 +84,6 @@
     }
   });
 
-  [].forEach.call(form.querySelectorAll('[data-fill]'), function (b) {
-    b.addEventListener('click', function () {
-      var mode = b.getAttribute('data-fill');
-      [].forEach.call(days.querySelectorAll('input'), function (i) {
-        if (mode === 'clear') i.checked = false;
-        else if ((mode === 'lunch' ? LUNCH : AFTER).indexOf(i.value) > -1) i.checked = true;
-        else if (i.value === NOT_THIS_DAY) i.checked = false;
-      });
-      syncDays();
-    });
-  });
-
-  function setError(q, bad) { var n = form.querySelector('[data-q="' + q + '"]'); if (n) n.classList.toggle('has-error', bad); return bad; }
   var checks = {
     1: function () {
       var bad = false;
@@ -159,21 +94,21 @@
     },
     2: function () {
       var bad = false;
-      bad = setError('employmentType', !checked('employmentType').length) || bad;
+      bad = setError('jobFunction', !checked('jobFunction').length) || bad;
       bad = setError('industry', !checked('industry').length) || bad;
       bad = setError('seniority', !checked('seniority').length) || bad;
       return !bad;
     },
-    3: function () { return !setError('topics', !checked('topics').length); },
-    4: function () {
-      var bad = setError('matchCount', !checked('matchCount').length);
+    3: function () {
+      var bad = setError('city', !city());
+      bad = setError('cityOther', city() === OTHER && value('cityOther').length < 2) || bad;
+      bad = setError('travelHelsinki', needsHelsinki() && !checked('travelHelsinki').length) || bad;
+      bad = setError('travelTampere', needsTampere() && !checked('travelTampere').length) || bad;
+      bad = setError('format', !checked('format').length) || bad;
       bad = setError('activities', !checked('activities').length) || bad;
-      bad = setError('preferredArea', !checked('preferredArea').length) || bad;
-      bad = setError('areas', !checked('areas').length) || bad;
-      bad = setError('availability', daysPicked() < MIN_DAYS) || bad;
       return !bad;
     },
-    5: function () { return !setError('agreeData', !document.getElementById('agreeData').checked); }
+    4: function () { return !setError('agreeData', !document.getElementById('agreeData').checked); }
   };
 
   var back = document.getElementById('amBack'), next = document.getElementById('amNext'), submit = document.getElementById('amSubmit');
@@ -188,7 +123,7 @@
     document.getElementById('amProgressLabel').textContent = 'Step ' + (current + 1) + ' of ' + steps.length;
     if (scroll) form.closest('.am-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  function focusFirstError() { var q = steps[current].querySelector('.has-error input, .has-error textarea'); if (q) q.focus(); }
+  function focusFirstError() { var n = steps[current].querySelector('.has-error input, .has-error textarea'); if (n) n.focus(); }
   next.addEventListener('click', function () { if (checks[current + 1]()) show(current + 1, true); else focusFirstError(); });
   back.addEventListener('click', function () { show(current - 1, true); });
   show(0, false);
@@ -197,32 +132,25 @@
     e.preventDefault();
     var status = document.getElementById('amStatus');
     status.textContent = '';
-    if (!checks[5]()) { focusFirstError(); return; }
-    var availability = {};
-    WEEKS.forEach(function (week) {
-      week[1].forEach(function (day) {
-        var picked = checked('day:' + day[0]);
-        if (picked.length) availability[day[0]] = picked;
-      });
-    });
+    if (!checks[4]()) { focusFirstError(); return; }
     var payload = {
+      round: (AM.round && AM.round.key) || '',
       website: value('amWebsite'),
       startedAt: startedAt,
       fullName: value('fullName'),
       email: value('email'),
       linkedin: value('linkedin'),
-      employmentType: checked('employmentType')[0],
+      jobFunction: checked('jobFunction')[0],
       jobTitle: value('jobTitle'),
       company: value('company'),
       industry: checked('industry')[0],
       seniority: checked('seniority')[0],
-      topics: checked('topics'),
-      preferredArea: checked('preferredArea')[0],
-      areas: checked('areas'),
+      city: city(),
+      cityOther: city() === OTHER ? value('cityOther') : '',
+      travelHelsinki: needsHelsinki() ? checked('travelHelsinki')[0] : '',
+      travelTampere: needsTampere() ? checked('travelTampere')[0] : '',
+      format: checked('format')[0],
       activities: checked('activities'),
-      matchCount: checked('matchCount')[0],
-      availability: availability,
-      noneOfTheseDays: false,
       meetingCriteria: checked('meetingCriteria'),
       feedback: value('feedback'),
       agreeData: true,
@@ -257,6 +185,7 @@
             return;
           }
           if (res.error === 'server') throw new Error('server');
+          if (res.error === 'closed') return fail('Sorry, sign-ups for this round have just closed. Join the waitlist for the next one on the home page.');
           fail('Some answers could not be accepted (' + res.error + '). Please check them and try again.');
         })
         .catch(function () {

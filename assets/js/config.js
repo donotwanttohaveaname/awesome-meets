@@ -21,7 +21,7 @@
  *   (months count from 0: 9 = October, 10 = November)
  */
 window.AM = {
-  version: 'v2.24 · 2 Oct 2026',
+  version: 'v2.25 · 6 Oct 2026',
 
   // Same Apps Script web app as the sign-up page on awesomemarketers.fi. Saves to the private Sheet.
   endpoint: 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec',
@@ -39,24 +39,23 @@ window.AM = {
 
   // The round being announced or running.
   round: {
+    key: 'november',       // sent with every sign-up; the backend saves this round to the tab "Sign-ups November"
     label: 'November',     // "Want in for November?"
     name: 'Awesome Meets',
-    opensAt: null,         // Date.UTC(...)  when sign-ups opened, for the progress bar
-    closesAt: null,        // Date.UTC(...)  the form closes itself at this moment
-    closesLong: '',        // 'Monday 9 November at 4PM'
-    closesShort: '',       // 'Mon 9 Nov, 4PM'
-    matchedByLong: '',     // 'Friday 13 November'
-    meetWindow: '',        // '16 and 27 November'
-    // One entry per week: [label, [[value sent to the Sheet, label on the page], ...]]
-    // The value must match OPTIONS.days in the backend script letter for letter.
-    weeks: [
-      // ['Week 47', [['November 16, Monday', 'Mon 16 Nov'], ['November 17, Tuesday', 'Tue 17 Nov']]]
-    ]
+    opensAt: null,         // Date.UTC(...)  when sign-ups opened, for the progress bar (set it on the day the form opens)
+    closesAt: Date.UTC(2026, 9, 26, 14, 0, 0),   // Mon 26 Oct 2026 4PM Helsinki (UTC+2 after 25 Oct)
+    closesLong: 'Monday 26 October at 4PM',
+    closesShort: 'Mon 26 Oct, 4PM',
+    matchedByLong: 'Monday 2 November',
+    meetWindow: 'November',
+    // No days or times in the November form (Anna, 6 Oct 2026: "no topics or time selection"): the pair picks them.
+    weeks: []
   },
 
   // Recorded with every sign-up. Bump it whenever the data note on the form changes.
   // v5 (29 Sep 2026): same note as v4, heading now says "Awesome Meets" instead of "Awesome Autumn Meets".
-  consentVersion: '2026-09-29-v5',
+  // v6 (6 Oct 2026): November form. Note rewritten: one person or two for a trio, what your match sees, no topics, emails only.
+  consentVersion: '2026-10-06-v6',
 
   contactEmail: 'anna@awesomemarketers.fi'
 };
