@@ -56,6 +56,8 @@
   each('[data-am]', function (n) { var k = n.getAttribute('data-am'); if (text[k] !== undefined) n.textContent = text[k]; });
   each('[data-show]', function (n) { n.hidden = n.getAttribute('data-show') !== state; });
   each('[data-am-cta]', function (n) { n.textContent = state === 'open' ? 'Sign up' : 'Join the waitlist for ' + text.label; });
+  // The join page's title names the waitlist; while a round is open it names the sign-up instead.
+  if (state === 'open' && /Join the waitlist for /.test(document.title)) document.title = document.title.replace(/Join the waitlist for (\S+)/, 'Sign up for $1');
   if (AM.preview) each('.site-version', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
 
   // ---- countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website")
