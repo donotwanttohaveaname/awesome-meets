@@ -89,7 +89,7 @@
       var bad = false;
       bad = setError('fullName', value('fullName').length < 2) || bad;
       bad = setError('email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value('email'))) || bad;
-      bad = setError('linkedin', value('linkedin') !== '' && !/linkedin\.com\/.+/i.test(value('linkedin'))) || bad;
+      bad = setError('linkedin', !/linkedin\.com\/.+/i.test(value('linkedin'))) || bad;   // required since November (Anna, 6 Oct 2026)
       return !bad;
     },
     2: function () {
