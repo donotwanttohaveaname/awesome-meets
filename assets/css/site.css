@@ -275,6 +275,21 @@ a:hover { text-decoration-thickness: 2px; }
 .am-datanote h3 { font-size: 1.05rem; margin-bottom: 10px; }
 .am-datanote ul { list-style: disc; padding-left: 20px; color: var(--gray-700); font-size: .9rem; }
 .am-datanote li { margin-bottom: 8px; }
+/* ---------- the bar pinned to the top while a round is open (inside the sticky header; site.js adds it) ---------- */
+.topbar { background: linear-gradient(90deg, rgba(255, 209, 102, .30), rgba(255, 140, 66, .22) 50%, rgba(255, 95, 162, .22)), var(--white); border-bottom: 1px solid var(--gray-200); }
+.topbar__in { display: flex; align-items: center; justify-content: center; gap: 14px; min-height: 48px; padding-block: 6px; }
+.topbar__text { margin: 0; font-size: .95rem; color: var(--gray-900); text-align: center; }
+.topbar__label { font-weight: 600; }
+.topbar__time { font-family: var(--font-heading); font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.topbar__cta.btn--sm { padding: 7px 16px; font-size: .88rem; box-shadow: none; }
+.topbar__x { flex: 0 0 auto; width: 30px; height: 30px; border: 0; border-radius: 50%; background: transparent; color: var(--gray-600); font-size: 1.25rem; line-height: 1; cursor: pointer; }
+.topbar__x:hover { background: rgba(23, 23, 23, .06); color: var(--gray-900); }
+@media (max-width: 600px) {
+  .topbar__in { gap: 8px; justify-content: space-between; }
+  .topbar__text { font-size: .82rem; text-align: left; }
+  .topbar__label { display: block; font-weight: 500; }
+}
+
 /* ---------- countdown to the close of sign-ups (homepage hero) ---------- */
 .countdown { margin-top: clamp(8px, 2.2vh, 28px); display: flex; flex-direction: column; align-items: center; gap: clamp(3px, .8vh, 8px); }
 .countdown__label { font-size: .9rem; color: var(--gray-500); }
@@ -301,6 +316,7 @@ a:hover { text-decoration-thickness: 2px; }
   .dock .btn { width: 100%; }
   .has-dock .site-footer { padding-bottom: 96px; }
   .has-dock .site-header .btn { display: none; }   /* the button at the bottom does this job on a phone */
+  .has-dock .site-header .topbar__cta { display: inline-flex; }   /* but the top bar keeps its Sign up */
 }
 
 /* ---------- small screens ---------- */

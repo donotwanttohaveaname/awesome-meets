@@ -60,12 +60,14 @@
   if (state === 'open' && /Join the waitlist for /.test(document.title)) document.title = document.title.replace(/Join the waitlist for (\S+)/, 'Sign up for $1');
   if (AM.preview) each('.site-version', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
 
-  // ---- countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website")
+  // ---- countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website", then "say that
+  // november sign ups close in")
   // <div data-countdown hidden></div> anywhere on a page: shown and ticking every second only while a round is open.
+  var closesIn = (round.label ? round.label + ' sign-ups' : 'Sign-ups') + ' close in';
   each('[data-countdown]', function (box) {
     if (state !== 'open' || !round.closesAt) return;
     var units = [['d', 'day', 'days', 86400000], ['h', 'hour', 'hours', 3600000], ['m', 'minute', 'minutes', 60000], ['s', 'second', 'seconds', 1000]];
-    box.innerHTML = '<span class="countdown__label">Sign-ups close in</span><span class="countdown__units">' +
+    box.innerHTML = '<span class="countdown__label">' + closesIn + '</span><span class="countdown__units">' +
       units.map(function (u) { return '<span class="countdown__unit"><b data-u="' + u[0] + '">0</b><i data-l="' + u[0] + '">' + u[2] + '</i></span>'; }).join('') + '</span>';
     box.setAttribute('aria-label', 'Sign-ups close on ' + (round.closesLong || ''));
     box.hidden = false;
@@ -81,6 +83,38 @@
     tick();
     setInterval(tick, 1000);
   });
+
+  // ---- the bar pinned to the top of the screen while a round is open (Anna, 6 Oct 2026: "add a sticky popup on top
+  // of the screen with CTA and countdown"). It sits inside the sticky header, so it stays on screen while scrolling.
+  // Not on the sign-up page itself or the feedback page. The × hides it for the rest of the visit (this tab only).
+  (function topbar() {
+    var header = document.querySelector('.site-header');
+    var path = location.pathname;
+    if (state !== 'open' || !round.closesAt || !header || /\/(join|feedback)\/?$/.test(path)) return;
+    try { if (sessionStorage.getItem('amTopbarHidden') === String(round.closesAt)) return; } catch (e) {}
+    var bar = document.createElement('div');
+    bar.className = 'topbar';
+    bar.innerHTML = '<div class="container topbar__in">' +
+      '<p class="topbar__text"><span class="topbar__label">' + closesIn + '</span> <span class="topbar__time" role="timer" aria-live="off"></span></p>' +
+      '<a class="btn btn--primary btn--sm topbar__cta" href="/join/">Sign up</a>' +
+      '<button type="button" class="topbar__x" aria-label="Hide this bar">×</button></div>';
+    header.insertBefore(bar, header.firstChild);
+    document.documentElement.classList.add('has-topbar');
+    var time = bar.querySelector('.topbar__time');
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function tick() {
+      var left = Math.max(0, round.closesAt - Date.now());
+      var d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24, m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+      time.textContent = d + 'd ' + pad(h) + 'h ' + pad(m) + 'm ' + pad(s) + 's';
+    }
+    tick();
+    setInterval(tick, 1000);
+    bar.querySelector('.topbar__x').addEventListener('click', function () {
+      bar.remove();
+      document.documentElement.classList.remove('has-topbar');
+      try { sessionStorage.setItem('amTopbarHidden', String(round.closesAt)); } catch (e) {}
+    });
+  })();
 
   // ---- live strip
   var strip = document.getElementById('amLive');

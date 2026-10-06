@@ -18,6 +18,10 @@
 
 /* ---------- 1. the question ---------- */
 .ask-hero { position: relative; display: grid; place-items: center; min-height: calc(100vh - 68px); min-height: calc(100svh - 68px); padding: clamp(14px, 3vh, 40px) 24px clamp(64px, 10vh, 96px); text-align: center; overflow: hidden; }
+/* While the sign-up bar sits on top (site.js adds .has-topbar), the hero gives up the bar's height so the first view
+   still fits one screen (checked at 1440x900, 1280x720 and a phone). */
+.has-topbar .ask-hero { min-height: calc(100vh - 118px); min-height: calc(100svh - 118px); padding-top: clamp(8px, 2vh, 32px); padding-bottom: clamp(52px, 8vh, 96px); }
+.has-topbar .ask-hero h1 { font-size: clamp(2.6rem, min(8.4vw, 10.6vh), 6.4rem); }
 .ask-hero::before { content: ""; position: absolute; left: 50%; bottom: -46%; width: 120vmax; height: 80vmax; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 209, 102, .30), rgba(255, 140, 66, .16) 45%, rgba(255, 95, 162, .08) 70%, transparent); pointer-events: none; animation: glow 12s ease-in-out infinite alternate; }
 @keyframes glow { from { transform: translateX(-52%) scale(1); } to { transform: translateX(-48%) scale(1.08); } }
 .ask-hero h1 { position: relative; max-width: 15ch; margin: 0 auto; font-size: clamp(3rem, min(8.4vw, 12.5vh), 6.8rem); line-height: 1.02; letter-spacing: -.048em; color: var(--gray-900); transform: scale(var(--hero-scale, 1)); opacity: var(--hero-fade, 1); will-change: transform, opacity; }
