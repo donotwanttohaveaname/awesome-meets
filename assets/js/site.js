@@ -58,6 +58,28 @@
   each('[data-am-cta]', function (n) { n.textContent = state === 'open' ? 'Sign up' : 'Join the waitlist for ' + text.label; });
   if (AM.preview) each('.site-version', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
 
+  // ---- countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website")
+  // <div data-countdown hidden></div> anywhere on a page: shown and ticking every second only while a round is open.
+  each('[data-countdown]', function (box) {
+    if (state !== 'open' || !round.closesAt) return;
+    var units = [['d', 'day', 'days', 86400000], ['h', 'hour', 'hours', 3600000], ['m', 'minute', 'minutes', 60000], ['s', 'second', 'seconds', 1000]];
+    box.innerHTML = '<span class="countdown__label">Sign-ups close in</span><span class="countdown__units">' +
+      units.map(function (u) { return '<span class="countdown__unit"><b data-u="' + u[0] + '">0</b><i data-l="' + u[0] + '">' + u[2] + '</i></span>'; }).join('') + '</span>';
+    box.setAttribute('aria-label', 'Sign-ups close on ' + (round.closesLong || ''));
+    box.hidden = false;
+    function tick() {
+      var left = Math.max(0, round.closesAt - Date.now());
+      units.forEach(function (u) {
+        var v = Math.floor(left / u[3]);
+        left -= v * u[3];
+        box.querySelector('[data-u="' + u[0] + '"]').textContent = u[0] === 'd' ? String(v) : (v < 10 ? '0' : '') + v;
+        box.querySelector('[data-l="' + u[0] + '"]').textContent = v === 1 ? u[1] : u[2];
+      });
+    }
+    tick();
+    setInterval(tick, 1000);
+  });
+
   // ---- live strip
   var strip = document.getElementById('amLive');
   if (strip) {

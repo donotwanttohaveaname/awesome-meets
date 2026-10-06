@@ -13,7 +13,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.28">
+  <meta name="am-version" content="2.29">
   <title>One-to-one networking in Helsinki | Awesome Meets</title>
   <meta name="description" content="Awesome Meets is one-to-one networking in Helsinki. We introduce you to someone new from your field, and you meet over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/">
@@ -40,8 +40,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <!-- 'js' lets sections fade in as you scroll. If the homepage script never arrives, show everything after 4 seconds. -->
   <script>document.documentElement.className = 'js'; setTimeout(function () { if (!window.AMHome) document.documentElement.className = ''; }, 4000);</script>
-  <link rel="stylesheet" href="assets/css/site.css?v=2.28">
-  <link rel="stylesheet" href="assets/css/home.css?v=2.28">
+  <link rel="stylesheet" href="assets/css/site.css?v=2.29">
+  <link rel="stylesheet" href="assets/css/home.css?v=2.29">
 </head>
 <body class="home has-dock">
 
@@ -70,6 +70,8 @@
       <p class="ask-hero__sub"><span>Awesome Meets is <i class="nb">one-to-one</i> networking.</span> <span>We introduce you to someone new for a real conversation.</span></p>
       <div class="hero__cta ask-hero__cta" data-show="waitlist"><a class="btn btn--primary" href="#waitlist">Join the waitlist for <span data-am="label">November</span></a></div>
       <div class="hero__cta ask-hero__cta" data-show="open" hidden><a class="btn btn--primary" href="join/">Sign up</a></div>
+      <!-- Countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website"). Filled by site.js while a round is open. -->
+      <div class="countdown" data-countdown role="timer" aria-live="off" hidden></div>
     </div>
     <a class="ask-hero__cue" href="#why" aria-label="Read on">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -142,7 +144,7 @@
           <div class="flow__text">
             <span class="flow__num" aria-hidden="true">4</span>
             <h3>You meet in person</h3>
-            <p>Just the two of you, in Helsinki, over lunch, coffee or a walk. No stage, no crowd, no awkward networking circle.</p>
+            <p>One-to-one or in a trio, over lunch, coffee or a walk. No stage, no crowd, no awkward networking circle.</p>
           </div>
           <div class="flow__art" aria-hidden="true">
             <div class="art-ticket">
@@ -192,6 +194,11 @@
 
           <div class="city reveal" id="elsewhere" style="--i:2">
             <h3>Not in Helsinki?</h3>
+            <div data-show="open" hidden>
+              <p class="city__text">This round, you can sign up from anywhere in Finland. I can't promise a meetup in your own city, but if enough people from your area sign up, I'll match you there.</p>
+              <div class="hero__cta" style="justify-content:flex-start"><a class="btn btn--primary" href="join/">Sign up</a></div>
+            </div>
+            <div data-show="waitlist">
             <p class="city__text">Tell us where you are. If Awesome Meets comes to your city, you'll be the first to know.</p>
             <div class="js-citylist">
               <form novalidate>
@@ -207,6 +214,7 @@
               <p class="city__note">We'll only use your details to let you know when Awesome Meets launches in your city. <a href="data/">Data policy</a></p>
               <p class="city__done">Got it 🧡 If Awesome Meets comes to <span data-city>your city</span>, you'll be the first to know.</p>
               <p class="am-status" role="alert"></p>
+            </div>
             </div>
           </div>
 
@@ -242,9 +250,9 @@
   <a class="btn btn--primary" href="join/" data-show="open" hidden>Sign up</a>
 </div>
 
-<script src="assets/js/config.js?v=2.28"></script>
-<script src="assets/js/site.js?v=2.28"></script>
-<script src="assets/js/home.js?v=2.28"></script>
+<script src="assets/js/config.js?v=2.29"></script>
+<script src="assets/js/site.js?v=2.29"></script>
+<script src="assets/js/home.js?v=2.29"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

@@ -275,6 +275,13 @@ a:hover { text-decoration-thickness: 2px; }
 .am-datanote h3 { font-size: 1.05rem; margin-bottom: 10px; }
 .am-datanote ul { list-style: disc; padding-left: 20px; color: var(--gray-700); font-size: .9rem; }
 .am-datanote li { margin-bottom: 8px; }
+/* ---------- countdown to the close of sign-ups (homepage hero) ---------- */
+.countdown { margin-top: clamp(8px, 2.2vh, 28px); display: flex; flex-direction: column; align-items: center; gap: clamp(3px, .8vh, 8px); }
+.countdown__label { font-size: .9rem; color: var(--gray-500); }
+.countdown__units { display: flex; justify-content: center; gap: clamp(14px, 3vw, 26px); }
+.countdown__unit { display: flex; flex-direction: column; align-items: center; min-width: 3.4em; }
+.countdown__unit b { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.25rem, min(3.8vh, 7.5vw), 2.5rem); line-height: 1; letter-spacing: -.03em; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+.countdown__unit i { margin-top: 4px; font-style: normal; font-size: .76rem; color: var(--gray-500); }
 .am-note { margin: 0; padding: 14px 16px; border-radius: var(--radius-md); background: var(--gradient-subtle); color: var(--gray-700); font-size: .92rem; }
 .am-error { display: none; color: #B42318; font-size: .85rem; margin-top: 8px; }
 .am-q.has-error .am-error { display: block; }

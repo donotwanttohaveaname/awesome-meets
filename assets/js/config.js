@@ -21,13 +21,13 @@
  *   (months count from 0: 9 = October, 10 = November)
  */
 window.AM = {
-  version: 'v2.28 · 6 Oct 2026',
+  version: 'v2.29 · 6 Oct 2026',
 
   // Same Apps Script web app as the sign-up page on awesomemarketers.fi. Saves to the private Sheet.
   endpoint: 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec',
 
   // 'waitlist' = collect emails for the next round. 'open' = show the sign-up form until closesAt.
-  mode: 'waitlist',
+  mode: 'open',   // November sign-ups opened 6 Oct 2026 (Anna: "open the sign ups")
 
   // The round that already happened. Shown while the waitlist is open.
   lastRound: {
@@ -42,7 +42,7 @@ window.AM = {
     key: 'november',       // sent with every sign-up; the backend saves this round to the tab "Sign-ups November"
     label: 'November',     // "Want in for November?"
     name: 'Awesome Meets',
-    opensAt: null,         // Date.UTC(...)  when sign-ups opened, for the progress bar (set it on the day the form opens)
+    opensAt: Date.UTC(2026, 9, 6, 11, 45, 0),   // opened Tue 6 Oct 2026 14:45 Helsinki, for the progress bar
     closesAt: Date.UTC(2026, 9, 26, 14, 0, 0),   // Mon 26 Oct 2026 4PM Helsinki (UTC+2 after 25 Oct)
     closesLong: 'Monday 26 October at 4PM',
     closesShort: 'Mon 26 Oct, 4PM',
