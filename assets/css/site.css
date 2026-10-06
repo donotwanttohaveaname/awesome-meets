@@ -275,6 +275,7 @@ a:hover { text-decoration-thickness: 2px; }
 .am-datanote h3 { font-size: 1.05rem; margin-bottom: 10px; }
 .am-datanote ul { list-style: disc; padding-left: 20px; color: var(--gray-700); font-size: .9rem; }
 .am-datanote li { margin-bottom: 8px; }
+.am-note { margin: 0; padding: 14px 16px; border-radius: var(--radius-md); background: var(--gradient-subtle); color: var(--gray-700); font-size: .92rem; }
 .am-error { display: none; color: #B42318; font-size: .85rem; margin-top: 8px; }
 .am-q.has-error .am-error { display: block; }
 .am-q.has-error input[type="text"], .am-q.has-error input[type="email"], .am-q.has-error input[type="url"] { border-color: #D92D20; }

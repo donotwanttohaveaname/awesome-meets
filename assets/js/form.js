@@ -15,6 +15,7 @@
     industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
     seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'C-level / VP', 'Founder'],
     city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa, Kauniainen)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else']],
+    areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
     travelHelsinki: ['Yes', 'No'],
     travelTampere: ['Yes', 'No'],
     format: [['One-to-one', 'One-to-one: one person, just the two of you'], ['In a trio', 'In a trio: two people, three of you together'], 'Either is fine'],
@@ -57,12 +58,15 @@
   function q(name) { return form.querySelector('[data-q="' + name + '"]'); }
   function setError(name, bad) { var n = q(name); if (n) n.classList.toggle('has-error', bad); return bad; }
 
-  // The city decides which follow-up questions show: "Which city?" for "Somewhere else", travel to Helsinki for everyone
-  // outside the Helsinki region, travel to Tampere for everyone outside the Helsinki region and Tampere.
+  // The city decides which follow-up questions show: the areas for the Helsinki region; "Which city?" for "Somewhere
+  // else"; for everyone outside the Helsinki region the note that their own city isn't guaranteed and "travel to
+  // Helsinki?"; "travel to Tampere?" for everyone outside the Helsinki region and Tampere.
   function city() { return checked('city')[0] || ''; }
   function needsHelsinki() { return city() !== '' && city() !== HELSINKI; }
   function needsTampere() { return city() !== '' && city() !== HELSINKI && city() !== TAMPERE; }
   function syncCity() {
+    q('areas').hidden = city() !== HELSINKI;
+    q('cityNote').hidden = !needsHelsinki();
     q('cityOther').hidden = city() !== OTHER;
     q('travelHelsinki').hidden = !needsHelsinki();
     q('travelTampere').hidden = !needsTampere();
@@ -73,6 +77,7 @@
     if (t.name === 'city') { syncCity(); setError('city', false); }
     if (t.name && t.type === 'radio') setError(t.name, false);
     if (t.name === 'activities') setError('activities', !checked('activities').length);
+    if (t.name === 'areas') setError('areas', !checked('areas').length);
     if (t.name === 'meetingCriteria' && t.checked) {
       var boxes = [].slice.call(form.querySelectorAll('input[name="meetingCriteria"]'));
       if (t.value === NO_CRITERIA) boxes.forEach(function (b) { if (b !== t) b.checked = false; });
@@ -101,6 +106,7 @@
     },
     3: function () {
       var bad = setError('city', !city());
+      bad = setError('areas', city() === HELSINKI && !checked('areas').length) || bad;
       bad = setError('cityOther', city() === OTHER && value('cityOther').length < 2) || bad;
       bad = setError('travelHelsinki', needsHelsinki() && !checked('travelHelsinki').length) || bad;
       bad = setError('travelTampere', needsTampere() && !checked('travelTampere').length) || bad;
@@ -147,6 +153,7 @@
       seniority: checked('seniority')[0],
       city: city(),
       cityOther: city() === OTHER ? value('cityOther') : '',
+      areas: city() === HELSINKI ? checked('areas') : [],
       travelHelsinki: needsHelsinki() ? checked('travelHelsinki')[0] : '',
       travelTampere: needsTampere() ? checked('travelTampere')[0] : '',
       format: checked('format')[0],

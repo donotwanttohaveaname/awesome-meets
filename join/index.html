@@ -13,7 +13,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.26">
+  <meta name="am-version" content="2.27">
   <title>Join the waitlist for November | Awesome Meets</title>
   <meta name="description" content="Join the waitlist for November. Awesome Meets introduces you to someone new in Helsinki for a one-to-one conversation over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/join/">
@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.26">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.27">
 </head>
 <body>
 
@@ -195,7 +195,6 @@
               <p class="am-step__intro">You pick the day, the time and the place with your match. These help me find the right person.</p>
               <fieldset class="am-q" data-q="city">
                 <legend>Where are you based?</legend>
-                <p class="form__hint">I can't promise a meetup in your own city, but if enough people from your area sign up, I'll match you there.</p>
                 <div class="am-list am-list--2" data-options="city" data-type="radio"></div>
                 <p class="am-error">Pick your city, or "Other".</p>
               </fieldset>
@@ -204,6 +203,17 @@
                 <input type="text" id="cityOther" name="cityOther" maxlength="80" autocomplete="address-level2">
                 <p class="am-error">Tell me which city you're in.</p>
               </div>
+              <!-- Only for cities outside the Helsinki region (Anna, 6 Oct 2026) -->
+              <div class="am-q" data-q="cityNote" hidden>
+                <p class="am-note">I can't promise a meetup in your own city, but if enough people from your area sign up, I'll match you there.</p>
+              </div>
+              <!-- Only for the Helsinki region: the areas, as in round one (Anna, 6 Oct 2026: "ask them for preference to meet like before (multiple choice)") -->
+              <fieldset class="am-q" data-q="areas" hidden>
+                <legend>Where in the Helsinki region could you meet?</legend>
+                <p class="form__hint">Pick every area that works for you. More areas mean an easier match.</p>
+                <div class="am-list am-list--2" data-options="areas" data-type="checkbox"></div>
+                <p class="am-error">Pick at least one area.</p>
+              </fieldset>
               <fieldset class="am-q" data-q="travelHelsinki" hidden>
                 <legend>Could you travel to Helsinki for a meetup?</legend>
                 <div class="am-list am-list--2" data-options="travelHelsinki" data-type="radio"></div>
@@ -301,9 +311,9 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.26"></script>
-<script src="../assets/js/site.js?v=2.26"></script>
-<script src="../assets/js/form.js?v=2.26"></script>
+<script src="../assets/js/config.js?v=2.27"></script>
+<script src="../assets/js/site.js?v=2.27"></script>
+<script src="../assets/js/form.js?v=2.27"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
