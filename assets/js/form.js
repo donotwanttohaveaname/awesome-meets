@@ -14,7 +14,7 @@
     jobFunction: ['Founder / CEO', 'Marketing', 'Sales and business development', 'Product', 'Customer success and support', 'Communications and PR', 'HR and people', 'Design and creative', 'Engineering and IT', 'Data and analytics', 'Operations', 'Finance', 'Consulting', 'Other'],
     industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
     seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'C-level / VP', 'Founder'],
-    city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa, Kauniainen)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else']],
+    city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else']],
     areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
     travelHelsinki: ['Yes', 'No'],
     travelTampere: ['Yes', 'No'],
