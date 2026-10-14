@@ -307,6 +307,9 @@ a:hover { text-decoration-thickness: 2px; }
 .am-done { text-align: center; padding: 24px 8px; }
 .am-done h2 { font-size: 1.6rem; margin: 0 auto 10px; }
 .am-done p { color: var(--gray-600); max-width: 52ch; margin-inline: auto; }
+.am-done .am-save { font-size: .85rem; color: var(--gray-500); margin-top: 18px; }
+.am-done .am-save:empty { display: none; }
+.am-retry { margin-top: 12px; }
 
 /* ---------- phones: a button that stays within reach ---------- */
 .dock { display: none; }
