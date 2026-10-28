@@ -21,34 +21,33 @@
  *   (months count from 0: 9 = October, 10 = November)
  */
 window.AM = {
-  version: 'v2.34 · 15 Oct 2026',
+  version: 'v2.35 · 28 Oct 2026',
 
   // Same Apps Script web app as the sign-up page on awesomemarketers.fi. Saves to the private Sheet.
   endpoint: 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec',
 
   // 'waitlist' = collect emails for the next round. 'open' = show the sign-up form until closesAt.
-  mode: 'open',   // November sign-ups opened 6 Oct 2026 (Anna: "open the sign ups")
+  mode: 'waitlist',   // November sign-ups closed Mon 26 Oct 4PM; waitlist for December since 28 Oct 2026 (Anna: "make buttons join waitlist for december now")
 
   // The round that already happened. Shown while the waitlist is open.
+  // Round one was Awesome Autumn Meets, October 2026, 40 sign-ups (tab "Sign-ups").
   lastRound: {
-    name: 'Awesome Autumn Meets',
-    month: 'October 2026',
-    signups: 40,           // shown if the live count cannot be reached
-    countLabel: 'people in round one'
+    key: 'november',       // the live count is read from this round's tab ("Sign-ups November")
+    label: 'November',
+    name: 'Awesome Meets',
+    month: 'November 2026',
+    signups: 42,           // shown if the live count cannot be reached (42 on 28 Oct 2026, TEST rows not counted)
+    countLabel: 'people signed up for November'
   },
 
   // The round being announced or running.
+  // December dates are not set yet. To open it: add key 'december' to the backend (like R2 for November),
+  // fill in opensAt, closesAt, closesLong, closesShort, matchedByLong and meetWindow, then set mode to 'open'.
+  // November's values, for reference: opened 6 Oct 14:45, closed Mon 26 Oct 4PM, matched by Mon 2 Nov.
   round: {
-    key: 'november',       // sent with every sign-up; the backend saves this round to the tab "Sign-ups November"
-    label: 'November',     // "Want in for November?"
+    key: 'december',
+    label: 'December',     // "Want in for December?", "Join the waitlist for December"
     name: 'Awesome Meets',
-    opensAt: Date.UTC(2026, 9, 6, 11, 45, 0),   // opened Tue 6 Oct 2026 14:45 Helsinki, for the progress bar
-    closesAt: Date.UTC(2026, 9, 26, 14, 0, 0),   // Mon 26 Oct 2026 4PM Helsinki (UTC+2 after 25 Oct)
-    closesLong: 'Monday 26 October at 4PM',
-    closesShort: 'Mon 26 Oct, 4PM',
-    matchedByLong: 'Monday 2 November',
-    meetWindow: 'November',
-    // No days or times in the November form (Anna, 6 Oct 2026: "no topics or time selection"): the pair picks them.
     weeks: []
   },
 

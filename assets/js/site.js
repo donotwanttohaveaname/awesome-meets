@@ -48,6 +48,7 @@
     matchedByLong: round.matchedByLong || '',
     meetWindow: round.meetWindow || '',
     lastName: last.name || '',
+    lastLabel: last.label || 'the last round',
     lastMonth: last.month || '',
     lastSignups: String(last.signups || ''),
     email: AM.contactEmail || '',
@@ -142,7 +143,7 @@
         countLabel.textContent = last.countLabel || 'people signed up last round';
         bar.hidden = true;
         footLeft.textContent = 'Waitlist for ' + (round.label || 'the next round') + ' open';
-        footRight.textContent = last.month ? 'Round one: ' + last.month : '';
+        footRight.textContent = last.month ? 'Last round: ' + last.month : '';
       }
     }
     paintStrip();
@@ -156,7 +157,7 @@
     // While a round is open the count stays hidden below MIN_TRACKER, so an empty-looking round never
     // puts anyone off. One memory slot per round, so last round's number never shows on a new one.
     var MIN_TRACKER = 5;
-    var KEY = 'amCount:' + (state === 'open' ? round.closesAt : 'waitlist');
+    var KEY = 'amCount:' + (state === 'open' ? round.closesAt : 'waitlist:' + (last.key || ''));
     var countItem = document.getElementById('amCountItem'), sep = document.getElementById('amLiveSep');
     var painted = false;
     function show(n, animate) {
@@ -178,7 +179,9 @@
       if (!AM.endpoint) return;
       var ctrl = new AbortController();
       var timer = setTimeout(function () { ctrl.abort(); }, 25000);
-      fetch(AM.endpoint + '?count=1' + (state === 'open' && round.key ? '&round=' + encodeURIComponent(round.key) : ''), { signal: ctrl.signal })
+      // open: this round's tab; waitlist: the last round's tab (lastRound.key), so the number matches "signed up for November"
+      var countKey = state === 'open' ? round.key : last.key;
+      fetch(AM.endpoint + '?count=1' + (countKey ? '&round=' + encodeURIComponent(countKey) : ''), { signal: ctrl.signal })
         .then(function (r) { return r.json(); })
         .then(function (res) {
           clearTimeout(timer);
