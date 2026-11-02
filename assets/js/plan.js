@@ -6,8 +6,8 @@
    on offer. The person picks the days and times they're free (at least 4 days and 6 times in total, the seven times
    below and no others) and a place (1 or 2 suggestions, a tap on one already suggested, or "Any place works for me"),
    all in one visit, and saves ("save"). When everyone in the group has saved, the backend sets the earliest time they
-   all picked and a place, and emails the whole group. "Something came up" ("reopen") and "We've already agreed"
-   ("agreed") are the other two calls. All four go to the same Apps Script web app as the forms (AM.endpoint), never
+   all picked and a place, and emails the whole group. "We've already agreed" ("agreed") and, after that, "Open the
+   planner again" ("reopen") are the other two calls. Once a time is set there is no button: they reply all instead. All four go to the same Apps Script web app as the forms (AM.endpoint), never
    to the script's own address (Drive error for anyone signed into several Google accounts).
 
    NOTHING ON THIS PAGE WAITS FOR GOOGLE (the feedback page's lesson, Anna 1 Oct 2026). The days are drawn at once
@@ -252,7 +252,7 @@
   function drawNote() {
     var n = $('plNote'), s = st.status;
     if (s.state === 'none') {
-      n.textContent = 'You\'ve all answered, but no time fits everyone yet. Could you add a few more?' +
+      n.textContent = (st.size === 3 ? 'You\'ve all' : 'You\'ve both') + ' answered, but no time fits ' + (st.size === 3 ? 'all three of you' : 'you both') + ' yet. Could you add a few more?' +
         (s.near && s.near.length ? ' Closest: ' + s.near.map(function (x) { return x.when + ' (' + x.who.join(' and ') + ')'; }).join(', ') + '.' : '');
       n.hidden = false;
     } else n.hidden = true;
@@ -282,8 +282,7 @@
       } else place.appendChild(document.createTextNode('No place yet: reply all to the email and agree on a spot.'));
       set.appendChild(place);
       set.hidden = false;
-      $('plReopen').textContent = 'Something came up';
-      $('plReopen').hidden = false;
+      // no "Something came up" button here (Anna, 2 Nov 2026: "lets not have this here"): they reply all to the email instead
     } else if (s.state === 'agreed') {
       $('plDoneTitle').textContent = 'Lovely, you\'ve agreed by email 🧡';
       lead.textContent = (s.by && s.by !== st.me.first ? s.by + ' let me know your group has agreed on a day. ' : '') + 'Enjoy your meetup!';
@@ -291,7 +290,7 @@
       $('plReopen').hidden = false;
     } else if (s.state === 'none') {
       $('plDoneTitle').textContent = 'No time fits everyone yet';
-      lead.textContent = 'You\'ve all answered, but there isn\'t a time that works for ' + (trio ? 'all three of you' : 'you both') + '. Could you add a few more times?' +
+      lead.textContent = (trio ? 'You\'ve all' : 'You\'ve both') + ' answered, but there isn\'t a time that works for ' + (trio ? 'all three of you' : 'you both') + '. Could you add a few more times?' +
         (s.near && s.near.length ? ' Closest: ' + s.near.map(function (x) { return x.when + ' (' + x.who.join(' and ') + ')'; }).join(', ') + '.' : '');
       $('plChange').textContent = 'Add more times';
       $('plChange').hidden = false;
@@ -392,7 +391,7 @@
     save();
   });
 
-  // ---- "We've already agreed" and "Something came up"
+  // ---- "We've already agreed" and "Open the planner again"
   function simple(step, question) {
     if (!window.confirm(question)) return;
     show('plDone');
@@ -409,10 +408,8 @@
   $('plAgreed').addEventListener('click', function () {
     simple('agreed', 'Let Anna know your group has already agreed on a day by email? The planner closes for everyone in your group.');
   });
-  $('plReopen').addEventListener('click', function () {
-    var set = st && st.status.state === 'set';
-    simple('reopen', set ? 'Let your group know something came up? This time is taken off, the planner opens again, and everyone gets an email.' : 'Open the planner again for your group?');
-  });
+  // only shown after "We've already agreed", so a tap by mistake can be undone
+  $('plReopen').addEventListener('click', function () { simple('reopen', 'Open the planner again for your group?'); });
 
   // ---- made-up groups for checking the look on this computer (never on the live site)
   var fakeSaved = null;
