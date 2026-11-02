@@ -42,6 +42,8 @@
     if (text !== undefined) e.textContent = text;
     return e;
   }
+  // Kamppi, 5th floor is "Default", not Anna's suggestion (Anna, 2 Nov 2026). 'Anna' is what the backend sent before that.
+  function isDefault(by) { return by === 'default' || by === 'Anna'; }
   function and(list, word) { return list.length < 2 ? list.join('') : list.slice(0, -1).join(', ') + ' ' + (word || 'and') + ' ' + list[list.length - 1]; }
 
   // ---- days: weekdays from tomorrow (Helsinki) to the end of November
@@ -210,7 +212,7 @@
       input.type = 'checkbox'; input.value = o.name; input.checked = works.indexOf(o.name) > -1;
       label.appendChild(input);
       var span = el('span', '', o.name);
-      span.appendChild(el('small', 'plan-offer__by', o.by === 'Anna' ? 'Anna\'s suggestion' : o.by + '\'s suggestion'));
+      span.appendChild(el('small', 'plan-offer__by', isDefault(o.by) ? 'Default' : o.by + '\'s suggestion'));
       label.appendChild(span);
       box.appendChild(label);
     });
@@ -276,7 +278,7 @@
       var place = el('p', '', '📍 ');
       if (s.place) {
         place.appendChild(el('strong', '', s.place));
-        place.appendChild(document.createTextNode(' (' + (s.by === 'Anna' ? 'Anna\'s suggestion' : s.by + '\'s suggestion') + ')'));
+        place.appendChild(document.createTextNode(' (' + (isDefault(s.by) ? 'the default' : s.by + '\'s suggestion') + ')'));
       } else place.appendChild(document.createTextNode('No place yet: reply all to the email and agree on a spot.'));
       set.appendChild(place);
       set.hidden = false;
@@ -426,11 +428,11 @@
             { first: 'George', name: 'George Hartley', work: 'Growth Lead at Northwind', linkedin: 'https://www.linkedin.com/', answered: true, times: [d1 + ' 5PM', d1 + ' 6PM', d2 + ' 12PM', d3 + ' 5PM', d4 + ' 4PM', d4 + ' 5PM', d5 + ' 11AM'], any: preview === 'need' }]
             .concat(trio ? [{ first: 'Isla', name: 'Isla Morgan', work: 'Content Marketing Manager at Example Oy', linkedin: 'https://www.linkedin.com/', answered: preview !== 'trio', times: preview === 'trio' ? [] : [d1 + ' 5PM', d3 + ' 5PM', d4 + ' 5PM', d4 + ' 6PM', d5 + ' 12PM', d5 + ' 1PM'], any: preview === 'need' }] : []),
           mine: null, activity: 'an after-work coffee', areas: preview === 'need' ? 'Espoo Keilaniemi' : 'Helsinki centre',
-          offer: preview === 'need' ? [] : [{ name: 'Kamppi, 5th floor', by: 'Anna' }].concat(preview === 'trio' ? [] : [{ name: 'Café Regatta', by: 'George' }]),
+          offer: preview === 'need' ? [] : [{ name: 'Kamppi, 5th floor', by: 'default' }].concat(preview === 'trio' ? [] : [{ name: 'Café Regatta', by: 'George' }]),
           defaultPlace: preview === 'need' ? '' : 'Kamppi, 5th floor', needPlace: preview === 'need',
           status: { state: 'open', waiting: trio && preview === 'trio' ? ['Isla'] : [], near: [] }
         };
-        if (preview === 'set') s.status = { state: 'set', when: 'Thursday 12 November at 5PM', place: 'Kamppi, 5th floor', by: 'Anna' };
+        if (preview === 'set') s.status = { state: 'set', when: 'Thursday 12 November at 5PM', place: 'Kamppi, 5th floor', by: 'default' };
         if (preview === 'agreed') s.status = { state: 'agreed', by: 'George' };
         if (preview === 'none') s.status = { state: 'none', waiting: [], near: [{ when: dayLabel(d1) + ', 5PM', who: ['George', 'Isla'] }] };
         if (p.step === 'save') {
@@ -438,7 +440,7 @@
           s.saved = true;
           s.mine = { times: p.times, places: p.places, works: p.works, any: p.any, answered: true };
           s.people[0].answered = true; s.people[0].times = p.times;
-          if (preview === 'pair') s.status = { state: 'set', when: 'Thursday 12 November at 5PM', place: p.works[0] || p.places[0] || 'Kamppi, 5th floor', by: p.works[0] ? 'George' : (p.places[0] ? 'Olivia' : 'Anna') };
+          if (preview === 'pair') s.status = { state: 'set', when: 'Thursday 12 November at 5PM', place: p.works[0] || p.places[0] || 'Kamppi, 5th floor', by: p.works[0] ? 'George' : (p.places[0] ? 'Olivia' : 'default') };
         } else if (fakeSaved) s.mine = { times: fakeSaved.times, places: fakeSaved.places, works: fakeSaved.works, any: fakeSaved.any, answered: true };
         if (p.step === 'reopen') s.status = { state: 'open', waiting: ['Olivia'], near: [] };
         if (p.step === 'agreed') s.status = { state: 'agreed', by: 'Olivia' };
