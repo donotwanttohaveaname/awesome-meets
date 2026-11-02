@@ -187,6 +187,13 @@
       item.appendChild(document.createTextNode(p.first + (p.answered ? ' is free' : ' hasn\'t answered yet')));
       key.appendChild(item);
     });
+    var answered = o.filter(function (p) { return p.answered; });
+    if (answered.length) {
+      var all = el('span', 'plan-key__item');
+      all.appendChild(el('b', 'plan-key__all'));
+      all.appendChild(document.createTextNode(answered.length === o.length ? 'Works for ' + (o.length > 1 ? 'both of them' : o[0].first) : 'Works for everyone who has answered'));
+      key.appendChild(all);
+    }
     key.hidden = !o.length;
     Array.prototype.forEach.call($('plDays').querySelectorAll('.plan-slot'), function (label) {
       var slot = label.querySelector('input').value, dots = label.querySelector('.plan-dots'), names = [];
@@ -197,7 +204,9 @@
         names.push(p.first);
       });
       label.title = names.length ? and(names) + (names.length > 1 ? ' are' : ' is') + ' free' : '';
-      label.classList.toggle('is-all', o.length > 0 && names.length === o.length);
+      var answeredN = o.filter(function (p) { return p.answered; }).length;
+      label.classList.toggle('is-all', answeredN > 0 && names.length === answeredN);
+      label.classList.toggle('is-some', names.length > 0 && names.length < answeredN);
     });
   }
 

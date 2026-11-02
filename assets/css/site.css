@@ -218,8 +218,11 @@ a:hover { text-decoration-thickness: 2px; }
 .plan-day__chips { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .plan-times { gap: 6px; flex-wrap: nowrap; }
 .plan-slot span { position: relative; min-width: 56px; text-align: center; }
-.plan-slot.is-all span { border-color: var(--orange); }
-.plan-slot.is-all input:checked + span { border-color: var(--pink-deep); }
+.plan-slot.is-some span { background: #FFF6EE; border-color: #FFD7BD; }
+/* every other person in the group is free then: the times worth picking (Anna, 2 Nov 2026: "highlight these chosen ones more") */
+.plan-slot.is-all span { background: #FFE4D1; border-color: var(--orange); color: var(--gray-900); font-weight: 700; box-shadow: 0 0 0 3px rgba(255, 140, 66, .22); }
+.plan-slot.is-some input:checked + span, .plan-slot.is-all input:checked + span { background: rgba(255, 95, 162, .2); border-color: var(--pink-deep); color: var(--pink-deep); }
+.plan-key__all { display: inline-block; width: 22px; height: 14px; border-radius: 5px; background: #FFE4D1; border: 2px solid var(--orange); }
 .plan-dots { position: absolute; top: -6px; right: -5px; display: flex; gap: 2px; pointer-events: none; }
 .plan-dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--white); }
 .plan-key .plan-dot { border: 0; width: 10px; height: 10px; }
