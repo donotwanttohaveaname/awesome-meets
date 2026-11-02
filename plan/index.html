@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The November group planner (Anna, 2 Nov 2026), reached from the "Pick your times" button in each person's own email:
+       /plan/?g=<personal link code>. Everyone in a group sees the others' picks; once all have saved, the backend sets the
+       earliest shared time and a place and emails the group. Same rules as feedback/: lives here and not on the Google
+       script's own address (Drive error for anyone signed into several Google accounts), and on purpose NO Google
+       Analytics, NO Ahrefs and NO Buy Me a Coffee: the address carries a personal link code. Not in the sitemap, not indexed. -->
+  <meta name="am-version" content="2.37">
+  <title>Plan your meetup | Awesome Meets</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/icon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../assets/img/icon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/img/awesome-meets-logo-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.37">
+</head>
+<body class="fb-page plan-page">
+
+<header class="site-header">
+  <div class="container site-header__in">
+    <a class="logo" href="../" aria-label="Awesome Meets, home">
+      <img src="../assets/img/heart.png" alt="" width="30" height="30">
+      <span class="logo__word">Awesome <span>Meets</span></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="section fb plan">
+    <div class="container">
+      <div class="am-wrap fb__wrap">
+
+        <!-- 1. the planner. Shown at once: the days are drawn here, the group arrives a moment later (see plan.js) -->
+        <div class="fb__state" id="plForm" hidden>
+          <p class="plan-test" id="plTest" hidden>Test planner: nothing here counts for your real meetup.</p>
+          <h1 id="plTitle">Let's find a time</h1>
+          <p class="fb__lead" id="plLead">Loading your group…</p>
+          <div class="plan-people" id="plPeople"></div>
+          <p class="plan-meta" id="plMeta" hidden></p>
+          <div class="plan-note" id="plNote" hidden></div>
+
+          <form class="am-card fb__card plan__card" id="plFormEl" novalidate>
+            <fieldset class="am-q">
+              <legend>When are you free?</legend>
+              <p class="form__hint">Pick at least 4 different days and 6 times in total. The more you pick, the easier it is to find a time that suits everyone.</p>
+              <p class="plan-key" id="plKey" hidden></p>
+              <div id="plDays"></div>
+              <button class="btn btn--outline btn--sm plan-clear" type="button" id="plClear">Clear all times</button>
+            </fieldset>
+
+            <fieldset class="am-q" id="plWhere">
+              <legend>Where shall we meet?</legend>
+              <p class="form__hint" id="plWhereHint">Suggest one or two places, or tap one that's already suggested.</p>
+              <div class="am-list" id="plOffer"></div>
+              <div class="plan-new" id="plNew">
+                <label class="sr-only" for="plPlace1">Suggest a place</label>
+                <input type="text" id="plPlace1" maxlength="80" placeholder="Suggest a place" autocomplete="off">
+                <label class="sr-only" for="plPlace2">Another place (optional)</label>
+                <input type="text" id="plPlace2" maxlength="80" placeholder="Another place (optional)" autocomplete="off">
+              </div>
+              <label class="am-option plan-any" id="plAnyBox"><input type="checkbox" id="plAny"><span>Any place works for me</span></label>
+              <p class="plan-err" id="plPlaceErr" role="alert" hidden></p>
+            </fieldset>
+
+            <div class="plan-bar">
+              <p class="plan-count" id="plCount" aria-live="polite"></p>
+              <button class="btn btn--primary" type="submit" id="plSave" disabled>Save my answers</button>
+            </div>
+          </form>
+
+          <p class="plan-agreed"><button class="plan-link" type="button" id="plAgreed">We've already agreed on a day by email</button></p>
+        </div>
+
+        <!-- 2. after saving, or when the time is already set: the line under the heading follows the saving -->
+        <div class="fb__state fb__state--center" id="plDone" hidden>
+          <h1 id="plDoneTitle">Your answers are in 🧡</h1>
+          <p class="fb__lead" id="plDoneLead" aria-live="polite">Saving your answers…</p>
+          <div class="plan-set" id="plSet" hidden></div>
+          <div class="plan-done-btns">
+            <button class="btn btn--outline" type="button" id="plResend" hidden>Try again</button>
+            <button class="btn btn--outline" type="button" id="plChange" hidden>Change my answers</button>
+            <button class="btn btn--outline" type="button" id="plReopen" hidden>Something came up</button>
+          </div>
+          <p class="fb__sign">See you out there ✨<br>Anna<br>Awesome Meets</p>
+        </div>
+
+        <!-- 3. the link is wrong -->
+        <div class="fb__state fb__state--center" id="plError" hidden>
+          <h1>That link is not valid</h1>
+          <p class="fb__lead">Please reply to my email instead and I'll sort it out.</p>
+          <p class="fb__sign">Anna</p>
+        </div>
+
+        <noscript><p class="fb__lead">This page needs JavaScript. If it does not open, please reply to my email instead. Anna</p></noscript>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="site-version" style="margin-top:0">Made with ❤️ in Helsinki. © 2026 by <a href="https://awesomemarketer.fi/">Anna Pogrebniak</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js?v=2.37"></script>
+<script src="../assets/js/plan.js?v=2.37"></script>
+</body>
+</html>

@@ -202,6 +202,55 @@ a:hover { text-decoration-thickness: 2px; }
 .fb-share .am-option input { margin-top: 3px; }
 .fb-share__more { margin-top: 10px; padding: 16px 18px; border-radius: var(--radius-md); background: var(--gradient-subtle); display: grid; gap: 10px; }
 .fb-share__more .form__hint { margin: 0; color: var(--gray-700); }
+
+/* ---------- group planner (plan/index.html): reached from the "Pick your times" button in the November planner email ---------- */
+.plan-test { display: inline-block; margin: 0 0 14px; padding: 6px 12px; border-radius: var(--radius-sm); background: var(--gray-100); font-size: .85rem; color: var(--gray-700); }
+.plan-people { display: grid; gap: 10px; margin-top: 22px; }
+.plan-person { padding: 14px 18px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); }
+.plan-person strong { display: block; font-family: var(--font-heading); font-size: 1.02rem; color: var(--gray-900); }
+.plan-person span { display: block; font-size: .9rem; color: var(--gray-600); }
+.plan-person a { display: inline-block; margin-top: 2px; font-size: .88rem; font-weight: 600; color: var(--pink-deep); }
+.plan-meta { margin-top: 14px; color: var(--gray-700); }
+.plan-note { margin-top: 16px; padding: 14px 18px; border-radius: var(--radius-md); background: var(--gradient-subtle); color: var(--gray-800); }
+.plan-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 4px; font-size: .86rem; color: var(--gray-600); }
+.plan-key__item { display: inline-flex; align-items: center; gap: 7px; }
+.plan-week { margin: 22px 0 2px; font-family: var(--font-heading); font-weight: 600; font-size: .85rem; color: var(--gray-500); }
+.plan-day__chips { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.plan-times { gap: 6px; flex-wrap: nowrap; }
+.plan-slot span { position: relative; min-width: 56px; text-align: center; }
+.plan-slot.is-all span { border-color: var(--orange); }
+.plan-slot.is-all input:checked + span { border-color: var(--pink-deep); }
+.plan-dots { position: absolute; top: -6px; right: -5px; display: flex; gap: 2px; pointer-events: none; }
+.plan-dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--white); }
+.plan-key .plan-dot { border: 0; width: 10px; height: 10px; }
+.plan-dot--0 { background: var(--orange); }
+.plan-dot--1 { background: #E0A100; }
+.plan-clear { margin-top: 18px; }
+.plan-offer span { flex: 1; }
+.plan-offer__by { display: block; font-size: .8rem; color: var(--gray-500); }
+.plan-new { display: grid; gap: 8px; margin-top: 10px; }
+.plan-new.is-off { opacity: .45; }
+.plan-any { margin-top: 10px; }
+.plan-err { margin-top: 10px; font-size: .9rem; font-weight: 500; color: #B42318; }
+.plan-bar { position: sticky; bottom: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 4px -32px -32px; padding: 14px 32px; background: rgba(255, 255, 255, .96); border-top: 1px solid var(--gray-200); border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.plan-count { flex: 1; min-width: 0; font-size: .92rem; line-height: 1.35; color: var(--gray-600); }
+.plan-bar .btn { flex-shrink: 0; }
+.plan-count.is-ready { color: var(--gray-900); font-weight: 600; }
+.plan-agreed { margin-top: 18px; text-align: center; }
+.plan-link { background: none; border: 0; padding: 6px; font: inherit; font-size: .92rem; color: var(--gray-600); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.plan-link:hover { color: var(--pink-deep); }
+.plan-set { max-width: 440px; margin: 24px auto 0; padding: 20px 24px; border-radius: var(--radius-lg); background: var(--gradient-subtle); font-size: 1.08rem; line-height: 1.6; text-align: left; }
+.plan-set p + p { margin-top: 6px; }
+.plan-set strong { font-family: var(--font-heading); color: var(--gray-900); }
+.plan-done-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+.fb__state--center .plan-done-btns .btn { margin-top: 0; }
+@media (max-width: 600px) {
+  .plan-bar { margin: 4px -18px -24px; padding: 12px 18px; border-radius: 0 0 var(--radius-md) var(--radius-md); }
+  .plan-slot span { min-width: 54px; padding-inline: 8px; }
+  .plan-day__chips { gap: 6px; }
+  .plan-count { font-size: .85rem; }
+  .plan-bar .btn { padding: 12px 20px; }
+}
 @media (max-width: 600px) {
   .fb { padding-block: 36px 56px; }
   .am-card.fb__card { padding: 22px 18px; }
