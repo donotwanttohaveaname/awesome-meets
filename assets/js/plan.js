@@ -277,6 +277,7 @@
   // ---- 3. after saving, or when it's already set
   function outcome() {
     var s = st.status, set = $('plSet'), lead = $('plDoneLead');
+    $('plRate').hidden = rated || !!st.rated || !(st.mine && st.mine.answered);
     set.hidden = true; set.textContent = '';
     $('plChange').hidden = true; $('plReopen').hidden = true; $('plResend').hidden = true;
     var trio = st.size === 3;
@@ -398,6 +399,33 @@
     payload = { token: token, step: 'save', times: mySlots(), places: any ? [] : places, works: works, any: any };
     show('plDone');
     save();
+  });
+
+  // ---- the small feedback form about the planner itself: 5 stars and a text box, saved in the background
+  var rated = false, stars = '';
+  for (var n = 1; n <= 5; n++) {
+    var lab = el('label', 'plan-star'), inp = el('input');
+    inp.type = 'radio'; inp.name = 'stars'; inp.value = String(n);
+    inp.setAttribute('aria-label', n + (n === 1 ? ' star' : ' stars'));
+    var star = el('span');
+    star.innerHTML = '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path fill="currentColor" d="M12 2.6l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17.2l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg>';
+    lab.appendChild(inp); lab.appendChild(star);
+    $('plStars').appendChild(lab);
+  }
+  function rateReady() { $('plRateSend').disabled = !stars && !$('plRateText').value.trim(); }
+  $('plStars').addEventListener('change', function (e) {
+    stars = e.target.value;
+    Array.prototype.forEach.call($('plStars').querySelectorAll('.plan-star'), function (l, i) { l.classList.toggle('is-on', i < Number(stars)); });
+    rateReady();
+  });
+  $('plRateText').addEventListener('input', rateReady);
+  $('plRate').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if ($('plRateSend').disabled) return;
+    rated = true;
+    $('plRate').hidden = true;
+    $('plRateDone').hidden = false;
+    call({ token: token, step: 'rate', stars: stars, text: $('plRateText').value }).catch(function () {});
   });
 
   // ---- "We've already agreed" and "Open the planner again"

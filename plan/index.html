@@ -8,7 +8,7 @@
        earliest shared time and a place and emails the group. Same rules as feedback/: lives here and not on the Google
        script's own address (Drive error for anyone signed into several Google accounts), and on purpose NO Google
        Analytics, NO Ahrefs and NO Buy Me a Coffee: the address carries a personal link code. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.40">
+  <meta name="am-version" content="2.41">
   <title>Plan your meetup | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.40">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.41">
 </head>
 <body class="fb-page plan-page">
 
@@ -89,6 +89,17 @@
             <button class="btn btn--outline" type="button" id="plChange" hidden>Change my answers</button>
             <button class="btn btn--outline" type="button" id="plReopen" hidden>Open the planner again</button>
           </div>
+          <!-- Anna, 2 Nov 2026: "after they submitted their time, can you also give small feedback form about this form? 5 stars + any issues" -->
+          <form class="am-card plan-rate" id="plRate" novalidate hidden>
+            <fieldset class="plan-rate__q">
+              <legend>How was the planner?</legend>
+              <div class="plan-stars" id="plStars"></div>
+            </fieldset>
+            <label class="sr-only" for="plRateText">Any issues or feedback?</label>
+            <textarea id="plRateText" maxlength="2000" placeholder="Any issues or feedback? (optional)"></textarea>
+            <button class="btn btn--outline btn--sm" type="submit" id="plRateSend" disabled>Send</button>
+          </form>
+          <p class="plan-rate__done" id="plRateDone" hidden>Thank you for the feedback 🧡</p>
           <p class="fb__sign">See you out there ✨<br>Anna<br>Awesome Meets</p>
         </div>
 
@@ -111,7 +122,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.40"></script>
-<script src="../assets/js/plan.js?v=2.40"></script>
+<script src="../assets/js/config.js?v=2.41"></script>
+<script src="../assets/js/plan.js?v=2.41"></script>
 </body>
 </html>
