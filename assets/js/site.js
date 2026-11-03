@@ -12,10 +12,10 @@
     AM.mode = 'open';
     AM.endpoint = '';
     AM.round = {
-      key: 'november', label: 'November', name: 'Awesome Meets',
+      key: 'december', label: 'December', name: 'Awesome Meets',
       opensAt: loadedAt - 2 * 86400000, closesAt: loadedAt + 9 * 86400000 + 3600000,
-      closesLong: 'Monday 26 October at 4PM', closesShort: 'Mon 26 Oct, 4PM',
-      matchedByLong: 'Monday 2 November', meetWindow: 'November', weeks: []
+      closesLong: 'Monday 23 November at 4PM', closesShort: 'Mon 23 Nov, 4PM',
+      matchedByLong: 'Monday 30 November', meetWindow: 'December', weeks: []
     };
     AM.preview = true;
   }
