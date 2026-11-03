@@ -8,7 +8,7 @@
        earliest shared time and a place and emails the group. Same rules as feedback/: lives here and not on the Google
        script's own address (Drive error for anyone signed into several Google accounts), and on purpose NO Google
        Analytics, NO Ahrefs and NO Buy Me a Coffee: the address carries a personal link code. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.41">
+  <meta name="am-version" content="2.42">
   <title>Plan your meetup | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.41">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.42">
 </head>
 <body class="fb-page plan-page">
 
@@ -83,6 +83,8 @@
         <div class="fb__state fb__state--center" id="plDone" hidden>
           <h1 id="plDoneTitle">Your answers are in 🧡</h1>
           <p class="fb__lead" id="plDoneLead" aria-live="polite">Saving your answers…</p>
+          <!-- Anna, 3 Nov 2026: "in the saving screen - write down that saving time could be unusually long" (Google's script takes 2 to 20 seconds, more right after a release) -->
+          <p class="plan-wait" id="plWait" hidden>Saving can take unusually long, sometimes up to a minute. Please keep this page open until it's done.</p>
           <div class="plan-set" id="plSet" hidden></div>
           <div class="plan-done-btns">
             <button class="btn btn--outline" type="button" id="plResend" hidden>Try again</button>
@@ -122,7 +124,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.41"></script>
-<script src="../assets/js/plan.js?v=2.41"></script>
+<script src="../assets/js/config.js?v=2.42"></script>
+<script src="../assets/js/plan.js?v=2.42"></script>
 </body>
 </html>

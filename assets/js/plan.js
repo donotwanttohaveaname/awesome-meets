@@ -333,7 +333,7 @@
       var closed = st.status.state === 'set' || st.status.state === 'agreed';
       if (first) {
         if (closed || (st.mine && st.mine.answered)) { show('plDone'); outcome(); }
-        else { drawGroup(); drawDots(); drawPlaces(false); drawNote(); fillMine(); }
+        else { drawGroup(); drawDots(); drawPlaces(dirty); drawNote(); if (!dirty) fillMine(); }   // times tapped while the group was loading stay picked
         return;
       }
       if (!$('plForm').hidden) {
@@ -357,11 +357,13 @@
   function save() {
     var lead = $('plDoneLead');
     saving = true;
-    $('plResend').hidden = true; $('plChange').hidden = true; $('plReopen').hidden = true; $('plSet').hidden = true;
-    $('plDoneTitle').textContent = 'Your answers are in 🧡';
+    $('plResend').hidden = true; $('plChange').hidden = true; $('plReopen').hidden = true; $('plSet').hidden = true; $('plRate').hidden = true;
+    $('plDoneTitle').textContent = 'Thank you 🧡';   // becomes "Your answers are in" once the save is through
     lead.textContent = 'Saving your answers…';
+    $('plWait').hidden = false;   // the "can take unusually long" line, only while saving
     call(payload).then(function (res) {
       saving = false;
+      $('plWait').hidden = true;
       if (res && res.error === 'bad_link') return badLink();
       if (res && res.people) st = res;
       if (res && res.ok) return outcome();
@@ -372,6 +374,7 @@
       throw new Error((res && res.error) || 'server');
     }).catch(function () {
       saving = false;
+      $('plWait').hidden = true;
       lead.textContent = 'That didn\'t save. Please try again, or reply to my email instead.';
       $('plResend').hidden = false;
     });
@@ -434,11 +437,14 @@
     show('plDone');
     $('plDoneTitle').textContent = step === 'agreed' ? 'Thank you 🧡' : 'Opening the planner again…';
     $('plDoneLead').textContent = 'One moment…';
-    $('plSet').hidden = true; $('plChange').hidden = true; $('plReopen').hidden = true; $('plResend').hidden = true;
+    $('plSet').hidden = true; $('plChange').hidden = true; $('plReopen').hidden = true; $('plResend').hidden = true; $('plRate').hidden = true;
+    $('plWait').hidden = false;
     call({ token: token, step: step }).then(function (res) {
+      $('plWait').hidden = true;
       if (!take(res)) throw new Error('server');
       if (st.status.state === 'set' || st.status.state === 'agreed') outcome(); else toForm();
     }).catch(function () {
+      $('plWait').hidden = true;
       $('plDoneLead').textContent = 'That didn\'t go through. Please try again, or reply to my email instead.';
     });
   }
