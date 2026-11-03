@@ -16,17 +16,19 @@
    three tries does the thank-you page say so and offer "Try again".
 
    Check the look without sending anything, on this computer only:
-       http://localhost:<port>/feedback/?preview=form   (also: none, slow, bad, offline) */
+       http://localhost:<port>/feedback/?preview=form   (also: none, slow, bad, offline; nov and novnone = a November trio) */
 (function () {
   var AM = window.AM || {};
   var $ = function (id) { return document.getElementById(id); };
   var params = new URLSearchParams(location.search);
   var token = params.get('fb') || '';
   var quick = params.get('a') || '';
+  var november = /^n/.test(token);   // November group codes start with n (backend section 10e): ask about December
 
   var isLocal = ['localhost', '127.0.0.1', '[::1]'].indexOf(location.hostname) > -1;
   var preview = isLocal ? params.get('preview') : '';
-  if (preview === 'none') quick = 'none';
+  if (preview === 'none' || preview === 'novnone') quick = 'none';
+  if (preview === 'nov' || preview === 'novnone') november = true;
 
   var states = ['fbForm', 'fbDone', 'fbError'];
   function show(id) {
@@ -42,9 +44,9 @@
           if (preview === 'offline') return reject(new Error('offline'));
           if (preview === 'bad') return resolve({ ok: false, error: 'bad_link' });
           if (payload.step === 'form') return resolve({ ok: true });
-          var none = preview === 'none';
-          resolve({ ok: true, firstName: 'Olivia', other: 'George', name: 'Olivia Bennett', jobTitle: 'Brand Manager', company: 'Example Oy',
-            quick: none ? '❌ It didn\'t happen' : '🧡 Great', didNotHappen: none });
+          var none = preview === 'none' || preview === 'novnone', nov = preview === 'nov' || preview === 'novnone';
+          resolve({ ok: true, firstName: 'Olivia', other: nov ? 'George and Isla' : 'George', name: 'Olivia Bennett', jobTitle: 'Brand Manager', company: 'Example Oy',
+            quick: none ? '❌ It didn\'t happen' : '🧡 Great', didNotHappen: none, round: nov ? 'november' : 'october', trio: nov });
         }, preview === 'slow' ? 6000 : 1200);
       });
     }
@@ -126,11 +128,14 @@
   $('fbLead').textContent = didNotHappen ? 'One question would help me a lot.' : 'Two more minutes for the questions that really help?';
   $('fbWhyNot').hidden = !didNotHappen;
   $('fbScore').hidden = didNotHappen;
+  $('fbDecQ').hidden = !november;
 
   // What the backend sends back: the first name for the greeting, and the name, job and company for the "share publicly" box.
   function greet(res) {
     firstName = res.firstName || '';
     if (res.other) $('fbKnewQ').textContent = 'Did you know ' + res.other + ' before?';
+    if (res.round === 'november') { november = true; $('fbDecQ').hidden = false; }
+    $('fbCameQ').hidden = !res.trio;   // inside the score block, so it stays hidden after "It didn't happen"
     if (!didNotHappen) $('fbTitle').textContent = thanks();
     $('fbDoneTitle').textContent = thanks();
     if (res.quick && !$('fbLead').querySelector('strong')) {
@@ -180,6 +185,8 @@
   }
   $('fbResend').addEventListener('click', save);
 
+  function decPicked() { var d = document.querySelector('input[name="december"]:checked'); return november && d ? d.value : ''; }
+
   $('fbFormEl').addEventListener('submit', function (e) {
     e.preventDefault();
     if (didNotHappen) {
@@ -187,12 +194,14 @@
       var reason = Array.prototype.map.call(document.querySelectorAll('input[name="reason"]:checked'), function (box) {
         return box.value === 'Other' ? 'Other' + (typed ? ': ' + typed : '') : box.value;
       }).join('; ');
-      answers = { token: token, step: 'form', reason: reason, note: $('fbNote').value };
+      answers = { token: token, step: 'form', reason: reason, note: $('fbNote').value, december: decPicked() };
     } else {
       var picked = document.querySelector('input[name="nps"]:checked');
       var knew = document.querySelector('input[name="knew"]:checked');
+      var came = document.querySelector('input[name="came"]:checked');
       answers = { token: token, step: 'form', nps: picked ? picked.value : '', why: $('fbWhy').value, knew: knew ? knew.value : '', share: $('fbShare').checked,
-        pubName: $('fbPubName').value, pubJob: $('fbPubJob').value, pubCompany: $('fbPubCompany').value, note: $('fbNote').value };
+        pubName: $('fbPubName').value, pubJob: $('fbPubJob').value, pubCompany: $('fbPubCompany').value, note: $('fbNote').value,
+        came: came ? came.value : '', december: decPicked() };
     }
     $('fbDoneTitle').textContent = thanks();
     show('fbDone');

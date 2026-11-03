@@ -8,7 +8,7 @@
        ("Sorry, unable to open the file at this time") to anyone signed into more than one Google account.
        On purpose this page has NO Google Analytics, NO Ahrefs and NO Buy Me a Coffee button: the address carries
        a personal link code, and that code should not travel to any other service. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.43">
+  <meta name="am-version" content="2.44">
   <title>How did it go? | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.43">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.44">
 </head>
 <body class="fb-page">
 
@@ -80,6 +80,15 @@
               </div>
             </fieldset>
 
+            <!-- November trios only (Claude's addition, 3 Nov 2026): shown once the backend says it is a trio -->
+            <fieldset class="am-q" id="fbCameQ" hidden>
+              <legend>Did all three of you meet?</legend>
+              <div class="am-list">
+                <label class="am-option"><input type="radio" name="came" value="All three of us"><span>Yes, all three of us</span></label>
+                <label class="am-option"><input type="radio" name="came" value="Two of us"><span>Two of us</span></label>
+              </div>
+            </fieldset>
+
             <div class="am-q fb-share">
               <label class="am-option" for="fbShare">
                 <input type="checkbox" id="fbShare" name="share">
@@ -96,6 +105,17 @@
               </div>
             </div>
             </div>
+
+            <!-- November only (Anna, 3 Nov 2026: "ask them instead if they should be included in the december meet up" "yes / no / already signed up").
+                 Shown after "It didn't happen" too. A Yes puts them on the December waitlist (backend). -->
+            <fieldset class="am-q" id="fbDecQ" hidden>
+              <legend>Would you like to join Awesome Meets in December too?</legend>
+              <div class="am-list">
+                <label class="am-option"><input type="radio" name="december" value="Yes"><span>Yes</span></label>
+                <label class="am-option"><input type="radio" name="december" value="No"><span>No</span></label>
+                <label class="am-option"><input type="radio" name="december" value="Already signed up"><span>Already signed up</span></label>
+              </div>
+            </fieldset>
 
             <div class="am-q">
               <label class="am-q__label" for="fbNote">Anything for Anna's eyes only?</label>
@@ -135,7 +155,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.43"></script>
-<script src="../assets/js/feedback.js?v=2.43"></script>
+<script src="../assets/js/config.js?v=2.44"></script>
+<script src="../assets/js/feedback.js?v=2.44"></script>
 </body>
 </html>
