@@ -31,7 +31,8 @@
   var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  var states = ['plForm', 'plDone', 'plError'];
+  var states = ['plForm', 'plDone', 'plError', 'plAgree'];
+  var wantAgreed = params.get('a') === 'agreed';   // came from the reminder's "We've already agreed outside the planner" button
   function show(id) {
     states.forEach(function (s) { $(s).hidden = s !== id; });
     window.scrollTo(0, 0);
@@ -294,7 +295,7 @@
       set.hidden = false;
       // no "Something came up" button here (Anna, 2 Nov 2026: "lets not have this here"): they reply all to the email instead
     } else if (s.state === 'agreed') {
-      $('plDoneTitle').textContent = 'Lovely, you\'ve agreed by email 🧡';
+      $('plDoneTitle').textContent = 'Lovely, you\'ve already agreed 🧡';
       lead.textContent = (s.by && s.by !== st.me.first ? s.by + ' let me know your group has agreed on a day. ' : '') + 'Enjoy your meetup!';
       $('plReopen').textContent = 'Open the planner again';
       $('plReopen').hidden = false;
@@ -332,6 +333,8 @@
       if (!take(res)) return;
       var closed = st.status.state === 'set' || st.status.state === 'agreed';
       if (first) {
+        if (closed && !$('plAgree').hidden) { show('plDone'); outcome(); return; }   // already set or agreed: nothing to confirm
+        if (!$('plAgree').hidden) { drawGroup(); drawDots(); drawPlaces(dirty); drawNote(); if (!dirty) fillMine(); return; }   // ready for "No, take me to the planner"
         if (closed || (st.mine && st.mine.answered)) { show('plDone'); outcome(); }
         else { drawGroup(); drawDots(); drawPlaces(dirty); drawNote(); if (!dirty) fillMine(); }   // times tapped while the group was loading stay picked
         return;
@@ -433,7 +436,7 @@
 
   // ---- "We've already agreed" and "Open the planner again"
   function simple(step, question) {
-    if (!window.confirm(question)) return;
+    if (question && !window.confirm(question)) return;
     show('plDone');
     $('plDoneTitle').textContent = step === 'agreed' ? 'Thank you 🧡' : 'Opening the planner again…';
     $('plDoneLead').textContent = 'One moment…';
@@ -449,8 +452,10 @@
     });
   }
   $('plAgreed').addEventListener('click', function () {
-    simple('agreed', 'Let Anna know your group has already agreed on a day by email? The planner closes for everyone in your group.');
+    simple('agreed', 'Let Anna know your group has already agreed on a day? The planner closes for everyone in your group.');
   });
+  $('plAgreeYes').addEventListener('click', function () { simple('agreed', null); });   // this screen is the confirmation
+  $('plAgreeNo').addEventListener('click', function () { if (st) toForm(); else show('plForm'); });
   // only shown after "We've already agreed", so a tap by mistake can be undone
   $('plReopen').addEventListener('click', function () { simple('reopen', 'Open the planner again for your group?'); });
 
@@ -490,7 +495,7 @@
   }
 
   if (!preview && (!token || !AM.endpoint)) return badLink();
-  show('plForm');
+  show(wantAgreed ? 'plAgree' : 'plForm');
   drawDays();
   load(true);
 })();
