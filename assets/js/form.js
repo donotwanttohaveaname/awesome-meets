@@ -19,11 +19,12 @@
 
   var ENDPOINT = AM.endpoint;
   var HELSINKI = 'Helsinki region', TAMPERE = 'Tampere', OTHER = 'Other';
+  var ABROAD = 'Not in Finland';   // Anna, 17 Nov 2026: city + country typed, no travel questions (backend R2_ABROAD)
   var OPTIONS = {
     jobFunction: ['Founder / CEO', 'Marketing', 'Sales and business development', 'Product', 'Customer success and support', 'Communications and PR', 'HR and people', 'Design and creative', 'Engineering and IT', 'Data and analytics', 'Operations', 'Finance', 'Consulting', 'Other'],
     industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
     seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'C-level / VP', 'Founder'],
-    city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else']],
+    city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else in Finland'], [ABROAD, 'Not in Finland']],
     areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
     travelHelsinki: ['Yes', 'No'],
     travelTampere: ['Yes', 'No'],
@@ -81,12 +82,14 @@
   // else"; for everyone outside the Helsinki region the note that their own city isn't guaranteed and "travel to
   // Helsinki?"; "travel to Tampere?" for everyone outside the Helsinki region and Tampere.
   function city() { return checked('city')[0] || ''; }
-  function needsHelsinki() { return city() !== '' && city() !== HELSINKI; }
-  function needsTampere() { return city() !== '' && city() !== HELSINKI && city() !== TAMPERE; }
+  function needsHelsinki() { return city() !== '' && city() !== HELSINKI && city() !== ABROAD; }
+  function needsTampere() { return city() !== '' && city() !== HELSINKI && city() !== TAMPERE && city() !== ABROAD; }
+  function typesCity() { return city() === OTHER || city() === ABROAD; }
   function syncCity() {
     q('areas').hidden = city() !== HELSINKI;
-    q('cityNote').hidden = !needsHelsinki();
-    q('cityOther').hidden = city() !== OTHER;
+    q('cityNote').hidden = city() === '' || city() === HELSINKI;   // everyone but the Helsinki region, abroad included
+    q('cityOther').hidden = !typesCity();
+    q('country').hidden = city() !== ABROAD;
     q('travelHelsinki').hidden = !needsHelsinki();
     q('travelTampere').hidden = !needsTampere();
   }
@@ -149,7 +152,8 @@
     3: function () {
       var bad = setError('city', !city());
       bad = setError('areas', city() === HELSINKI && !checked('areas').length) || bad;
-      bad = setError('cityOther', city() === OTHER && value('cityOther').length < 2) || bad;
+      bad = setError('cityOther', typesCity() && value('cityOther').length < 2) || bad;
+      bad = setError('country', city() === ABROAD && value('country').length < 2) || bad;
       bad = setError('travelHelsinki', needsHelsinki() && !checked('travelHelsinki').length) || bad;
       bad = setError('travelTampere', needsTampere() && !checked('travelTampere').length) || bad;
       bad = setError('format', !checked('format').length) || bad;
@@ -216,7 +220,8 @@
       industry: checked('industry')[0],
       seniority: checked('seniority')[0],
       city: city(),
-      cityOther: city() === OTHER ? value('cityOther') : '',
+      cityOther: typesCity() ? value('cityOther') : '',
+      country: city() === ABROAD ? value('country') : '',
       areas: city() === HELSINKI ? checked('areas') : [],
       travelHelsinki: needsHelsinki() ? checked('travelHelsinki')[0] : '',
       travelTampere: needsTampere() ? checked('travelTampere')[0] : '',
