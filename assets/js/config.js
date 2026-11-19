@@ -21,7 +21,7 @@
  *   (months count from 0: 9 = October, 10 = November)
  */
 window.AM = {
-  version: 'v2.52 · 19 Nov 2026',
+  version: 'v2.53 · 19 Nov 2026',
 
   // Same Apps Script web app as the sign-up page on awesomemarketers.fi. Saves to the private Sheet.
   endpoint: 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec',
@@ -61,7 +61,7 @@ window.AM = {
   // Recorded with every sign-up. Bump it whenever the data note on the form changes.
   // v5 (29 Sep 2026): same note as v4, heading now says "Awesome Meets" instead of "Awesome Autumn Meets".
   // v6 (6 Oct 2026): November form. Note rewritten: one person or two for a trio, what your match sees, no topics, emails only.
-  consentVersion: '2026-10-06-v6',
+  consentVersion: '2026-11-19-v7',
 
   contactEmail: 'anna@awesomemarketers.fi'
 };

@@ -229,6 +229,7 @@
       activities: checked('activities'),
       meetingCriteria: checked('meetingCriteria'),
       feedback: value('feedback'),
+      keepIn: document.getElementById('keepIn').checked,   // "Keep me in for the next rounds" (Anna, 19 Nov 2026)
       agreeData: true,
       consentVersion: AM.consentVersion
     };
