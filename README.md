@@ -24,7 +24,7 @@ Marketers in Helsinki fill in a short form, Anna matches them with 1 or 2 market
 | `assets/js/form.js` | The sign-up form: questions, validation, sending |
 | `assets/css/home.css`, `assets/js/home.js` | Homepage only: the big question, the text that lights up, the two city cards |
 | `assets/img/` | Logo files, favicon, and the share thumbnails: `og-<page>.png` (1200×630 link previews) and `square-<page>.png` (1080×1080, for posts) |
-| `tools/thumb.html`, `tools/render_thumbs.sh` | The thumbnail design and the script that renders all eight PNGs. Change the text in `thumb.html`, run `./tools/render_thumbs.sh`. |
+| `tools/thumb.html`, `tools/render_thumbs.sh` | The thumbnail design and the script that renders all eight PNGs. Change the text in `thumb.html`, run `./tools/render_thumbs.sh`. The join one has no month in it ("Want in for the next round?", since v2.55), so it is not part of opening or closing a round. |
 | `release.py` | Sets a new version number everywhere, including the `?v=` on stylesheet and script links. Run before every commit. |
 
 ## The homepage (v2)
@@ -135,6 +135,7 @@ Brand kit: https://claude.ai/artifact/Aj3ijuYQ3r8evhUy9vzM7q
 | v2.29 | 6 Oct 2026 | **November sign-ups OPEN** (mode 'open', opensAt Tue 6 Oct 14:45 Helsinki, closes Mon 26 Oct 4PM). Countdown (days, hours, minutes, seconds) under the hero's Sign up button while a round is open (`[data-countdown]` in site.js, any page can use it). Open-state copy: "Not in Helsinki?" card says this round you can sign up from anywhere in Finland (other-city waitlist only while no round is open); step 4 "One-to-one or in a trio…"; About FAQ "Where does Awesome Meets run?" (visible + FAQPage JSON-LD) updated. |
 | v2.30 | 6 Oct 2026 | Join page tab title reads "Sign up for November" while the round is open (site.js). |
 | v2.31 | 6 Oct 2026 | Countdown label "November sign-ups close in" (from round.label). Sign-up bar pinned to the top while a round is open (inside the sticky header, every page except join/ and feedback/): "November sign-ups close in 20d 01h 34m 07s" + Sign up (/join/) + × that hides it for the rest of the visit (sessionStorage). Homepage hero gives up the bar's height (`.has-topbar` in home.css) so the first view still fits one screen. |
+| v2.55 | 20 Nov 2026 | Join thumbnail no longer names a month: "Want in for the next round?" instead of "Want in for November?" (Anna: "month-agnostic"). Same design. The join page points at `og-join.png?v=2` so apps fetch the new picture; raise that number if the picture ever changes again. Versions 2.32 to 2.54 are logged in `networking-app/HANDOFF.md`. |
 | v2.4 | 30 Sep 2026 | New share thumbnails, one per page, designed so the middle square survives a square crop, plus true square versions. The footer no longer shows the version: it says "© 2026 Awesome Meets". |
 | v2.3 | 30 Sep 2026 | The second, third and fourth views each fit one screen: the networking text is four short paragraphs, the steps are four compact cards in a row, "Where are you?" is its own view. |
 | v2.2 | 30 Sep 2026 | Stylesheet and script links carry the version (`?v=2.2`), set by `release.py`. Fixes the page looking broken for up to ten minutes after an update. |

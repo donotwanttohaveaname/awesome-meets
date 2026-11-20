@@ -45,7 +45,8 @@
 <script>
   var PAGES = {
     home:  { line: 'When did you last meet someone who <span class="g">isn’t a colleague?</span>', size: 62 },
-    join:  { line: 'Want in for <span class="g">November?</span>', size: 96 },
+    // No month in this one (Anna, 20 Nov 2026: "month-agnostic"), so it never needs changing when a round opens or closes.
+    join:  { line: 'Want in for <span class="g own">the next round?</span>', size: 84, sq: 74 },   // sq: a smaller base for the square, so the long line keeps its side margins
     about: { line: 'Made by the creators of <span class="g own">The Awesome Marketers</span>', size: 52 },
     data:  { line: 'What happens to <span class="g">your data</span>', size: 84 }
   };
@@ -54,7 +55,7 @@
   if (parts[1] === 'square') { document.documentElement.className = 'square'; document.body.className = 'square'; }
   var line = document.getElementById('line');
   line.innerHTML = page.line;
-  line.style.setProperty('--size', page.size + 'px');
+  line.style.setProperty('--size', ((parts[1] === 'square' && page.sq) || page.size) + 'px');
   if (parts[1] !== 'square') line.style.fontSize = page.size + 'px';
 </script>
 </body>
