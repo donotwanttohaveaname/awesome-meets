@@ -14,7 +14,7 @@
     AM.round = {
       key: 'december', label: 'December', name: 'Awesome Meets',
       opensAt: loadedAt - 2 * 86400000, closesAt: loadedAt + 9 * 86400000 + 3600000,
-      closesLong: 'Wednesday 25 November at 4PM', closesShort: 'Wed 25 Nov, 4PM',
+      closesLong: 'Thursday 26 November at 4PM', closesShort: 'Thu 26 Nov, 4PM',
       matchedByLong: 'Monday 30 November', meetWindow: 'December', weeks: []
     };
     AM.preview = true;
