@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The page behind "Don't email me about new rounds again" in an invitation email (Anna, 25 Nov 2026: "could we have a
+       button unsubscribe / never hear about this again in this batch" and "remember if they marked it").
+       The link only opens this page. Nothing is saved until the person presses the button here, so a mail scanner that
+       opens links cannot unsubscribe anyone. Like the feedback page it lives here, and not on the Google script's own
+       address, and has NO Google Analytics, NO Ahrefs and NO Buy Me a Coffee button: the address carries a personal
+       link code, and that code should not travel to any other service. Not in the sitemap, not indexed. -->
+  <meta name="am-version" content="2.58">
+  <title>Stop emails about new rounds | Awesome Meets</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/icon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../assets/img/icon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/img/awesome-meets-logo-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.58">
+</head>
+<body class="fb-page">
+
+<header class="site-header">
+  <div class="container site-header__in">
+    <a class="logo" href="../" aria-label="Awesome Meets, home">
+      <img src="../assets/img/heart.png" alt="" width="30" height="30">
+      <span class="logo__word">Awesome <span>Meets</span></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="section fb">
+    <div class="container">
+      <div class="am-wrap fb__wrap">
+
+        <!-- 1. the question. Nothing is saved before the button is pressed -->
+        <div class="fb__state fb__state--center" id="unAsk" hidden>
+          <h1>Stop emails about new rounds?</h1>
+          <p class="fb__lead">One click and I won't email you about new Awesome&nbsp;Meets rounds again.</p>
+          <button class="btn btn--primary" type="button" id="unStop">Yes, don't email me again</button>
+          <p class="form__hint fb__private">If you sign up for a round yourself one day, you'll still get the emails for that round.</p>
+        </div>
+
+        <!-- 2. shown the instant the button is pressed; the line under the heading reports the saving -->
+        <div class="fb__state fb__state--center" id="unDone" hidden>
+          <h1 id="unDoneTitle">Done</h1>
+          <p class="fb__lead" id="unDoneLead" aria-live="polite">Saving…</p>
+          <button class="btn btn--outline" type="button" id="unRetry" hidden>Try again</button>
+          <button class="btn btn--outline" type="button" id="unUndo" hidden>Undo</button>
+          <p class="fb__sign">Anna<br>Awesome Meets</p>
+        </div>
+
+        <!-- 3. the link is wrong -->
+        <div class="fb__state fb__state--center" id="unError" hidden>
+          <h1>That link didn't work</h1>
+          <p class="fb__lead">Please reply to my email instead and I'll take you off by hand.</p>
+          <p class="fb__sign">Anna</p>
+        </div>
+
+        <noscript><p class="fb__lead">This page needs JavaScript. If it does not open, please reply to my email instead and I'll take you off by hand. Anna</p></noscript>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="site-version" style="margin-top:0">Made with ❤️ in Helsinki. © 2026 by <a href="https://awesomemarketer.fi/">Anna Pogrebniak</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js?v=2.58"></script>
+<script src="../assets/js/unsubscribe.js?v=2.58"></script>
+</body>
+</html>
