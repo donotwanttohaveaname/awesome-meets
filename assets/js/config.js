@@ -21,7 +21,7 @@
  *   (months count from 0: 9 = October, 10 = November)
  */
 window.AM = {
-  version: 'v2.61 · 26 Nov 2026',
+  version: 'v2.62 · 26 Nov 2026',
 
   // Same Apps Script web app as the sign-up page on awesomemarketers.fi. Saves to the private Sheet.
   endpoint: 'https://script.google.com/macros/s/AKfycbxtaKFKri4vSEVKIYB3x26mPwqlUhfttJb2140a12CwglzSUaJkGkIJ9X_Kt9nRFGAW/exec',
@@ -56,6 +56,27 @@ window.AM = {
     meetWindow: 'December',
     // The November form again (Anna, 3 Nov 2026: "November's form"): no days or times, the group picks them.
     weeks: []
+  },
+
+  // The round that takes over BY ITSELF the moment `round.closesAt` passes (Anna, 26 Nov 2026: "sign ups are open all the
+  // time but the nearest matching date changes" and "switch sign up form for the new form when the time comes on friday").
+  // site.js swaps it in: the form stays open, the dates, the counter and the form's extra options become this round's.
+  // The backend must know the same key (R4 in awesome-meets-backend.gs). BEFORE THIS ROUND'S OWN CUT-OFF: move it into
+  // `round`, put the round that closed into `lastRound`, and write the round after it here. With no nextRound the site
+  // falls back to the email waitlist when a round closes.
+  // January (Anna, 26 Nov 2026: "close wed jan 6, match by mon jan 11"; 4PM is Claude's choice, like the earlier weekday closes).
+  nextRound: {
+    key: 'january',        // the backend saves this round to the tab "Sign-ups January" (R4)
+    label: 'January',
+    name: 'Awesome Meets',
+    opensAt: Date.UTC(2026, 10, 27, 8, 0, 0),    // the moment December's cut-off passes
+    closesAt: Date.UTC(2027, 0, 6, 14, 0, 0),    // Wed 6 Jan 2027 4PM Helsinki (UTC+2)
+    closesLong: 'Wednesday 6 January at 4PM',
+    closesShort: 'Wed 6 Jan, 4PM',
+    matchedByLong: 'Monday 11 January',
+    meetWindow: 'January',
+    weeks: [],
+    extraActivities: ['Museum visit']            // Anna: "the new form should have a new activity as an option - museum visit"
   },
 
   // Recorded with every sign-up. Bump it whenever the data note on the form changes.

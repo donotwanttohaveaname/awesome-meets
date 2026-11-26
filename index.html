@@ -13,7 +13,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.61">
+  <meta name="am-version" content="2.62">
   <title>One-to-one networking in Helsinki | Awesome Meets</title>
   <meta name="description" content="Awesome Meets is one-to-one networking in Helsinki. We introduce you to someone new from your field, and you meet over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/">
@@ -40,8 +40,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <!-- 'js' lets sections fade in as you scroll. If the homepage script never arrives, show everything after 4 seconds. -->
   <script>document.documentElement.className = 'js'; setTimeout(function () { if (!window.AMHome) document.documentElement.className = ''; }, 4000);</script>
-  <link rel="stylesheet" href="assets/css/site.css?v=2.61">
-  <link rel="stylesheet" href="assets/css/home.css?v=2.61">
+  <link rel="stylesheet" href="assets/css/site.css?v=2.62">
+  <link rel="stylesheet" href="assets/css/home.css?v=2.62">
 </head>
 <body class="home has-dock">
 
@@ -170,11 +170,17 @@
   <section class="said screen" id="said">
     <div class="said__in">
       <h2 class="reveal">How did it go?</h2>
-      <!-- Anna, 26 Nov 2026: "straight from the feedback" is icky, and the big 100+ under the quotes "looks out of place".
-           So the number moved up here, into one plain sentence, and the separate block under the quotes is gone.
-           100+ = sign-ups per round: 40 October + 42 November + 31 December on 26 Nov = 113. -->
-      <p class="said__lede reveal" style="--i:1"><strong>100+ people</strong> have signed up so far. Three of them reported back.</p>
-      <div class="said__chat said__chat--photo">
+      <!-- Anna, 26 Nov 2026: "straight from the feedback" is icky and the big 100+ under the quotes "looks out of place", so the
+           numbers live in this one sentence. 100+ = sign-ups per round: 40 October + 42 November + 31 December on 26 Nov = 113.
+           93% (Anna, 26 Nov: "say XX% rated the meeting at 9 or 10"): tab "Feedback" on 26 Nov has 27 scores for the question
+           "how likely are you to recommend" (17 October, 10 November), 25 of them a 9 or a 10 (21 tens, 4 nines, one 8, one 6).
+           Counted per meetup, so the line says "meetups". As an NPS that is 89. Recount when new feedback comes in. -->
+      <p class="said__lede reveal" style="--i:1"><strong>100+ people</strong> have signed up so far. <strong>93%</strong> of the meetups they rated got a 9 or 10 out of 10.</p>
+      <!-- Five messages: four quotes and a photo. Everyone ticked "I'm happy for Anna to share this feedback publicly" and confirmed
+           the name, job and company shown (tab "Feedback"), or sent the photo to be shared (Ava). Varsha's "Grat" is corrected to
+           "Great". Charlotte wrote "to get to know Alina": her match's name is replaced with "my match", because Alina has not
+           been asked. Delfin and Charlotte were added on 26 Nov 2026 (Anna: "also add Delfin's and Chatlotte's public feedback"). -->
+      <div class="said__chat said__chat--five">
         <figure class="said__msg said__msg--a reveal" style="--i:2">
           <blockquote class="said__bubble"><p>Awesome match. I love how it went and <mark>chatted longer than planned.</mark></p></blockquote>
           <figcaption class="said__who">
@@ -185,30 +191,38 @@
         <figure class="said__msg said__msg--b reveal" style="--i:3">
           <blockquote class="said__bubble"><p>Great way to meet <mark>new people from various different backgrounds.</mark></p></blockquote>
           <figcaption class="said__who">
-            <span class="said__face said__face--b" aria-hidden="true">VS</span>
+            <span class="said__face said__face--c" aria-hidden="true">VS</span>
             <span><strong>Varsha Saraogi</strong><br>Content Manager at Kemppi</span>
+          </figcaption>
+        </figure>
+        <figure class="said__msg said__msg--c reveal" style="--i:4">
+          <blockquote class="said__bubble"><p>It was <mark>so much fun</mark> to get to know my match and learn more about her.</p></blockquote>
+          <figcaption class="said__who">
+            <span class="said__face said__face--b" aria-hidden="true">C</span>
+            <span><strong>Charlotte</strong><br>Business Area Director at Valve One Growth</span>
+          </figcaption>
+        </figure>
+        <figure class="said__msg said__msg--d reveal" style="--i:5">
+          <blockquote class="said__bubble"><p>Match with like-minded folks and <mark>great discussion that extended for 3 hours.</mark></p></blockquote>
+          <figcaption class="said__who">
+            <span class="said__face said__face--a" aria-hidden="true">DV</span>
+            <span><strong>Delfin Vassallo</strong><br>Global Head of Marketing</span>
           </figcaption>
         </figure>
         <!-- Anna, 26 Nov 2026: "add this picture to the website with "Meeting update: it was a blast!" by Ava Kiiski" (November round,
              group 9). The photo is a re-encoded copy without any camera data (assets/img/meetup-ava-november.jpg, 1400 x 1050). -->
-        <figure class="said__msg said__msg--photo reveal" style="--i:4">
+        <figure class="said__msg said__msg--photo reveal" style="--i:6">
           <div class="said__bubble said__bubble--photo">
             <img class="said__photo" src="assets/img/meetup-ava-november.jpg" width="1400" height="1050" loading="lazy" decoding="async"
                  alt="Ava Kiiski taking a selfie at a café table with two other people, one holding a curly brown dog. Everyone is smiling.">
             <p>Meeting update: <mark>it was a blast!</mark></p>
           </div>
           <figcaption class="said__who">
-            <span class="said__face said__face--c" aria-hidden="true">AK</span>
+            <span class="said__face said__face--b" aria-hidden="true">AK</span>
             <span><strong>Ava Kiiski</strong><br>November round</span>
           </figcaption>
         </figure>
       </div>
-      <!-- Anna, 3 Nov 2026: "also mention how many people we connected (recalculate together with november people now, total sum of
-           sign ups)". From the Sheet on 3 Nov: 40 sign-ups for October + 42 for November = 82 (TEST rows and Anna's own left out);
-           16 people signed up for both, so 66 different people. "Sign-ups", not "people", so the number stays true. Update after December.
-           The "16 people came back for a second round." line was dropped (Anna, 3 Nov 2026: "no need to say this"), then Anna:
-           "say that we matched 80+ people so far": 40 matched in October + 41 in November = 81 (Sofia, the 42nd November sign-up,
-           is still waiting), counted per round, so someone matched in both rounds counts twice. -->
     </div>
   </section>
 
@@ -296,9 +310,9 @@
   <a class="btn btn--primary" href="join/" data-show="open" hidden>Sign up</a>
 </div>
 
-<script src="assets/js/config.js?v=2.61"></script>
-<script src="assets/js/site.js?v=2.61"></script>
-<script src="assets/js/home.js?v=2.61"></script>
+<script src="assets/js/config.js?v=2.62"></script>
+<script src="assets/js/site.js?v=2.62"></script>
+<script src="assets/js/home.js?v=2.62"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

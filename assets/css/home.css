@@ -154,27 +154,37 @@ html.settled .ask-hero .w, html.settled .ask-hero__sub, html.settled .ask-hero__
 .said__num { display: block; margin-bottom: 6px; }
 .said__line { display: block; text-wrap: balance; }
 
-/* the photo message (Anna, 26 Nov 2026): the two quotes stack on the left, the photo arrives on the right as the newest
-   message. The photo's height follows the screen height so the whole view still fits one screen. */
-.said__chat--photo { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); grid-template-rows: auto auto; gap: clamp(14px, 2.2vh, 24px) clamp(20px, 3vw, 40px); margin-top: clamp(20px, 4vh, 44px); }
-.said__chat--photo .said__msg--a { grid-column: 1; grid-row: 1; }
-.said__chat--photo .said__msg--b { grid-column: 1; grid-row: 2; margin-top: 0; margin-left: 10%; }
-.said__chat--photo .said__msg--photo { grid-column: 2; grid-row: 1 / span 2; }
-.said__chat--photo .said__bubble { padding: clamp(18px, 2.8vh, 28px) clamp(20px, 2.2vw, 30px); }
-.said__chat--photo .said__bubble p { font-size: clamp(1.15rem, min(3.1vh, 2.3vw), 1.7rem); }
-.said__chat--photo .said__who { margin-top: 12px; }
-.said__chat--photo .said__bubble--photo { padding: 10px 10px clamp(16px, 2.4vh, 22px); border-bottom-right-radius: 8px; background: linear-gradient(135deg, rgba(255, 140, 66, .14), rgba(255, 95, 162, .12)); }
-.said__photo { display: block; width: 100%; height: clamp(200px, 42vh, 460px); object-fit: cover; object-position: 50% 42%; border-radius: 22px; }
-.said__chat--photo .said__bubble--photo p { margin: clamp(12px, 1.8vh, 16px) 12px 0; }
+/* Five messages (Anna, 26 Nov 2026: Ava's photo, then Delfin's and Charlotte's feedback): two columns of quotes and the photo
+   on the right. The middle column sits a little lower, so it reads as a conversation. The photo's height follows the screen
+   height so the whole view still fits one screen. */
+.said__chat--five { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.28fr); grid-template-rows: auto auto; gap: clamp(14px, 2.4vh, 26px) clamp(16px, 2vw, 28px); margin-top: clamp(20px, 4vh, 44px); }
+.said__chat--five .said__msg--a { grid-column: 1; grid-row: 1; }
+.said__chat--five .said__msg--c { grid-column: 1; grid-row: 2; }
+.said__chat--five .said__msg--b { grid-column: 2; grid-row: 1; margin-top: clamp(18px, 4vh, 40px); }
+.said__chat--five .said__msg--d { grid-column: 2; grid-row: 2; margin-top: clamp(18px, 4vh, 40px); }
+.said__chat--five .said__msg--photo { grid-column: 3; grid-row: 1 / span 2; }
+.said__chat--five .said__bubble { padding: clamp(16px, 2.4vh, 24px) clamp(18px, 1.6vw, 24px); border-radius: 26px; }
+.said__chat--five .said__bubble p { font-size: clamp(1.02rem, min(2.5vh, 1.55vw), 1.32rem); line-height: 1.26; }
+.said__chat--five .said__msg--a .said__bubble, .said__chat--five .said__msg--c .said__bubble { border-bottom-left-radius: 8px; }
+.said__chat--five .said__msg--b .said__bubble, .said__chat--five .said__msg--d .said__bubble { border-bottom-right-radius: 8px; background: linear-gradient(135deg, rgba(255, 95, 162, .12), rgba(255, 209, 102, .16)); }
+.said__chat--five .said__msg--d .said__who { justify-content: flex-end; text-align: right; padding: 0 6px 0 0; flex-direction: row-reverse; }
+.said__chat--five .said__who { margin-top: 10px; font-size: .88rem; }
+.said__chat--five .said__face { width: 40px; height: 40px; font-size: .86rem; }
+.said__chat--five .said__bubble--photo { padding: 10px 10px clamp(14px, 2.2vh, 20px); border-bottom-right-radius: 8px; background: linear-gradient(135deg, rgba(255, 140, 66, .14), rgba(255, 95, 162, .12)); }
+.said__photo { display: block; width: 100%; height: clamp(200px, 40vh, 440px); object-fit: cover; object-position: 50% 42%; border-radius: 18px; }
+.said__chat--five .said__bubble--photo p { margin: clamp(10px, 1.6vh, 14px) 10px 0; font-size: clamp(1.05rem, min(2.7vh, 1.7vw), 1.4rem); }
 .said__msg--photo .said__who { justify-content: flex-end; text-align: right; padding: 0 6px 0 0; flex-direction: row-reverse; }
 .said__face--c { background: var(--orange); }
 .said__lede strong { color: var(--gray-900); font-weight: 700; }
-.said__chat--photo + .said__count { margin-top: clamp(18px, 3.4vh, 40px); }
 @media (max-width: 720px) {
   .said__chat { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 18px; }
-  .said__chat--photo .said__msg--a, .said__chat--photo .said__msg--b, .said__chat--photo .said__msg--photo { grid-column: 1; grid-row: auto; }
-  .said__chat--photo .said__msg--b { margin-left: 8%; }
-  .said__chat--photo .said__msg--photo { margin-top: 6px; }
+  .said__chat--five .said__msg { grid-column: 1; grid-row: auto; margin-top: 0; }
+  .said__chat--five .said__msg--a, .said__chat--five .said__msg--c { margin-right: 8%; }
+  .said__chat--five .said__msg--b, .said__chat--five .said__msg--d { margin-left: 8%; }
+  .said__chat--five .said__msg--photo { order: 3; margin-top: 4px; }
+  .said__chat--five .said__msg--c { order: 4; }
+  .said__chat--five .said__msg--d { order: 5; }
+  .said__chat--five .said__bubble p { font-size: 1.1rem; }
   .said__photo { height: auto; aspect-ratio: 4 / 3; }
   .said__msg--a { margin-right: 8%; }
   .said__msg--b { margin-top: 0; margin-left: 8%; }
@@ -212,8 +222,8 @@ html.settled .ask-hero .w, html.settled .ask-hero__sub, html.settled .ask-hero__
 /* short laptop screens: tighten the two city cards so that view still fits */
 @media (min-width: 901px) and (max-height: 780px) {
   .where.screen { padding-block: 18px; }
-  .said.screen { padding-block: 26px; }
-  .said__chat--photo .said__photo { height: 38vh; }
+  .said.screen { padding-block: 22px; }
+  .said__chat--five .said__photo { height: 36vh; }
   .cities { margin-top: 16px; }
   .city { padding: 20px 24px; }
   .city form { gap: 8px; margin-top: 12px; }

@@ -29,7 +29,7 @@
     travelHelsinki: ['Yes', 'No'],
     travelTampere: ['Yes', 'No'],
     format: [['One-to-one', 'One-to-one: one person, just the two of you'], ['In a trio', 'In a trio: two people, three of you together'], 'Either is fine'],
-    activities: ['Have lunch', 'After-work coffee', 'Walk and talk'],
+    activities: ['Have lunch', 'After-work coffee', 'Walk and talk'].concat((AM.round && AM.round.extraActivities) || []),   // January adds "Museum visit"
     meetingCriteria: [
       'I would prefer to meet people in my industry',
       'I would prefer to meet people outside my industry',
@@ -267,9 +267,9 @@
   function closed() {
     keep(PENDING, null);
     keep(DRAFT, null);
-    doneTitle.textContent = 'Sign-ups have just closed';
+    doneTitle.textContent = 'You just missed the cut-off';
     doneOk.hidden = true;
-    saveState.textContent = 'Sorry, you just missed this round. Join the waitlist for the next one on the home page.';
+    saveState.textContent = 'Sorry, ' + ((AM.round && AM.round.label) || 'this round') + ' closed a moment ago. Refresh this page to sign up for the next round.';
   }
   function rejected(error) {
     keep(PENDING, null);

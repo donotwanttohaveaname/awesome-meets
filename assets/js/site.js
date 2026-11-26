@@ -20,8 +20,27 @@
     AM.preview = true;
   }
 
+  // Preview of the moment a round's cut-off has passed and the next round takes over (localhost only, sends nothing):
+  //   http://localhost:<port>/?preview=next      http://localhost:<port>/join/?preview=next
+  if (isLocal && location.search.indexOf('preview=next') > -1 && AM.round && AM.nextRound) {
+    AM.endpoint = '';
+    AM.round.closesAt = loadedAt - 60000;
+    AM.nextRound.opensAt = loadedAt - 60000;
+    AM.preview = true;
+  }
+
+  // Rounds follow each other without a gap (Anna, 26 Nov 2026: "sign ups are open all the time but the nearest matching
+  // date changes"). When the running round's cut-off has passed and config.js names the next round, that round takes
+  // over by itself: its dates, its counter, its extra form options. The round that just closed becomes the last round.
+  if (AM.mode === 'open' && AM.round && AM.nextRound && AM.nextRound.closesAt && loadedAt >= AM.round.closesAt && loadedAt < AM.nextRound.closesAt) {
+    AM.lastRound = { key: AM.round.key, label: AM.round.label, name: AM.round.name, month: AM.round.label, signups: 0, countLabel: 'people signed up for ' + AM.round.label };
+    AM.round = AM.nextRound;
+    AM.nextRound = null;
+  }
+
   var round = AM.round || {};
   var last = AM.lastRound || {};
+  var next = (AM.mode === 'open' && AM.nextRound) || null;   // the round after this one, when config.js already names it
 
   // 'open' only while the form should be shown. Everything else is the waitlist.
   AM.state = function () {
@@ -42,8 +61,13 @@
     closesLong: round.closesLong || '',
     // whole sentences that only exist while a round is open: the page source holds no half-sentence
     // (a reader without JavaScript once saw "Sign-ups are open until .")
-    openUntil: round.closesLong ? 'Sign-ups are open until ' + round.closesLong + '.' : '',
-    openLede: round.closesLong ? 'Four short steps. Sign-ups close on ' + round.closesLong + '.' : '',
+    // Anna, 26 Nov 2026: "sign ups are open all the time but the nearest matching date changes soooo this needs to be clearer".
+    // So the date is the cut-off for THIS round's matching, never "sign-ups close".
+    openUntil: round.closesLong ? 'Sign up by ' + round.closesLong + ' to be matched for ' + (round.label || 'this round') + '.' +
+      (next ? ' Sign up after that and you\'re in for ' + next.label + '.' : '') : '',
+    openLede: round.closesLong ? 'Four short steps. Sign up by ' + round.closesLong + ' to be matched for ' + (round.label || 'this round') + '.' : '',
+    cutoffLine: round.closesLong ? 'The cut-off for ' + (round.label || 'this round') + ' is ' + round.closesLong + '.' +
+      (next ? ' Sign up after it and you\'re in for ' + next.label + '.' : '') : '',
     closesShort: round.closesShort || '',
     matchedByLong: round.matchedByLong || '',
     meetWindow: round.meetWindow || '',
@@ -57,20 +81,21 @@
   each('[data-am]', function (n) { var k = n.getAttribute('data-am'); if (text[k] !== undefined) n.textContent = text[k]; });
   each('[data-show]', function (n) { n.hidden = n.getAttribute('data-show') !== state; });
   each('[data-am-cta]', function (n) { n.textContent = state === 'open' ? 'Sign up' : 'Join the waitlist for ' + text.label; });
-  // The join page's title names the waitlist; while a round is open it names the sign-up instead.
-  if (state === 'open' && /Join the waitlist for /.test(document.title)) document.title = document.title.replace(/Join the waitlist for (\S+)/, 'Sign up for $1');
+  // The join page's fixed title is "Sign up | Awesome Meets" (true for every round, and what link previews show);
+  // in the browser tab it names the round, or the waitlist when no round is open.
+  if (/^Sign up \| /.test(document.title)) document.title = (state === 'open' ? 'Sign up for ' + text.label : 'Join the waitlist for ' + text.label) + ' | Awesome Meets';
   if (AM.preview) each('.site-version', function (n) { n.textContent += ' · PREVIEW, nothing is sent'; });
 
   // ---- countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website", then "say that
   // november sign ups close in")
   // <div data-countdown hidden></div> anywhere on a page: shown and ticking every second only while a round is open.
-  var closesIn = (round.label ? round.label + ' sign-ups' : 'Sign-ups') + ' close in';
+  var closesIn = (round.label ? round.label + ' cut-off' : 'Cut-off') + ' in';   // "December cut-off in 0d 13h": sign-ups stay open, the round's matching has a cut-off
   each('[data-countdown]', function (box) {
     if (state !== 'open' || !round.closesAt) return;
     var units = [['d', 'day', 'days', 86400000], ['h', 'hour', 'hours', 3600000], ['m', 'minute', 'minutes', 60000], ['s', 'second', 'seconds', 1000]];
     box.innerHTML = '<span class="countdown__label">' + closesIn + '</span><span class="countdown__units">' +
       units.map(function (u) { return '<span class="countdown__unit"><b data-u="' + u[0] + '">0</b><i data-l="' + u[0] + '">' + u[2] + '</i></span>'; }).join('') + '</span>';
-    box.setAttribute('aria-label', 'Sign-ups close on ' + (round.closesLong || ''));
+    box.setAttribute('aria-label', 'Sign up by ' + (round.closesLong || '') + ' to be matched for ' + (round.label || 'this round'));
     box.hidden = false;
     function tick() {
       var left = Math.max(0, round.closesAt - Date.now());
@@ -117,6 +142,14 @@
     });
   })();
 
+  // A page left open across a cut-off reloads once, so it shows the next round (or the waitlist) without anyone refreshing.
+  // The sign-up page is left alone while someone is typing in the form: form.js handles a late answer there.
+  setInterval(function () {
+    if (AM.state() === state) return;
+    if (document.getElementById('amSubmit') && document.activeElement && /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) return;
+    location.reload();
+  }, 20000);
+
   // ---- live strip
   var strip = document.getElementById('amLive');
   if (strip) {
@@ -129,14 +162,15 @@
       if (AM.state() === 'open') {
         var left = round.closesAt - Date.now();
         var days = Math.floor(left / 86400000), hours = Math.floor(left / 3600000), mins = Math.ceil(left / 60000);
-        if (left > 172800000) { rightNum.textContent = days; rightLabel.textContent = 'days left to join'; }
-        else if (hours >= 1) { rightNum.textContent = hours; rightLabel.textContent = hours === 1 ? 'hour left to join' : 'hours left to join'; }
-        else { rightNum.textContent = Math.max(1, mins); rightLabel.textContent = 'minutes left to join'; }   // rounded down, never promises extra time
+        var forRound = ' left for ' + (round.label || 'this round');
+        if (left > 172800000) { rightNum.textContent = days; rightLabel.textContent = 'days' + forRound; }
+        else if (hours >= 1) { rightNum.textContent = hours; rightLabel.textContent = (hours === 1 ? 'hour' : 'hours') + forRound; }
+        else { rightNum.textContent = Math.max(1, mins); rightLabel.textContent = 'minutes' + forRound; }   // rounded down, never promises extra time
         countLabel.textContent = 'people signed up';
         bar.hidden = false;
         if (round.opensAt) fill.style.width = Math.max(4, Math.min(100, (Date.now() - round.opensAt) / (round.closesAt - round.opensAt) * 100)).toFixed(1) + '%';
         footLeft.textContent = 'Sign-ups open';
-        footRight.textContent = round.closesShort ? 'Closes ' + round.closesShort : '';
+        footRight.textContent = round.closesShort ? (round.label ? round.label + ' cut-off: ' : 'Cut-off: ') + round.closesShort : '';
       } else {
         rightNum.textContent = (round.label || 'Soon').slice(0, 3);
         rightLabel.textContent = 'next round';
@@ -147,10 +181,7 @@
       }
     }
     paintStrip();
-    setInterval(function () {
-      paintStrip();
-      if (AM.state() !== state) location.reload();   // the round just closed: show the waitlist
-    }, 30000);
+    setInterval(paintStrip, 30000);
 
     // The count. Last known number first, then the live one. The Apps Script web app cold-starts
     // (8 seconds is normal, a failed first try happens), so: long timeout, three tries, remembered locally.
