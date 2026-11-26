@@ -164,10 +164,11 @@ html.settled .ask-hero .w, html.settled .ask-hero__sub, html.settled .ask-hero__
 .said__chat--photo .said__bubble p { font-size: clamp(1.15rem, min(3.1vh, 2.3vw), 1.7rem); }
 .said__chat--photo .said__who { margin-top: 12px; }
 .said__chat--photo .said__bubble--photo { padding: 10px 10px clamp(16px, 2.4vh, 22px); border-bottom-right-radius: 8px; background: linear-gradient(135deg, rgba(255, 140, 66, .14), rgba(255, 95, 162, .12)); }
-.said__photo { display: block; width: 100%; height: clamp(180px, 33vh, 380px); object-fit: cover; object-position: 50% 42%; border-radius: 22px; }
+.said__photo { display: block; width: 100%; height: clamp(200px, 42vh, 460px); object-fit: cover; object-position: 50% 42%; border-radius: 22px; }
 .said__chat--photo .said__bubble--photo p { margin: clamp(12px, 1.8vh, 16px) 12px 0; }
 .said__msg--photo .said__who { justify-content: flex-end; text-align: right; padding: 0 6px 0 0; flex-direction: row-reverse; }
 .said__face--c { background: var(--orange); }
+.said__lede strong { color: var(--gray-900); font-weight: 700; }
 .said__chat--photo + .said__count { margin-top: clamp(18px, 3.4vh, 40px); }
 @media (max-width: 720px) {
   .said__chat { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 18px; }
@@ -212,7 +213,7 @@ html.settled .ask-hero .w, html.settled .ask-hero__sub, html.settled .ask-hero__
 @media (min-width: 901px) and (max-height: 780px) {
   .where.screen { padding-block: 18px; }
   .said.screen { padding-block: 26px; }
-  .said__chat--photo .said__photo { height: 30vh; }
+  .said__chat--photo .said__photo { height: 38vh; }
   .cities { margin-top: 16px; }
   .city { padding: 20px 24px; }
   .city form { gap: 8px; margin-top: 12px; }
