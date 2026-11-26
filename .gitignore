@@ -1,3 +1,11 @@
 .DS_Store
 _work/
 node_modules/
+
+# design working files (kept off the public site)
+PRODUCT.md
+DESIGN.md
+.impeccable/
+/next/
+/assets/css/next.css
+/assets/js/next.js

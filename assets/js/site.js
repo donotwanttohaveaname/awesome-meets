@@ -65,7 +65,7 @@
     // So the date is the cut-off for THIS round's matching, never "sign-ups close".
     openUntil: round.closesLong ? 'Sign up by ' + round.closesLong + ' to be matched for ' + (round.label || 'this round') + '.' +
       (next ? ' Sign up after that and you\'re in for ' + next.label + '.' : '') : '',
-    openLede: round.closesLong ? 'Four short steps. Sign up by ' + round.closesLong + ' to be matched for ' + (round.label || 'this round') + '.' : '',
+    openLede: round.closesLong ? 'Sign up by ' + round.closesLong + ' to be matched for ' + (round.label || 'this round') + '.' : '',   // "Four short steps." went on 26 Nov 2026: the form says "Step 1 of 4" itself, and the line saved keeps the form above the scroll on a phone
     cutoffLine: round.closesLong ? 'The cut-off for ' + (round.label || 'this round') + ' is ' + round.closesLong + '.' +
       (next ? ' Sign up after it and you\'re in for ' + next.label + '.' : '') : '',
     closesShort: round.closesShort || '',

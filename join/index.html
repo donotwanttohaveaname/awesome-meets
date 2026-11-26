@@ -13,7 +13,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.62">
+  <meta name="am-version" content="2.63">
   <title>Sign up | Awesome Meets</title>
   <meta name="description" content="Sign up for Awesome Meets. We introduce you to someone new in Helsinki for a one-to-one conversation over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/join/">
@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.62">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.63">
 </head>
 <body>
 
@@ -53,7 +53,7 @@
 </header>
 
 <main>
-  <section class="hero" style="padding-block:52px 44px">
+  <section class="hero hero--join">
     <div class="container">
       <h1 style="max-width:18ch"><span data-show="waitlist">Want in for <span class="grad" data-am="label">December</span>?</span><span data-show="open" hidden>Sign up for <span class="grad">Awesome Meets</span></span></h1>
       <p class="hero__lede" data-show="waitlist">Leave your email and you'll be first to know when the next round of one-to-one networking opens.</p>
@@ -77,6 +77,9 @@
           <span id="amLiveClose">Last round: November 2026</span>
         </div>
       </div>
+      <!-- One line of real feedback right above the form (Anna, 26 Nov 2026: "ideally add feedback in there too"). Delfin Vassallo
+           ticked the public box in the November feedback; more quotes sit beside the form (below it on a phone). -->
+      <p class="join-quote" data-show="open" hidden><span class="join-quote__text">“Great discussion that extended for 3 hours.”</span> <span class="join-quote__who">Delfin Vassallo, November round</span></p>
     </div>
   </section>
 
@@ -106,9 +109,13 @@
   </section>
 
   <!-- SIGN-UP FORM (only while a round is open) -->
-  <section class="section" data-show="open" hidden>
+  <!-- Anna, 26 Nov 2026: "slightly redesign the first page of sign up too, so that it works well on mobile (so the form starts
+       above scroll), but ideally add feedback in there too". The letter used to sit inside step 1, above the first question,
+       which pushed the name field two screens down on a phone. Now the form comes first; the letter and three pieces of
+       feedback sit beside it on a computer and below it on a phone. -->
+  <section class="section section--join" data-show="open" hidden>
     <div class="container">
-      <div class="am-wrap">
+      <div class="am-wrap am-wrap--join">
         <div class="am-card">
           <form id="amForm" novalidate>
             <div class="am-progress" aria-hidden="true">
@@ -127,19 +134,6 @@
                  Option lists live in assets/js/form.js and must match R2_OPTIONS in the backend script letter for letter. -->
             <!-- Step 1 -->
             <div class="am-step is-active" data-step="1">
-              <div class="am-letter">
-                <p>Hi there 🧡</p>
-                <p>Awesome Meets introduces you to someone new for a real conversation: one-to-one, or in a trio if you'd like.</p>
-                <p>Here's how it works:</p>
-                <ol>
-                  <li>You fill in this form. It takes a couple of minutes.</li>
-                  <li data-am="cutoffLine">Each round has a cut-off date.</li>
-                  <li>By <strong data-am="matchedByLong"></strong>, you get your match by email: one person, or two if you'd like to meet as a trio.</li>
-                  <li>You meet whenever suits you in <span data-am="label"></span>, over lunch, an after-work coffee or a walk.</li>
-                </ol>
-                <p>Your answers are only seen by me (Anna) and Claude, the AI assistant that helps me find good matches.</p>
-                <p class="am-sign">See you out there ✨<br>Anna</p>
-              </div>
               <h2 class="am-step__title">Let's start with you</h2>
               <p class="am-step__intro">So I know who you are and where to send your match.</p>
               <div class="am-q" data-q="fullName">
@@ -159,6 +153,7 @@
                 <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300" required>
                 <p class="am-error">Paste the link to your profile, like linkedin.com/in/yourname</p>
               </div>
+              <p class="form__hint am-seen">Your answers are only seen by me (Anna) and Claude, the AI assistant that helps me find good matches.</p>
             </div>
 
             <!-- Step 2 -->
@@ -311,6 +306,37 @@
             <button type="button" class="btn btn--outline am-retry" id="amRetry" hidden>Try again</button>
           </div>
         </div>
+
+        <aside class="am-side" aria-label="How it works, and what people said">
+          <div class="am-letter">
+            <p>Hi there 🧡</p>
+            <p>Awesome Meets introduces you to someone new for a proper conversation: one-to-one, or in a trio if you'd like.</p>
+            <p>Here's how it works:</p>
+            <ol>
+              <li>You fill in this form. It takes a couple of minutes.</li>
+              <li data-am="cutoffLine">Each round has a cut-off date.</li>
+              <li>By <strong data-am="matchedByLong"></strong>, you get your match by email: one person, or two if you'd like to meet as a trio.</li>
+              <li>You meet whenever suits you in <span data-am="label"></span>, over lunch, an after-work coffee or a walk.</li>
+            </ol>
+            <p class="am-sign">See you out there ✨<br>Anna</p>
+          </div>
+          <!-- Real feedback, same people and wording as on the homepage (tab "Feedback"; Charlotte wrote "Alina" where this says "my match"). -->
+          <div class="am-said">
+            <p class="am-said__stat"><strong>93%</strong> of the meetups people rated got a 9 or 10 out of 10.</p>
+            <figure class="am-said__msg">
+              <blockquote><p>Awesome match. I love how it went and <mark>chatted longer than planned.</mark></p></blockquote>
+              <figcaption><strong>Iryna Baranivska</strong>, Marketing Lead at an early-stage startup</figcaption>
+            </figure>
+            <figure class="am-said__msg am-said__msg--b">
+              <blockquote><p>It was <mark>so much fun</mark> to get to know my match and learn more about her.</p></blockquote>
+              <figcaption><strong>Charlotte</strong>, Business Area Director at Valve One Growth</figcaption>
+            </figure>
+            <figure class="am-said__photo">
+              <img src="../assets/img/meetup-ava-november.jpg" width="1400" height="1050" loading="lazy" decoding="async" alt="Ava Kiiski taking a selfie at a café table with two other people, one holding a curly brown dog. Everyone is smiling.">
+              <figcaption>“Meeting update: it was a blast!” <strong>Ava Kiiski</strong>, November round</figcaption>
+            </figure>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -338,9 +364,9 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.62"></script>
-<script src="../assets/js/site.js?v=2.62"></script>
-<script src="../assets/js/form.js?v=2.62"></script>
+<script src="../assets/js/config.js?v=2.63"></script>
+<script src="../assets/js/site.js?v=2.63"></script>
+<script src="../assets/js/form.js?v=2.63"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
