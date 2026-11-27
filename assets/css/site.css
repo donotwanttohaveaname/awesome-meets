@@ -365,6 +365,15 @@ html[data-am-state="open"] .hero--join .am-live__bar, html[data-am-state="open"]
 .am-list--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .am-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 2px solid var(--gray-200); border-radius: var(--radius-md); cursor: pointer; transition: border-color .2s, background .2s; font-size: .95rem; min-height: 48px; }
 .am-option:hover { border-color: var(--gray-300); }
+/* the two buttons on the "take me off the list" page (leave/): one under the other, and a long label may wrap */
+.lv__choices { display: grid; gap: 12px; justify-items: center; margin: 4px 0 18px; }
+.lv__choices .btn { max-width: 100%; white-space: normal; text-align: center; text-wrap: balance; }
+/* "Want to stay in for the next rounds?": the one question on the last step that stands out (Anna, 27 Nov 2026) */
+.am-keep { padding: 18px 20px 20px; border-radius: var(--radius-md); background: var(--gradient-subtle); }
+.am-keep .am-q__label { font-size: 1.05rem; }
+.am-keep .am-option { background: var(--white); }
+/* "Other" industry: the field that shows in the list right after "Other" (Anna, 27 Nov 2026) */
+.am-other input[type="text"] { height: 100%; min-height: 48px; border-radius: var(--radius-md); font-size: .95rem; }
 .am-option input { width: 18px; height: 18px; accent-color: var(--pink-deep); flex-shrink: 0; margin: 0; }
 .am-option:has(input:checked) { border-color: var(--pink-deep); background: var(--gradient-subtle); }
 .am-option:has(input:focus-visible) { box-shadow: 0 0 0 3px rgba(209, 30, 110, .2); }
@@ -387,9 +396,13 @@ html[data-am-state="open"] .hero--join .am-live__bar, html[data-am-state="open"]
 .am-day__label { font-family: var(--font-heading); font-weight: 600; font-size: .92rem; color: var(--gray-900); }
 .am-day .am-chips { gap: 6px; }
 .am-day .am-chip span { padding: 7px 12px; font-size: .82rem; }
-.am-datanote { border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 20px 24px; margin: 8px 0 20px; background: var(--gray-50); }
-.am-datanote h3 { font-size: 1.05rem; margin-bottom: 10px; }
-.am-datanote ul { list-style: disc; padding-left: 20px; color: var(--gray-700); font-size: .9rem; }
+/* folded by default, the title is the line to press (Anna, 27 Nov 2026) */
+.am-datanote { border: 1px solid var(--gray-200); border-radius: var(--radius-md); margin: 8px 0 20px; background: var(--gray-50); }
+.am-datanote summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 24px; list-style: none; cursor: pointer; font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--gray-900); }
+.am-datanote summary::-webkit-details-marker { display: none; }
+.am-datanote summary::after { content: "+"; flex-shrink: 0; font-family: var(--font-body); font-weight: 500; font-size: 1.3rem; line-height: 1; color: var(--gray-600); }
+.am-datanote[open] summary::after { content: "−"; }
+.am-datanote ul { list-style: disc; margin: 0 24px 20px; padding-left: 20px; color: var(--gray-700); font-size: .9rem; }
 .am-datanote li { margin-bottom: 8px; }
 /* ---------- the bar pinned to the top while a round is open (inside the sticky header; site.js adds it) ---------- */
 .topbar { background: linear-gradient(90deg, rgba(255, 209, 102, .30), rgba(255, 140, 66, .22) 50%, rgba(255, 95, 162, .22)), var(--white); border-bottom: 1px solid var(--gray-200); }

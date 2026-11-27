@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The page behind "Take me off the list" in the confirmation email (Anna, 27 Nov 2026: "make it more that click this
+       button and you'll be off the list and make a page which is remove me from this round but keep for the next /
+       remove me from this round and all the future").
+       The link only opens this page. Nothing is saved until the person presses one of the two buttons here, so a mail
+       scanner that opens links cannot take anyone off. Like the unsubscribe page it has NO Google Analytics, NO Ahrefs
+       and NO Buy Me a Coffee button: the address carries a personal link code, and that code should not travel to any
+       other service. Not in the sitemap, not indexed. -->
+  <meta name="am-version" content="2.64">
+  <title>Changed your mind? | Awesome Meets</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/icon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../assets/img/icon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/img/awesome-meets-logo-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.64">
+</head>
+<body class="fb-page">
+
+<header class="site-header">
+  <div class="container site-header__in">
+    <a class="logo" href="../" aria-label="Awesome Meets, home">
+      <img src="../assets/img/heart.png" alt="" width="30" height="30">
+      <span class="logo__word">Awesome <span>Meets</span></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="section fb">
+    <div class="container">
+      <div class="am-wrap fb__wrap">
+
+        <!-- 1. the question. Nothing is saved before one of the two buttons is pressed -->
+        <div class="fb__state fb__state--center" id="lvAsk" hidden>
+          <h1>Changed your mind?</h1>
+          <p class="fb__lead">No hard feelings. Pick what suits you, nothing is saved before you&nbsp;press.</p>
+          <div class="lv__choices">
+            <button class="btn btn--primary" type="button" id="lvRound">Skip this round, keep me in for the&nbsp;next</button>
+            <button class="btn btn--outline" type="button" id="lvAll">Take me off this round and all future&nbsp;ones</button>
+          </div>
+          <p class="form__hint fb__private">Once a round's cut-off has passed, matching is under way and a click can't take you off any more. Reply to my email then, and I'll sort it out by&nbsp;hand.</p>
+        </div>
+
+        <!-- 2. shown the instant a button is pressed; the line under the heading reports the saving -->
+        <div class="fb__state fb__state--center" id="lvDone" hidden>
+          <h1 id="lvDoneTitle">Done</h1>
+          <p class="fb__lead" id="lvDoneLead" aria-live="polite">Saving…</p>
+          <button class="btn btn--outline" type="button" id="lvRetry" hidden>Try again</button>
+          <button class="btn btn--outline" type="button" id="lvUndo" hidden>Undo</button>
+          <p class="fb__sign">Anna<br>Awesome Meets</p>
+        </div>
+
+        <!-- 3. the round's cut-off has passed: nothing was changed -->
+        <div class="fb__state fb__state--center" id="lvClosed" hidden>
+          <h1>Too late for a click</h1>
+          <p class="fb__lead" id="lvClosedLead">Sign-ups for this round have closed and matching is under way. Reply to my email and I'll sort it out by&nbsp;hand.</p>
+          <p class="fb__sign">Anna</p>
+        </div>
+
+        <!-- 4. the link is wrong -->
+        <div class="fb__state fb__state--center" id="lvError" hidden>
+          <h1>That link didn't work</h1>
+          <p class="fb__lead">Please reply to my email instead and I'll take you off by hand.</p>
+          <p class="fb__sign">Anna</p>
+        </div>
+
+        <noscript><p class="fb__lead">This page needs JavaScript. If it does not open, please reply to my email instead and I'll take you off by hand. Anna</p></noscript>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="site-version" style="margin-top:0">Made with ❤️ in Helsinki. © 2026 by <a href="https://awesomemarketer.fi/">Anna Pogrebniak</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js?v=2.64"></script>
+<script src="../assets/js/leave.js?v=2.64"></script>
+</body>
+</html>

@@ -71,12 +71,35 @@
     });
   });
 
+  // "Other" industry (Anna, 27 Nov 2026: 'when one chooses "other industry" let it open a type field to write which one it
+  // is'). The field sits in the list right after "Other" and shows only while "Other" is picked. It is optional. A page
+  // from before this change has no such field, hence the checks that it exists.
+  var industryOther = document.getElementById('industryOther');
+  (function () {
+    var box = form.querySelector('[data-q="industryOther"]'), list = form.querySelector('[data-options="industry"]');
+    if (box && list) list.appendChild(box);
+  })();
+  function syncIndustry() { var box = q('industryOther'); if (box) box.hidden = checked('industry')[0] !== 'Other'; }
+
   function checked(name) {
     return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
   }
   function value(id) { return (document.getElementById(id).value || '').trim(); }
   function q(name) { return form.querySelector('[data-q="' + name + '"]'); }
   function setError(name, bad) { var n = q(name); if (n) n.classList.toggle('has-error', bad); return bad; }
+
+  // TEST RUN, on this computer only (Anna, 27 Nov 2026: "these are obligatory but can you make it so if i type "1" in
+  // each of these, it would take me to the next screen (and the answer won't be recorded)?"). With 1 as the name, the
+  // email and the LinkedIn profile, every step lets you through with nothing filled in, and "Count me in" shows the last
+  // screen without sending or keeping anything. It works on localhost only: on the real site a 1 is refused like any
+  // other wrong answer, so no visitor can end up on "You're in!" without being signed up.
+  var IS_LOCAL = ['localhost', '127.0.0.1', '[::1]'].indexOf(location.hostname) > -1;
+  function testRun() { return IS_LOCAL && value('fullName') === '1' && value('email') === '1' && value('linkedin') === '1'; }
+  function passes(n) {
+    if (!testRun()) return checks[n]();
+    [].forEach.call(steps[n - 1].querySelectorAll('.has-error'), function (el) { el.classList.remove('has-error'); });
+    return true;
+  }
 
   // The city decides which follow-up questions show: the areas for the Helsinki region; "Which city?" for "Somewhere
   // else"; for everyone outside the Helsinki region the note that their own city isn't guaranteed and "travel to
@@ -97,6 +120,7 @@
   form.addEventListener('change', function (e) {
     var t = e.target;
     if (t.name === 'city') { syncCity(); setError('city', false); }
+    if (t.name === 'industry') syncIndustry();
     if (t.name && t.type === 'radio') setError(t.name, false);
     if (t.name === 'activities') setError('activities', !checked('activities').length);
     if (t.name === 'areas') setError('areas', !checked('areas').length);
@@ -129,6 +153,7 @@
       else el.value = v;
     });
     syncCity();
+    syncIndustry();
     return Math.min(Math.max(0, draft.step | 0), steps.length - 1);
   }
   form.addEventListener('input', saveDraft);
@@ -160,7 +185,13 @@
       bad = setError('activities', !checked('activities').length) || bad;
       return !bad;
     },
-    4: function () { return !setError('agreeData', !document.getElementById('agreeData').checked); }
+    4: function () {
+      // "Want to stay in for the next rounds?" has to be answered, yes or no (Anna, 27 Nov 2026). A page from before that
+      // day has a tick box there instead, which nobody has to touch.
+      var asked = form.querySelectorAll('input[type="radio"][name="keepIn"]').length > 0;
+      var bad = setError('keepIn', asked && !checked('keepIn').length);
+      return !(setError('agreeData', !document.getElementById('agreeData').checked) || bad);
+    }
   };
 
   var back = document.getElementById('amBack'), next = document.getElementById('amNext'), submit = document.getElementById('amSubmit');
@@ -188,12 +219,12 @@
     var field = bad.querySelector('input[type="text"], input[type="email"], input[type="url"], textarea');
     if (field) { try { field.focus({ preventScroll: true }); } catch (e) { field.focus(); } }
   }
-  next.addEventListener('click', function () { if (checks[current + 1]()) show(current + 1, true); else pointAtError(); });
+  next.addEventListener('click', function () { if (passes(current + 1)) show(current + 1, true); else pointAtError(); });
   back.addEventListener('click', function () { show(current - 1, true); });
 
   // Back to where they were after a refresh; if an earlier step is somehow incomplete, start there.
   var startStep = restoreDraft();
-  for (var s = 1; s <= startStep; s++) if (!checks[s]()) { startStep = s - 1; break; }
+  for (var s = 1; s <= startStep; s++) if (!passes(s)) { startStep = s - 1; break; }
   show(startStep, false);
 
   // ---- sending
@@ -204,6 +235,17 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     statusEl.textContent = '';
+    if (testRun()) {   // nothing is sent and nothing is kept; the last screen shows as it does after a real sign-up
+      keep(DRAFT, null);
+      form.hidden = true;
+      done.hidden = false;
+      doneTitle.textContent = 'You\'re in! 🧡';
+      doneOk.hidden = false;
+      retry.hidden = true;
+      saveState.textContent = 'Test run: nothing was saved.';
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     for (var n = 1; n <= steps.length; n++) {
       if (!checks[n]()) { if (n - 1 !== current) show(n - 1, false); pointAtError(); return; }
     }
@@ -218,6 +260,7 @@
       jobTitle: value('jobTitle'),
       company: value('company'),
       industry: checked('industry')[0],
+      industryOther: industryOther && checked('industry')[0] === 'Other' ? industryOther.value.trim() : '',
       seniority: checked('seniority')[0],
       city: city(),
       cityOther: typesCity() ? value('cityOther') : '',
@@ -229,7 +272,7 @@
       activities: checked('activities'),
       meetingCriteria: checked('meetingCriteria'),
       feedback: value('feedback'),
-      keepIn: document.getElementById('keepIn').checked,   // "Keep me in for the next rounds" (Anna, 19 Nov 2026)
+      keepIn: checked('keepIn')[0] === 'yes',   // "Want to stay in for the next rounds?" yes or no (a tick box until 27 Nov 2026)
       agreeData: true,
       consentVersion: AM.consentVersion
     };
