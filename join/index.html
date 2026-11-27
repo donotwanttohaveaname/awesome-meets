@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFD166">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-60GBR73KYC"></script>
   <script>
@@ -13,7 +14,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.65">
+  <meta name="am-version" content="2.70">
   <title>Sign up | Awesome Meets</title>
   <meta name="description" content="Sign up for Awesome Meets. We introduce you to someone new in Helsinki for a one-to-one conversation over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/join/">
@@ -35,27 +36,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.65">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.70">
+  <link rel="stylesheet" href="../assets/css/next.css?v=2.70">
 </head>
-<body>
+<body class="nx nx-page nx-join">
 
-<header class="site-header">
+<header class="site-header nx-header">
   <div class="container site-header__in">
     <a class="logo" href="../" aria-label="Awesome Meets, home">
       <img src="../assets/img/heart.png" alt="" width="30" height="30">
       <span class="logo__word">Awesome <span>Meets</span></span>
     </a>
     <nav class="site-nav" aria-label="Main">
-      <a href="../#what">What we do</a>
+      <a href="../#how">How it works</a>
       <a href="../about/">About</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="hero hero--join">
+  <section class="hero hero--join" id="top">
     <div class="container">
-      <h1 style="max-width:18ch"><span data-show="waitlist">Want in for <span class="grad" data-am="label">December</span>?</span><span data-show="open" hidden>Sign up for <span class="grad">Awesome Meets</span></span></h1>
+      <h1><span data-show="waitlist">Want in for <span class="grad" data-am="label">December</span>?</span><span data-show="open" hidden>Sign up for <span class="grad">Awesome Meets</span></span></h1>
       <p class="hero__lede" data-show="waitlist">Leave your email and you'll be first to know when the next round of one-to-one networking opens.</p>
       <p class="hero__lede" data-show="open" data-am="openLede" hidden></p>
 
@@ -97,13 +99,14 @@
                 <input type="email" placeholder="you@company.com" autocomplete="email" aria-label="Your email">
                 <button type="submit" class="btn btn--primary">Keep me posted</button>
               </form>
+              <p class="form__hint nx-slow">The button is really slow, have patience 🌚</p>
               <p class="am-wait__note">Only your email, in a private Sheet, used only to send that invitation. Ask me any time to take it off. More on <a href="../data/">Your data</a>.</p>
               <p class="am-wait__done">You're on the list 🧡 I'll email you when <span data-am="label">December</span> opens.</p>
               <p class="am-status" role="alert"></p>
             </div>
           </div>
         </div>
-        <p class="form__hint" style="text-align:center;margin-top:20px">Curious what you'd be signing up for? <a href="../#what">Here's what we do</a>.</p>
+        <p class="form__hint" style="text-align:center;margin-top:20px">Curious what you'd be signing up for? <a href="../#what">Here's how it works</a>.</p>
       </div>
     </div>
   </section>
@@ -327,6 +330,18 @@
         </div>
 
         <aside class="am-side" aria-label="How it works, and what people said">
+          <nav class="nx-way" aria-label="Steps of the sign-up form">
+            <ol>
+              <li data-way="1"><button type="button">Let's start with you</button><p>So I know who you are and where to send your match.</p></li>
+              <li data-way="2"><button type="button">Your work life</button><p>So I can find people you'll click with.</p></li>
+              <li data-way="3"><button type="button">Where and how</button><p>You pick the day, the time and the place with your match. These help me find the right person.</p></li>
+              <li data-way="4"><button type="button">Almost there!</button><p>A few quick optional ones, then you're in.</p></li>
+            </ol>
+            <ul class="nx-way__dates">
+              <li><span data-nx="signBy"></span><strong data-nx="closesAt"></strong></li>
+              <li><span>Your match arrives by</span><strong data-nx="matchedByShort"></strong></li>
+            </ul>
+          </nav>
           <div class="am-letter">
             <p>Hi there 🧡</p>
             <p>Awesome Meets introduces you to someone new for a proper conversation: one-to-one, or in a trio if you'd like.</p>
@@ -341,7 +356,7 @@
           </div>
           <!-- Real feedback, same people and wording as on the homepage (tab "Feedback"; Charlotte wrote "Alina" where this says "my match"). -->
           <div class="am-said">
-            <p class="am-said__stat"><strong>93%</strong> of the meetups people rated got a 9 or 10 out of 10.</p>
+            <p class="am-said__stat"><strong>93%</strong> rated their meetup 9 or 10 out of&nbsp;10.</p>
             <figure class="am-said__msg">
               <blockquote><p>Awesome match. I love how it went and <mark>chatted longer than planned.</mark></p></blockquote>
               <figcaption><strong>Iryna Baranivska</strong>, Marketing Lead at an early-stage startup</figcaption>
@@ -352,7 +367,7 @@
             </figure>
             <figure class="am-said__photo">
               <img src="../assets/img/meetup-ava-november.jpg" width="1400" height="1050" loading="lazy" decoding="async" alt="Ava Kiiski taking a selfie at a café table with two other people, one holding a curly brown dog. Everyone is smiling.">
-              <figcaption>“Meeting update: it was a blast!” <strong>Ava Kiiski</strong>, November round</figcaption>
+              <figcaption><span class="nx-said__line">Meeting update: <mark>it was a&nbsp;blast!</mark></span><span class="nx-said__who"><strong>Ava Kiiski</strong>, November&nbsp;round</span></figcaption>
             </figure>
           </div>
         </aside>
@@ -383,9 +398,10 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.65"></script>
-<script src="../assets/js/site.js?v=2.65"></script>
-<script src="../assets/js/form.js?v=2.65"></script>
+<script src="../assets/js/config.js?v=2.70"></script>
+<script src="../assets/js/site.js?v=2.70"></script>
+<script src="../assets/js/form.js?v=2.70"></script>
+<script src="../assets/js/next.js?v=2.70"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

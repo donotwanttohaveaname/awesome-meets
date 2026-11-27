@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFD166">
   <!-- The November group planner (Anna, 2 Nov 2026), reached from the "Pick your times" button in each person's own email:
        /plan/?g=<personal link code>. Everyone in a group sees the others' picks; once all have saved, the backend sets the
        earliest shared time and a place and emails the group. Same rules as feedback/: lives here and not on the Google
        script's own address (Drive error for anyone signed into several Google accounts), and on purpose NO Google
        Analytics, NO Ahrefs and NO Buy Me a Coffee: the address carries a personal link code. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.65">
+  <meta name="am-version" content="2.70">
   <title>Plan your meetup | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,11 +21,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.65">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.70">
+  <link rel="stylesheet" href="../assets/css/next.css?v=2.70">
 </head>
-<body class="fb-page plan-page">
+<body class="fb-page plan-page nx nx-page nx-plan">
 
-<header class="site-header">
+<header class="site-header nx-header">
   <div class="container site-header__in">
     <a class="logo" href="../" aria-label="Awesome Meets, home">
       <img src="../assets/img/heart.png" alt="" width="30" height="30">
@@ -34,7 +36,7 @@
 </header>
 
 <main>
-  <section class="section fb plan">
+  <section class="section fb plan" id="top">
     <div class="container">
       <div class="am-wrap fb__wrap">
 
@@ -136,7 +138,8 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.65"></script>
-<script src="../assets/js/plan.js?v=2.65"></script>
+<script src="../assets/js/config.js?v=2.70"></script>
+<script src="../assets/js/plan.js?v=2.70"></script>
+<script src="../assets/js/next.js?v=2.70"></script>
 </body>
 </html>

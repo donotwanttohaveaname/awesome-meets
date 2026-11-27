@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFD166">
   <!-- The page behind "Don't email me about new rounds again" in an invitation email (Anna, 25 Nov 2026: "could we have a
        button unsubscribe / never hear about this again in this batch" and "remember if they marked it").
        The link only opens this page. Nothing is saved until the person presses the button here, so a mail scanner that
        opens links cannot unsubscribe anyone. Like the feedback page it lives here, and not on the Google script's own
        address, and has NO Google Analytics, NO Ahrefs and NO Buy Me a Coffee button: the address carries a personal
        link code, and that code should not travel to any other service. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.65">
+  <meta name="am-version" content="2.70">
   <title>Stop emails about new rounds | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -21,11 +22,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.65">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.70">
+  <link rel="stylesheet" href="../assets/css/next.css?v=2.70">
 </head>
-<body class="fb-page">
+<body class="fb-page nx nx-page nx-unsub">
 
-<header class="site-header">
+<header class="site-header nx-header">
   <div class="container site-header__in">
     <a class="logo" href="../" aria-label="Awesome Meets, home">
       <img src="../assets/img/heart.png" alt="" width="30" height="30">
@@ -35,7 +37,7 @@
 </header>
 
 <main>
-  <section class="section fb">
+  <section class="section fb" id="top">
     <div class="container">
       <div class="am-wrap fb__wrap">
 
@@ -75,7 +77,8 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.65"></script>
-<script src="../assets/js/unsubscribe.js?v=2.65"></script>
+<script src="../assets/js/config.js?v=2.70"></script>
+<script src="../assets/js/unsubscribe.js?v=2.70"></script>
+<script src="../assets/js/next.js?v=2.70"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FF5FA2">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-60GBR73KYC"></script>
   <script>
@@ -13,7 +14,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.65">
+  <meta name="am-version" content="2.70">
   <title>About Awesome Meets: one-to-one networking in Helsinki</title>
   <meta name="description" content="Who runs Awesome Meets, how one-to-one networking in Helsinki works, and answers to common questions. By the creators of The Awesome Marketers.">
   <link rel="canonical" href="https://awesomemeets.com/about/">
@@ -38,18 +39,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.65">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.70">
+  <link rel="stylesheet" href="../assets/css/next.css?v=2.70">
 </head>
-<body class="has-dock">
+<body class="has-dock nx nx-page nx-about">
 
-<header class="site-header">
+<header class="site-header nx-header">
   <div class="container site-header__in">
     <a class="logo" href="../" aria-label="Awesome Meets, home">
       <img src="../assets/img/heart.png" alt="" width="30" height="30">
       <span class="logo__word">Awesome <span>Meets</span></span>
     </a>
     <nav class="site-nav" aria-label="Main">
-      <a href="../#what">What we do</a>
+      <a href="../#how">How it works</a>
       <a href="./" aria-current="page">About</a>
       <a class="btn btn--primary btn--sm" href="../join/" data-am-cta>Join the waitlist for December</a>
     </nav>
@@ -57,11 +59,16 @@
 </header>
 
 <main>
-  <section class="page-hero">
-    <div class="container narrow">
-      <p class="section__label">About the creators</p>
+  <section class="page-hero" id="top">
+    <div class="container narrow nx-read">
+      <div class="nx-read__text">
       <h1>Made by the creators of The Awesome Marketers</h1>
       <p>Awesome Meets is one-to-one networking in Helsinki: it introduces you to someone new from your field for a real conversation. It comes from the people who built The Awesome Marketers community.</p>
+      </div>
+      <aside class="letter nx-read__card">
+        <p>For years we've preached that networking is everything. After talking to so many of you, I wanna make it actually happen: in person, over food, with people you'd never bump into otherwise.</p>
+        <p class="letter__sign">Anna</p>
+      </aside>
     </div>
   </section>
 
@@ -69,10 +76,6 @@
     <div class="container narrow prose">
 
       <h2>Why Awesome Meets exists</h2>
-      <div class="letter" style="margin-top:18px">
-        <p>For years we've preached that networking is everything. After talking to so many of you, I wanna make it actually happen: in person, over food, with people you'd never bump into otherwise.</p>
-        <p class="letter__sign">Anna</p>
-      </div>
       <p>So that's what this is. You fill in a short form, I match you with 1 or 2 people, and you meet over lunch, an after-work coffee or a walk.</p>
       <p>It started in October 2026 as Awesome Autumn Meets, a round for marketers from the community: 40 people signed up. Awesome Meets itself is for everyone, whatever you do, and you don't need to be a member of The Awesome&nbsp;Marketers.</p>
 
@@ -92,7 +95,7 @@
       <p>Questions, ideas, or something that didn't work? Write to <span class="selectable">anna@awesomemarketers.fi</span>.</p>
 
       <h2 id="questions">Questions people ask</h2>
-      <div class="faq" style="margin-top:18px">
+      <div class="faq">
         <details>
           <summary>What is Awesome Meets?</summary>
           <p>Awesome Meets is one-to-one networking in Helsinki. You tell us about your interests, your industry and your profession, we introduce you to someone new from your field, and the two of you meet in person over lunch, coffee or a walk.</p>
@@ -133,7 +136,7 @@
 
       <div class="hero__cta" style="justify-content:flex-start;margin-top:36px">
         <a class="btn btn--primary" href="../join/" data-am-cta>Join the waitlist for December</a>
-        <a class="btn btn--outline" href="../#what">What we do</a>
+        <a class="btn btn--outline" href="../#how">How it works</a>
       </div>
     </div>
   </section>
@@ -165,8 +168,9 @@
   <a class="btn btn--primary" href="../join/" data-am-cta>Join the waitlist for December</a>
 </div>
 
-<script src="../assets/js/config.js?v=2.65"></script>
-<script src="../assets/js/site.js?v=2.65"></script>
+<script src="../assets/js/config.js?v=2.70"></script>
+<script src="../assets/js/site.js?v=2.70"></script>
+<script src="../assets/js/next.js?v=2.70"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

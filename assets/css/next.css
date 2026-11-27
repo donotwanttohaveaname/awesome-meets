@@ -1,0 +1,974 @@
+/* Awesome Meets, the new homepage ("The big answer"). PREVIEW: used by /next/ only, loaded after site.css.
+   The idea: the page asks its headline for real and you answer by pressing one of three wide bars. That bar is the one
+   component of the page; every screen is one colour field of the brand kit, edge to edge.
+   Brand rules kept: buttons are white text on the deep gradient, no eyebrows, no pills, no capitalised labels, no stripe
+   down a card edge, no single word alone on a line (the big lines are broken by hand or fitted to the screen). */
+
+html {
+  --ink: #171717;
+  --head: 76px;
+  --pad: clamp(20px, 5vw, 72px);
+  /* the reply takes the colour of the answer; "how" takes a colour the reply does not use */
+  --reply-bg: var(--orange);
+  --reply-fg: var(--ink);
+  --how-bg: var(--pink);
+  scroll-padding-top: var(--head);
+  background: var(--yellow);   /* what a phone shows when the first screen is pulled down */
+}
+/* a shorter header in a short window, so first screens keep their room (whole pixels, or a hairline shows between screens) */
+@media (max-height: 800px) { html { --head: 68px; } }
+@media (max-height: 680px) { html { --head: 60px; } }
+html[data-answer="week"] { --reply-bg: var(--pink); --how-bg: var(--orange); }
+html[data-answer="never"] { --reply-bg: var(--pink-deep); --reply-fg: #FFFFFF; --how-bg: var(--orange); }
+
+.nx { color: var(--ink); overflow-x: clip; -webkit-tap-highlight-color: transparent; }
+.nx ::selection { background: var(--ink); color: var(--yellow); }
+.nx :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }   /* no radius here: the outline follows each element's own corners */
+.nx .topbar { display: none; }   /* the first screen carries the cut-off itself */
+.nx-wrap { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: var(--pad); }
+
+/* ---------- header: on the yellow of the first screen, then the usual light bar ---------- */
+.nx-header { background: var(--hero, var(--yellow)); border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; transition: background-color .3s ease, border-color .3s ease; }
+.nx-header .container { max-width: 1440px; padding-inline: var(--pad); }
+.nx-header .site-header__in { min-height: var(--head); }
+.nx-header .logo img { width: 34px; height: 34px; }
+.nx-header .logo__word { font-size: clamp(1.35rem, 1.9vw, 1.75rem); }
+.nx-header .site-nav { gap: clamp(20px, 2.6vw, 40px); }
+.nx-header .site-nav a:not(.btn) { color: var(--ink); font-weight: 600; font-size: clamp(1.1rem, 1.5vw, 1.4rem); }
+.nx-header .site-nav a[aria-current="page"]:not(.btn) { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.nx-header .btn--sm { padding: 12px 26px; font-size: clamp(1.02rem, 1.3vw, 1.2rem); }
+.nx-header .site-nav a:not(.btn):hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.nx-header .btn--primary { box-shadow: none; }
+.nx-past .nx-header { background: rgba(255, 253, 251, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: var(--gray-200); }
+
+/* ---------- the answer bar: the page's one component ---------- */
+.nx-bars { display: grid; gap: clamp(8px, 1.6vh, 14px); }
+.nx-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: clamp(62px, 11.4vh, 104px); padding: 10px clamp(20px, 3.2vw, 44px);
+  border-radius: clamp(20px, 2.4vw, 32px); background: #FFFFFF; color: var(--ink); text-decoration: none;
+  font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.35rem, min(3.3vw, 5.4vh), 3rem); letter-spacing: -.035em; line-height: 1.08;
+  box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 18px 30px -20px rgba(120, 66, 0, .6);
+  cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;
+  transition: transform .32s cubic-bezier(.16, 1, .3, 1), background-color .16s ease, color .16s ease;
+}
+.nx-bar svg { flex: none; width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; transition: transform .32s cubic-bezier(.16, 1, .3, 1); }
+@media (hover: hover) {
+  a.nx-bar:hover { transform: translateX(10px); }
+  a.nx-bar:hover svg { transform: translateX(6px); }
+  .nx-else:not([open]) summary:hover svg { transform: translateY(5px); }
+}
+a.nx-bar:active { transform: scale(.985); transition-duration: .08s; }
+.nx-bar.is-on { background: var(--ink); color: #FFFFFF; }
+a.nx-bar.is-on, a.nx-bar.is-on:hover { transform: translateX(clamp(8px, 1.2vw, 18px)); }
+
+/* ---------- 1. the question ---------- */
+.nx-ask { display: flex; min-height: calc(100vh - var(--head)); min-height: calc(100svh - var(--head)); background: var(--yellow); }
+.nx-ask__in { display: flex; flex-direction: column; justify-content: space-between; gap: clamp(18px, 4vh, 44px); padding-block: clamp(10px, 3vh, 36px) clamp(18px, 4vh, 40px); }
+.nx-ask h1 { font-size: clamp(1.9rem, min(7.1vw, 10.4vh), 6rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; text-wrap: initial; }
+.nx-ask h1 span { display: block; white-space: nowrap; }
+.nx-ask__foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: 6px 24px; min-height: 1.4em; }   /* only the round's cut-off now (Anna, 27 Nov 2026, on "Pick one. Every answer ends with meeting someone new.": "this is too obvious") */
+.nx-ask__foot p { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.3; letter-spacing: -.02em; text-wrap: balance; }
+.nx-ask__foot .nx-ask__round { font-family: var(--font-body); font-size: clamp(.95rem, 1.25vw, 1.1rem); letter-spacing: 0; }
+
+/* ---------- the screens after it: each one fills the screen under the header ---------- */
+.nx-view { display: flex; align-items: center; min-height: calc(100vh - var(--head)); min-height: calc(100svh - var(--head)); padding-block: clamp(26px, 6vh, 72px); }
+.nx-view h2 { font-size: clamp(2.3rem, min(6.6vw, 10.4vh), 6rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; }
+
+/* ---------- 2. the reply ---------- */
+.nx-reply { background: var(--reply-bg); color: var(--reply-fg); }
+.nx-reply__in { --gap: clamp(16px, 3.6vh, 40px); display: grid; gap: var(--gap); }
+.nx-reply h2:focus { outline: none; }
+.nx-reply__what { max-width: 40ch; font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.25rem, min(2.6vw, 4.4vh), 2.4rem); line-height: 1.25; letter-spacing: -.02em; text-wrap: pretty; }
+.nx-ticket { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px clamp(20px, 3vw, 48px); margin-top: clamp(4px, 2vh, 24px); padding: clamp(18px, 3.2vh, 32px) clamp(20px, 3.2vw, 44px); border-radius: clamp(20px, 2.4vw, 32px); background: #FFFFFF; color: var(--ink); box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 22px 36px -22px rgba(23, 23, 23, .45); }
+.nx-dates { display: flex; flex-wrap: wrap; gap: 14px clamp(22px, 3.4vw, 56px); }
+.nx-dates li { display: grid; gap: 3px; }
+.nx-dates span { font-size: .95rem; line-height: 1.3; color: var(--gray-600); }
+.nx-dates strong { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.15rem, min(1.9vw, 3.6vh), 1.7rem); line-height: 1.12; letter-spacing: -.03em; white-space: nowrap; }
+.nx-cta.btn { padding: clamp(14px, 2.2vh, 20px) clamp(26px, 2.8vw, 40px); font-size: clamp(1.05rem, 1.4vw, 1.25rem); }
+.nx-ticket > .nx-cta { margin-left: auto; }
+.nx-reply__note { margin-top: calc(14px - var(--gap)); font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.45; text-wrap: pretty; }
+.nx-ticket--form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+.nx-ticket__closed { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.5rem); line-height: 1.3; letter-spacing: -.02em; text-wrap: pretty; }
+/* the reply arrives after an answer (next.js adds the class; nothing is hidden without it) */
+.nx-reply.is-arriving h2, .nx-reply.is-arriving .nx-reply__what, .nx-reply.is-arriving .nx-ticket, .nx-reply.is-arriving .nx-reply__note { animation: nxRise .7s cubic-bezier(.16, 1, .3, 1) both; }
+.nx-reply.is-arriving .nx-reply__what { animation-delay: .07s; }
+.nx-reply.is-arriving .nx-ticket { animation-delay: .14s; }
+.nx-reply.is-arriving .nx-reply__note { animation-delay: .2s; }
+@keyframes nxRise { from { opacity: 0; transform: translateY(22px); } }
+
+/* the colour of the answer floods the screen from the bar that was pressed */
+.nx-flood { position: fixed; inset: 0; z-index: 60; visibility: hidden; pointer-events: none; background: var(--reply-bg); clip-path: circle(0 at var(--x, 50%) var(--y, 50%)); }
+.nx-flood.is-on { visibility: visible; clip-path: circle(130vmax at var(--x, 50%) var(--y, 50%)); transition: clip-path .45s cubic-bezier(.3, .7, .2, 1); }
+.nx-flood.is-out { opacity: 0; transition: opacity .24s ease; }
+
+/* ---------- 3. how did it go: what people wrote, as the messages they are ---------- */
+.nx-said { background: var(--page); }
+.nx-answer { margin-top: clamp(8px, 1.8vh, 18px); font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.15rem, min(2.1vw, 3.6vh), 1.9rem); line-height: 1.3; letter-spacing: -.02em; text-wrap: balance; }
+.nx-answer strong { font-weight: 700; }
+.nx-answer mark { padding: 0 .06em; background: linear-gradient(transparent 56%, var(--yellow) 56%, var(--yellow) 92%, transparent 92%); color: inherit; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.nx-chat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr); grid-template-areas: "a photo b" "c photo d"; align-items: center; gap: clamp(14px, 3vh, 32px) clamp(16px, 2.2vw, 36px); margin-top: clamp(18px, 4.4vh, 48px); }
+.nx-chat:focus-visible { outline-offset: 8px; }
+.nx-msg { display: grid; gap: 12px; margin: 0; }
+.nx-msg--a { grid-area: a; } .nx-msg--b { grid-area: b; } .nx-msg--c { grid-area: c; } .nx-msg--d { grid-area: d; } .nx-msg--photo { grid-area: photo; }
+.nx-msg blockquote { margin: 0; padding: clamp(14px, 2.6vh, 26px) clamp(18px, 1.9vw, 28px); border-radius: 26px 26px 26px 8px; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, min(1.85vw, 3.2vh), 1.7rem); line-height: 1.32; letter-spacing: -.02em; text-wrap: balance; }
+.nx-msg--a blockquote, .nx-msg--d blockquote { background: var(--yellow); }
+.nx-msg--b blockquote { background: var(--orange); }
+.nx-msg--c blockquote { background: var(--pink); }
+.nx-msg--b blockquote, .nx-msg--d blockquote { border-radius: 26px 26px 8px 26px; }
+.nx-msg--b figcaption, .nx-msg--d figcaption { flex-direction: row-reverse; text-align: right; }
+.nx-msg mark { padding: 0 .06em; background: linear-gradient(transparent 56%, rgba(255, 255, 255, .92) 56%, rgba(255, 255, 255, .92) 92%, transparent 92%); color: inherit; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.nx-msg figcaption { display: flex; align-items: center; gap: 10px; font-size: .9rem; line-height: 1.3; color: var(--gray-600); }
+.nx-msg figcaption strong { color: var(--ink); }
+.nx-who { display: grid; }
+.nx-who strong, .nx-who span { display: block; text-wrap: balance; }
+.nx-face { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font-family: var(--font-heading); font-weight: 700; font-size: .88rem; letter-spacing: -.01em; color: var(--ink); }
+.nx-face--y { background: var(--yellow); } .nx-face--o { background: var(--orange); } .nx-face--p { background: var(--pink); }
+.nx-photo { position: relative; overflow: hidden; border-radius: 28px; background: var(--gray-100); }
+.nx-photo img { width: 100%; aspect-ratio: 4 / 3; max-height: 52vh; object-fit: cover; }
+.nx-photo p { position: absolute; left: 14px; bottom: 14px; margin-right: 14px; padding: 9px 16px; border-radius: 18px 18px 18px 6px; background: #FFFFFF; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1rem, 1.4vw, 1.3rem); line-height: 1.3; letter-spacing: -.02em; text-wrap: balance; }
+.nx-photo mark { background: linear-gradient(transparent 56%, var(--yellow) 56%, var(--yellow) 92%, transparent 92%); }
+.nx-dots { display: none; }
+
+/* ---------- 4. how does it work: the round's real dates ---------- */
+.nx-how { background: var(--how-bg); }
+.nx-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(18px, 2.6vw, 44px); margin-top: clamp(20px, 5.4vh, 64px); }
+.nx-how .nx-bars { margin-top: clamp(20px, 5.4vh, 64px); }
+.nx-how .nx-bar { box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 20px 32px -20px rgba(23, 23, 23, .5); }
+.nx-steps::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 2px; background: var(--ink); }
+.nx-steps li { position: relative; padding-top: clamp(30px, 5.4vh, 48px); }
+.nx-steps li::before { content: ""; position: absolute; left: 0; top: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); }
+.nx-steps li:first-child::before { background: #FFFFFF; border: 2px solid var(--ink); }
+.nx-steps h3 { font-size: clamp(1.45rem, min(3.1vw, 5.4vh), 3rem); font-weight: 700; line-height: 1.02; letter-spacing: -.035em; white-space: nowrap; }
+.nx-steps p { margin-top: clamp(8px, 1.6vh, 16px); max-width: 29ch; font-size: clamp(.98rem, min(1.3vw, 2.5vh), 1.2rem); line-height: 1.45; text-wrap: pretty; }
+.nx-steps p strong { font-family: var(--font-heading); font-weight: 700; letter-spacing: -.01em; }
+
+/* ---------- 5. why bother: Anna's own text ---------- */
+.nx-why { background: var(--page); }
+.nx-why__lines { margin-top: clamp(18px, 5vh, 56px); }
+.nx-why__lines > div { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: baseline; gap: 8px clamp(24px, 5vw, 80px); padding-block: clamp(14px, 3.8vh, 40px); border-top: 2px solid var(--ink); }
+.nx-why__lines h3 { font-size: clamp(1.4rem, min(3.2vw, 5.4vh), 3rem); font-weight: 700; line-height: 1.05; letter-spacing: -.035em; }
+.nx-why__lines p { max-width: 42ch; font-size: clamp(1rem, min(1.45vw, 2.8vh), 1.35rem); line-height: 1.45; color: var(--gray-700); text-wrap: pretty; }
+.nx-why__lines > .nx-why__last { grid-template-columns: minmax(0, 1fr); }
+.nx-why__last h3 span { display: block; }
+.nx-why__lines mark { padding: 0 .06em; background: linear-gradient(transparent 56%, var(--yellow) 56%, var(--yellow) 92%, transparent 92%); color: inherit; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* ---------- 6. where are you: the same bars as the first screen ---------- */
+.nx-where { background: var(--yellow); }
+.nx-bars--where { margin-top: clamp(18px, 5vh, 56px); }
+.nx-bar--tall { min-height: clamp(92px, 20vh, 180px); padding-block: clamp(14px, 2.4vh, 24px); }
+.nx-bar--tall b { display: block; font-weight: 700; }
+.nx-bar--tall small { display: block; max-width: 62ch; margin-top: 6px; font-family: var(--font-body); font-weight: 500; font-size: clamp(.95rem, min(1.3vw, 2.5vh), 1.2rem); line-height: 1.4; letter-spacing: 0; color: var(--gray-700); text-wrap: balance; }
+.nx-else { border-radius: clamp(20px, 2.4vw, 32px); background: #FFFFFF; box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 18px 30px -20px rgba(120, 66, 0, .6); }
+.nx-else summary { display: block; list-style: none; border-radius: inherit; cursor: pointer; }
+.nx-else summary::-webkit-details-marker { display: none; }
+.nx-else .nx-bar { background: transparent; box-shadow: none; }
+.nx-else[open] summary svg { transform: rotate(180deg); }
+.nx-form--city { padding: 0 clamp(20px, 3.2vw, 44px) clamp(22px, 3.4vh, 36px); }
+
+/* ---------- the two small forms. Anna, 27 Nov 2026, on the opened "Somewhere else" bar: "somewhere else sign up is ugly"
+   (a narrow column of small fields in a huge white panel). The fields are now as big as the bar they sit in and, on a
+   computer, stand in ONE row across the whole panel with the button at the end. ---------- */
+.nx-form form { display: grid; gap: 12px; }
+.nx-form label:not(.am-hp) { display: grid; gap: 6px; font-family: var(--font-heading); font-size: clamp(.95rem, 1.15vw, 1.08rem); font-weight: 600; letter-spacing: -.01em; color: var(--ink); }
+.nx-form label:not(.am-hp) input { width: 100%; min-width: 0; height: clamp(52px, 7vh, 62px); padding: 0 18px; border: 2px solid var(--ink); border-radius: 16px; background: #FFFFFF; font-family: var(--font-body); font-size: 1.05rem; font-weight: 400; letter-spacing: 0; color: var(--ink); caret-color: var(--pink-deep); transition: box-shadow .2s ease; }
+.nx-form label:not(.am-hp) input::placeholder { color: var(--gray-500); }
+.nx-form label:not(.am-hp) input:focus { outline: none; box-shadow: 0 0 0 4px rgba(23, 23, 23, .16); }
+.nx-form .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.nx-form .btn { justify-self: start; min-height: clamp(52px, 7vh, 62px); margin-top: 0; padding-block: 0; }
+.nx-form__note { margin-top: 14px; font-size: .9rem; line-height: 1.45; color: var(--gray-700); }
+.nx-form__note a { color: var(--ink); }
+.nx-form__done { display: none; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.3rem, 2.2vw, 2rem); line-height: 1.15; letter-spacing: -.03em; text-wrap: balance; }
+.nx-form.is-done > form, .nx-form.is-done > .nx-form__note { display: none; }
+.nx-form.is-done > .nx-form__done { display: block; }
+@media (min-width: 1101px) {
+  .nx-form--city > .nx-slow { text-align: right; }
+  .nx-form--city form { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.35fr) minmax(0, 1.35fr) auto; align-items: end; gap: 14px; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .nx-form--city form { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px 14px; }
+}
+
+/* ---------- phones: the button that stays within reach ---------- */
+.nx-dock { display: none; }
+
+/* ---------- a short laptop window (about 1000 x 625): every screen still fits ---------- */
+@media (max-height: 680px) and (min-width: 761px) {
+  .nx-view { padding-block: 14px; }
+  .nx-steps, .nx-how .nx-bars { margin-top: 14px; }
+  .nx-how .nx-bar { min-height: 56px; }
+  .nx-chat { margin-top: 14px; row-gap: 12px; }
+  .nx-why__lines { margin-top: 12px; }
+}
+
+/* ---------- narrower laptops and tablets ---------- */
+@media (max-width: 1100px) {
+  .nx-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(20px, 4vh, 40px); margin-top: clamp(20px, 5vh, 56px); }
+  .nx-steps::before { display: none; }
+  .nx-steps li { padding-top: 0; }
+  .nx-steps li::before { display: none; }
+  .nx-steps li { padding-top: clamp(12px, 2.4vh, 22px); border-top: 2px solid var(--ink); }
+}
+@media (max-width: 1100px) and (max-height: 680px) and (min-width: 761px) {
+  .nx-steps { row-gap: 12px; }
+  .nx-steps li { padding-top: 8px; }
+}
+
+/* ---------- tablets: the dates in a row, the button under them at full width ---------- */
+@media (max-width: 980px) {
+  .nx-ticket { flex-direction: column; align-items: stretch; }
+  .nx-ticket > .nx-cta { margin-left: 0; }
+}
+
+/* ---------- tablets and phones: the messages become a row you swipe sideways, so the screen still fits ---------- */
+@media (max-width: 900px) {
+  .nx-chat { display: flex; align-items: flex-start; gap: 12px; margin-inline: calc(var(--pad) * -1); padding: 4px var(--pad) 6px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); overscroll-behavior-x: contain; scrollbar-width: none; }
+  .nx-chat::-webkit-scrollbar { display: none; }
+  .nx-msg { flex: 0 0 min(84%, 400px); scroll-snap-align: start; }
+  .nx-msg--photo { order: -1; }
+  .nx-msg blockquote, .nx-msg--b blockquote, .nx-msg--d blockquote { padding: 20px; border-radius: 24px 24px 24px 8px; font-size: clamp(1.25rem, 5.8vw, 1.55rem); }
+  .nx-msg--b figcaption, .nx-msg--d figcaption { flex-direction: row; text-align: left; }
+  .nx-photo { border-radius: 24px; }
+  .nx-photo img { max-height: 38vh; }
+  .nx-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+  .nx-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); transition: background-color .2s ease, transform .2s ease; }
+  .nx-dots i.is-on { background: var(--ink); transform: scale(1.25); }
+}
+
+/* ---------- phones ---------- */
+@media (max-width: 760px) {
+  html { --head: 60px; scroll-padding-top: 0; }
+  .nx-header .logo img { width: 30px; height: 30px; }
+  .nx-header .btn--sm { padding: 10px 18px; font-size: .95rem; }
+  .nx-header { position: relative; }
+  .nx-header .site-header__in { min-height: var(--head); }
+  .nx-view { min-height: 100vh; min-height: 100svh; padding-block: clamp(20px, 4.4vh, 48px); }
+  .nx-view h2 { font-size: clamp(2.1rem, 10.8vw, 3.2rem); }
+  /* the docked button covers the bottom of these three screens: keep their content clear of it and centred above it */
+  .nx-said, .nx-how, .nx-why { padding-bottom: calc(clamp(20px, 4.4vh, 48px) + 64px + env(safe-area-inset-bottom)); }
+
+  .nx-ask h1 { font-size: clamp(1.7rem, min(10.1vw, 9vh), 4.4rem); line-height: 1; }
+  .nx-bar { min-height: clamp(62px, 10.6vh, 92px); font-size: clamp(1.3rem, 6.4vw, 1.9rem); border-radius: 22px; }
+  .nx-ask__foot { flex-direction: column; gap: 6px; }
+
+  .nx-reply__in { --gap: clamp(14px, 2.8vh, 28px); }
+  .nx-reply__what { font-size: clamp(1.12rem, 4.9vw, 1.45rem); }
+  .nx-ticket { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 0; padding: 16px 18px 18px; border-radius: 22px; }
+  .nx-dates { display: grid; gap: 0; }
+  .nx-dates li { grid-template-columns: minmax(0, 1fr); gap: 1px; padding-block: 8px; }
+  .nx-dates span { font-size: .88rem; }
+  .nx-dates li + li { border-top: 1px solid var(--gray-200); }
+  .nx-dates li:first-child { padding-top: 0; }
+  .nx-dates li:last-child { padding-bottom: 0; }
+  .nx-dates strong { font-size: 1.15rem; white-space: normal; }
+  .nx-cta.btn { width: 100%; padding: 15px 24px; font-size: 1.08rem; }
+  .nx-ticket--form { grid-template-columns: minmax(0, 1fr); }
+
+  .nx-answer { font-size: clamp(1.12rem, 4.9vw, 1.4rem); }
+  .nx-steps { grid-template-columns: minmax(0, 1fr); row-gap: 0; margin-top: 20px; }
+  .nx-how .nx-bars { display: none; }   /* on a phone the docked button does this job */
+  .nx-steps li { padding-block: clamp(10px, 1.9vh, 16px); border-top: 2px solid var(--ink); }
+  .nx-steps h3 { font-size: clamp(1.35rem, 6.2vw, 1.7rem); }
+  .nx-steps p { max-width: none; margin-top: 4px; font-size: .98rem; line-height: 1.42; }
+
+  .nx-why__lines { margin-top: 20px; }
+  .nx-why__lines > div { grid-template-columns: minmax(0, 1fr); padding-block: clamp(14px, 2.6vh, 22px); }
+  .nx-why__lines h3 { font-size: clamp(1.5rem, 7vw, 2rem); }
+
+  /* the two tall bars: title and arrow on one line, the small print under both at full width */
+  .nx-bar--tall { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 12px; min-height: 0; padding: 18px 20px; }
+  .nx-bar--tall > span { display: contents; }
+  .nx-bar--tall b { grid-column: 1; grid-row: 1; }
+  .nx-bar--tall svg { grid-column: 2; grid-row: 1; }
+  .nx-bar--tall small { grid-column: 1 / -1; grid-row: 2; max-width: none; margin-top: 0; }
+  .nx-else { border-radius: 22px; }
+  .nx-form--city { padding: 0 20px 22px; }
+  .nx-form .btn { justify-self: stretch; }
+
+  .nx-dock { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(255, 253, 251, .94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid var(--gray-200); transform: translateY(110%); transition: transform .4s cubic-bezier(.16, 1, .3, 1); }
+  .nx-dock.is-up { transform: none; }
+  .nx-dock .btn { width: 100%; padding: 15px 24px; }
+  .nx .site-footer { padding-bottom: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-flood { display: none; }
+}
+
+
+/* =====================================================================================================================
+   THE OTHER PAGES in the same frame (Anna, 26 Nov 2026: "all pages need to be following new design framework and colours
+   not just homepage"). The previews are built from the live pages by .impeccable/build_next.py, so their forms and
+   scripts are the live ones; everything below only changes how they look. body.nx-page marks them, and --hero is the
+   colour of each page's first screen: yellow where there is something to press, pink and orange where there is
+   something to read.
+   ===================================================================================================================== */
+.nx-page { --hero: var(--yellow); }
+.nx-about { --hero: var(--pink); }
+/* on the pink first screen the logo's second word is dark (deep pink on pink cannot be read); back to deep pink on the light bar */
+.nx-about .nx-header .logo__word span { color: var(--ink); }
+html.nx-past .nx-about .nx-header .logo__word span { color: var(--pink-deep); }
+.nx-page .container { max-width: 1440px; padding-inline: var(--pad); }
+.nx-page .narrow { max-width: none; margin-inline: 0; }
+.nx .grad, .nx .hero h1 .grad { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: inherit; }   /* no gradient text in this frame */
+.nx .btn--outline { border-color: var(--ink); color: var(--ink); background: transparent; }
+.nx .btn--outline:hover { background: var(--ink); border-color: var(--ink); color: #FFFFFF; }
+.nx .site-footer .container { max-width: 1440px; padding-inline: var(--pad); }
+
+/* ---------- the two reading pages (about, data). Anna, 27 Nov 2026: "these two pages look bizarre" (a short band of
+   colour, then a narrow column hugging the left with half the screen empty). Now: the first screen is a full colour field
+   with the title on the left and a white card on the right; under it the page is rows, the heading on the left and its
+   text on the right, the same rows as "Why bother?" on the homepage. ---------- */
+.nx .page-hero { display: flex; align-items: center; min-height: calc(100vh - var(--head)); min-height: calc(100svh - var(--head)); padding-block: clamp(18px, 5vh, 64px); border: 0; background: var(--hero); }
+.nx .page-hero .container { width: 100%; }
+.nx-read { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: clamp(20px, 3.4vw, 56px); }
+.nx .page-hero h1 { max-width: 15ch; margin-top: 0; font-size: clamp(2.1rem, min(5.2vw, 9.4vh), 4.8rem); font-weight: 700; line-height: 1; letter-spacing: -.04em; }
+.nx .page-hero p:not(.section__label) { max-width: 34ch; margin-top: clamp(12px, 2.6vh, 26px); font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.1rem, min(1.7vw, 3.1vh), 1.45rem); line-height: 1.3; letter-spacing: -.02em; color: var(--ink); text-wrap: pretty; }
+.nx .nx-read__card { margin: 0; padding: clamp(16px, 3.2vh, 34px) clamp(18px, 2.4vw, 36px); border-radius: 28px 28px 28px 8px; background: #FFFFFF; color: var(--ink); box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 22px 36px -22px rgba(23, 23, 23, .45); font-size: clamp(.88rem, min(1.06vw, 1.95vh), 1.02rem); line-height: 1.45; }
+.nx .nx-read__card h2 { margin: 0 0 clamp(8px, 1.6vh, 14px); font-size: clamp(1.2rem, min(1.9vw, 3.4vh), 1.7rem); font-weight: 700; letter-spacing: -.03em; }
+.nx .nx-read__card ul { display: grid; gap: clamp(5px, 1.1vh, 10px); }
+.nx .nx-read__card li { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 10px; align-items: start; }
+.nx .nx-read__card li::before { content: ""; width: 8px; height: 8px; margin-top: .55em; border-radius: 2px; background: var(--ink); }
+.nx .page-hero .nx-read__card p { max-width: none; margin-top: 0; font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.05rem, min(1.6vw, 2.9vh), 1.45rem); line-height: 1.32; letter-spacing: -.02em; }
+.nx .page-hero .nx-read__card p + p { margin-top: clamp(10px, 2vh, 18px); }
+.nx .page-hero .nx-read__card .letter__sign { font-weight: 700; }
+.nx .nx-read__card a { color: var(--ink); }
+.nx-page .section { padding-block: clamp(28px, 6vh, 72px) clamp(36px, 8vh, 88px); }
+.nx .prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); max-width: none; color: var(--gray-800); font-size: clamp(1rem, 1.25vw, 1.12rem); }
+.nx .prose > * { grid-column: 2; max-width: 64ch; }
+.nx .prose > h2, .nx .prose > h2:first-child { grid-column: 1; max-width: none; margin: 0; padding: clamp(16px, 3vh, 30px) clamp(20px, 4vw, 64px) 0 0; border-top: 2px solid var(--ink); font-size: clamp(1.4rem, min(2.5vw, 4.6vh), 2.3rem); font-weight: 700; line-height: 1.05; letter-spacing: -.035em; color: var(--ink); }
+.nx .prose > h2 + * { max-width: none; margin-top: 0; padding-top: clamp(16px, 3vh, 30px); border-top: 2px solid var(--ink); }
+.nx .prose > h2 + p, .nx .prose > h2 + ul { padding-right: max(0px, calc(100% - 64ch)); }
+.nx .prose > :has(+ h2) { margin-bottom: clamp(24px, 5vh, 56px); }
+.nx .prose ul li::before { width: 8px; height: 8px; margin-top: .62em; border-radius: 2px; background: var(--ink); }
+.nx .prose > .faq, .nx .prose > h2 + .faq { max-width: none; padding-top: 0; border-top: 0; gap: 0; }
+.nx .faq details { padding: 0; border: 0; border-top: 2px solid var(--ink); border-radius: 0; background: transparent; }
+.nx .faq details:last-child { border-bottom: 2px solid var(--ink); }
+.nx .faq summary { padding: clamp(14px, 2.4vh, 20px) 0; font-size: clamp(1.08rem, 1.5vw, 1.3rem); font-weight: 700; letter-spacing: -.02em; }
+.nx .faq summary::after { background: none; font-family: var(--font-heading); font-size: 1.7rem; font-weight: 500; }
+.nx .faq details p { max-width: 64ch; }
+.nx .services div { border: 2px solid var(--ink); border-radius: 18px; }
+
+/* ---------- the forms, wherever they are (sign-up, feedback, planner) ---------- */
+.nx .am-card { border: 0; border-radius: clamp(20px, 2.4vw, 32px); box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 18px 30px -20px rgba(120, 66, 0, .6); }
+.nx .am-progress__fill { background: var(--ink); }
+.nx .am-progress__label { color: var(--gray-600); }
+.nx .am-step__title { font-size: clamp(1.45rem, min(2.4vw, 4.4vh), 2rem); font-weight: 700; letter-spacing: -.035em; }
+.nx .am-step__intro { color: var(--gray-600); }
+.nx .form__hint { color: var(--gray-600); }
+.nx .am-q input[type="text"], .nx .am-q input[type="email"], .nx .am-q input[type="url"], .nx .am-q textarea { border: 1.5px solid var(--gray-300); border-radius: 14px; caret-color: var(--pink-deep); }
+.nx .am-q input:focus, .nx .am-q textarea:focus { border-color: var(--ink); box-shadow: 0 0 0 4px rgba(23, 23, 23, .12); }
+/* an answer you picked looks like the bar you pressed on the homepage: dark, white text */
+.nx .am-option { border: 1.5px solid var(--gray-300); border-radius: 16px; }
+.nx .am-option:hover { border-color: var(--ink); }
+.nx .am-option input { accent-color: var(--yellow); }
+.nx .am-option:has(input:checked) { border-color: var(--ink); background: var(--ink); color: #FFFFFF; }
+.nx .am-option:has(input:focus-visible) { box-shadow: 0 0 0 4px rgba(23, 23, 23, .2); }
+.nx .am-chip span { border: 1.5px solid var(--gray-300); border-radius: 14px; }
+.nx .am-chip span:hover { border-color: var(--ink); }
+.nx .am-chip input:checked + span, .nx .am-chip--no input:checked + span { border-color: var(--ink); background: var(--ink); color: #FFFFFF; }
+.nx .am-chip input:focus-visible + span { box-shadow: 0 0 0 4px rgba(23, 23, 23, .2); }
+.nx .am-note { border-radius: 16px; background: var(--yellow); color: var(--ink); }
+.nx .am-datanote { border-radius: 18px; }
+
+/* ---------- sign-up page, third arrangement. Anna, 26 and 27 Nov 2026: "i also want this all to be above fold", "it still
+   has below fold things", "this page is not so well organised", "still looks not well organised, redo the whole thing?".
+   What was wrong each time: too many loose pieces, in two columns that neither started nor ended together.
+   Now, on a computer, there are exactly three things on one yellow screen, on one grid:
+     1. a band: the title on one line; under it the cut-off on the left and the live count on the right
+     2. left: Anna's letter, and under it one reply (Ava's photo and line)
+     3. right: the form
+   The two columns start on one line and end on one line, and the whole block sits in the middle of the screen.
+   On a phone the order is title, form, letter, feedback. ---------- */
+.nx-join main { min-height: calc(100vh - var(--head)); min-height: calc(100svh - var(--head)); }
+.nx-join main > .section { background: var(--yellow); }
+.nx-join main, .nx-feedback main, .nx-plan main, .nx-unsub main, .nx-leave main, .nx-404 main { background: var(--hero); }   /* the whole first screen is one colour */
+.nx .hero--join { border: 0; background: var(--yellow); text-align: left; }
+html[data-am-state="open"] .nx .hero--join { padding-block: clamp(8px, 2vh, 24px) clamp(8px, 1.6vh, 16px); }
+.nx .hero--join h1 { margin: 0; max-width: none; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+html[data-am-state="open"] .nx .hero--join h1 { font-size: clamp(2rem, min(4.4vw, 7.6vh), 4rem); }
+.nx .hero--join .hero__lede { margin: 0; max-width: 34ch; color: var(--ink); text-wrap: pretty; }
+html[data-am-state="open"] .nx .hero--join .hero__lede { margin-top: clamp(8px, 1.6vh, 14px); font-family: var(--font-heading); font-weight: 500; font-size: clamp(1rem, min(1.45vw, 2.6vh), 1.3rem); line-height: 1.3; letter-spacing: -.02em; }
+html[data-am-state="open"] .nx .hero--join .am-live { margin-top: clamp(4px, 1vh, 10px); text-align: left; }
+/* the live count as two big figures (Anna, 27 Nov 2026, on the one small line it used to be: "i want this to be a bigger part") */
+html[data-am-state="open"] .nx .hero--join .am-live__row { flex-wrap: wrap; align-items: flex-end; justify-content: flex-start; gap: 8px clamp(20px, 2.8vw, 44px); }
+html[data-am-state="open"] .nx .hero--join .am-live__item { flex-direction: column; align-items: flex-start; gap: 3px; }
+html[data-am-state="open"] .nx .hero--join .am-live__num { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, min(3.9vw, 6.8vh), 3.7rem); line-height: .9; letter-spacing: -.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+html[data-am-state="open"] .nx .hero--join .am-live__label { font-family: var(--font-heading); font-weight: 600; font-size: clamp(.92rem, min(1.2vw, 2.2vh), 1.15rem); line-height: 1.2; letter-spacing: -.01em; color: var(--ink); white-space: nowrap; }
+html[data-am-state="open"] .nx .hero--join .am-live__sep { display: none; }
+.nx .join-quote { margin: 10px 0 0; color: var(--ink); }
+.nx .join-quote__text { color: var(--ink); white-space: normal; }
+.nx .join-quote__who { white-space: normal; }
+.nx .section--join { padding-block: 10px clamp(28px, 7vh, 80px); }
+.nx .am-wrap--join { max-width: none; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+/* the form */
+.nx .section--join .am-card { padding: clamp(14px, calc(6vh - 22px), 44px) clamp(20px, 2.8vw, 48px); }
+.nx .section--join .am-progress { margin-bottom: clamp(8px, calc(4vh - 17px), 26px); }
+.nx .section--join .am-step__title { margin-bottom: 2px; }
+.nx .section--join .am-step__intro { margin-bottom: clamp(8px, 2vh, 26px); }
+.nx .section--join .am-q { margin-bottom: clamp(8px, calc(4.6vh - 19px), 28px); }
+.nx .section--join .am-q input[type="text"], .nx .section--join .am-q input[type="email"], .nx .section--join .am-q input[type="url"] { padding-block: clamp(8px, 1.6vh, 15px); }
+.nx .section--join .am-nav { margin-top: clamp(8px, 1.8vh, 20px); }
+.nx .section--join .am-nav .btn { padding-block: clamp(10px, 1.7vh, 15px); }
+/* step 1: name and email side by side, each hint under its field so the two fields line up */
+.nx .am-step.is-active[data-step="1"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
+.nx .am-step[data-step="1"] > * { grid-column: 1 / -1; }
+.nx .am-step[data-step="1"] > [data-q="fullName"] { grid-column: 1; }
+.nx .am-step[data-step="1"] > [data-q="email"] { grid-column: 2; }
+.nx .am-step[data-step="1"] .am-q { display: grid; align-content: start; }
+.nx .am-step[data-step="1"] .am-q .form__hint { order: 3; margin: 5px 0 0; }
+.nx .am-step[data-step="1"] .am-q .am-error { order: 4; }
+.nx .am-step[data-step="1"] .am-seen { margin-top: 0; }
+/* after "Count me in": the answer in the page's own big type */
+.nx .am-done { padding: clamp(8px, 2vh, 24px) 0; text-align: left; }
+.nx .am-done h2 { margin: 0 0 clamp(10px, 2vh, 18px); font-size: clamp(2rem, min(4.4vw, 7.6vh), 3.8rem); font-weight: 700; line-height: 1; letter-spacing: -.04em; }
+.nx .am-done p { max-width: 46ch; margin-inline: 0; color: var(--ink); font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.45; }
+.nx .am-done p + p { margin-top: 8px; }
+.nx .am-done .am-save { color: var(--gray-600); }
+/* Anna's letter as a message, then what people said */
+.nx .am-side { gap: clamp(10px, 2vh, 20px); }
+.nx .am-side .am-letter { padding: clamp(14px, 2.6vh, 28px) clamp(18px, 2vw, 30px); border-radius: 26px 26px 26px 8px; background: #FFFFFF; color: var(--ink); font-size: clamp(.86rem, min(1.06vw, 1.95vh), 1.02rem); line-height: 1.45; box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 18px 30px -20px rgba(120, 66, 0, .6); }
+.nx .am-side .am-letter p { margin-bottom: clamp(4px, 1.1vh, 12px); }
+.nx .am-side .am-letter ol { margin-bottom: clamp(4px, 1.1vh, 12px); }
+.nx .am-side .am-letter li { margin-bottom: 1px; }
+.nx .am-side .am-letter .am-sign { margin-bottom: 0; }
+.nx .am-said__stat { color: var(--ink); }
+.nx .am-said__msg blockquote, .nx .am-said__msg--b blockquote { background: #FFFFFF; }
+.nx .am-said__msg mark, .nx .am-said__photo mark { background: linear-gradient(transparent 56%, var(--yellow) 56%, var(--yellow) 92%, transparent 92%); }
+.nx .am-said figcaption { color: var(--ink); }
+.nx .am-said__photo img { border-radius: 24px; }
+.nx .am-said .am-said__photo figcaption { display: grid; gap: 3px; }
+.nx .nx-said__line { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1rem, min(1.3vw, 2.4vh), 1.25rem); line-height: 1.22; letter-spacing: -.02em; color: var(--ink); text-wrap: balance; }
+.nx .nx-said__who { font-size: clamp(.8rem, min(.98vw, 1.8vh), .92rem); line-height: 1.3; color: var(--ink); }
+/* the same page while no round is open (rare now that rounds follow each other): the question big on the left, one white
+   card with the email field under it, nothing centred and no gradient numbers */
+html[data-am-state="waitlist"] .nx .hero--join { padding-block: clamp(20px, 6vh, 64px) clamp(8px, 2vh, 20px); }
+html[data-am-state="waitlist"] .nx .hero--join h1 { font-size: clamp(2.2rem, min(5.6vw, 9.4vh), 4.8rem); }
+html[data-am-state="waitlist"] .nx .hero--join .hero__lede { max-width: 40ch; margin-top: clamp(10px, 2vh, 18px); font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.1rem, min(1.7vw, 3vh), 1.45rem); line-height: 1.3; letter-spacing: -.02em; }
+html[data-am-state="waitlist"] .nx .hero--join .am-live { display: none; }
+.nx-join .section[data-show="waitlist"] { padding-block: clamp(12px, 3vh, 32px) clamp(40px, 9vh, 96px); }
+.nx-join .section[data-show="waitlist"] .am-wrap { max-width: 860px; margin: 0; }
+.nx-join .section[data-show="waitlist"] .am-card { padding: clamp(20px, 4vh, 44px) clamp(20px, 3vw, 48px); }
+.nx .am-wait__form { justify-content: flex-start; max-width: none; margin: clamp(14px, 2.6vh, 24px) 0 0; }
+.nx .am-wait__form input[type="email"] { flex: 1 1 280px; height: 58px; padding: 0 18px; border: 2px solid var(--ink); border-radius: 16px; font-size: 1.05rem; }
+.nx .am-wait__form input[type="email"]:focus { border-color: var(--ink); box-shadow: 0 0 0 4px rgba(23, 23, 23, .16); }
+.nx .am-wait__form .btn { min-height: 58px; padding-block: 0; }
+.nx .am-wait__note { color: var(--gray-700); }
+.nx .am-wait__done { color: var(--ink); }
+.nx-join .section[data-show="waitlist"] .form__hint { margin-top: 16px !important; text-align: left !important; color: var(--ink); }
+.nx-join .section[data-show="waitlist"] .form__hint a { color: var(--ink); }
+
+@media (min-width: 901px) {
+  /* the whole block in the middle of the screen */
+  html[data-am-state="open"] .nx-join main { display: flex; flex-direction: column; justify-content: center; padding-block: clamp(6px, 1.6vh, 20px); }
+  /* 1. the band */
+  html[data-am-state="open"] .nx .hero--join { padding-block: 0 clamp(10px, 2.4vh, 26px); background: none; }
+  html[data-am-state="open"] .nx .hero--join .container { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(6px, 1.4vh, 14px) 28px; }
+  html[data-am-state="open"] .nx .hero--join h1 { grid-column: 1; grid-row: 1; }
+  html[data-am-state="open"] .nx .hero--join .hero__lede { grid-column: 1; grid-row: 2; margin-top: 0; max-width: none; }
+  html[data-am-state="open"] .nx .hero--join .am-live { grid-column: 2; grid-row: 1 / span 2; align-self: end; margin-top: 0; }
+  html[data-am-state="open"] .nx .hero--join .am-live__row { flex-wrap: nowrap; }
+  .nx-join .join-quote { display: none; }
+  /* 2 and 3. two columns that start and end together */
+  .nx .section--join { padding-block: 0; background: none; }
+  .nx .am-wrap--join { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: stretch; gap: clamp(18px, 2.8vw, 44px); }
+  .nx .am-wrap--join > .am-card { grid-column: 2; grid-row: 1; }
+  /* on the longer steps the letter stays in view beside the form instead of leaving half the screen empty */
+  .nx .am-wrap--join > .am-side { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; justify-content: flex-start; align-self: start; position: sticky; top: calc(var(--head) + 16px); }
+  .nx .am-wrap--join:has(.am-step[data-step="1"].is-active) > .am-side { align-self: stretch; position: static; }
+  /* on the first step the letter takes whatever height is left, so the left column ends exactly where the form ends */
+  .nx .am-wrap--join:has(.am-step[data-step="1"].is-active) .am-letter { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  /* the reply to the letter: Ava's photo and line in a pink message, its tail on the other side */
+  .nx .am-said { display: block; }
+  .nx .am-said__stat, .nx .am-said__msg, .nx .am-said__msg--b { display: none; }
+  .nx .am-said__photo { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(10px, 1.3vw, 18px); margin: 0; padding: clamp(8px, 1.3vh, 12px) clamp(14px, 1.6vw, 22px) clamp(8px, 1.3vh, 12px) clamp(8px, 1.3vh, 12px); border-radius: 24px 24px 8px 24px; background: var(--pink); color: var(--ink); }
+  .nx .am-said__photo img { width: clamp(104px, 10.5vw, 160px); height: clamp(76px, 11vh, 112px); aspect-ratio: auto; border-radius: 16px; }
+  .nx .am-said .am-said__photo figcaption { margin: 0; padding: 0; color: var(--ink); }
+  .nx .am-said__photo .nx-said__line mark { background: linear-gradient(transparent 56%, rgba(255, 255, 255, .92) 56%, rgba(255, 255, 255, .92) 92%, transparent 92%); color: inherit; }
+}
+@media (min-width: 901px) and (max-height: 699px) { .nx .am-said { display: none; } }
+/* a narrow laptop window: the sentence under the title stays on one line beside the figures */
+@media (min-width: 901px) and (max-width: 1099px) {
+  html[data-am-state="open"] .nx .hero--join .hero__lede { font-size: .94rem; }
+  html[data-am-state="open"] .nx .hero--join .am-live__label { font-size: .84rem; }
+  html[data-am-state="open"] .nx .hero--join .am-live__row { column-gap: 18px; }
+}
+
+/* ---------- pages reached from an email (feedback, planner, never email me): one yellow screen ---------- */
+.nx .fb { display: flex; align-items: center; min-height: calc(100vh - var(--head)); min-height: calc(100svh - var(--head)); padding-block: clamp(22px, 6vh, 72px); background: var(--hero); }   /* a short message sits in the middle of the screen, like the 404 page */
+.nx .fb > .container { width: 100%; }
+.nx .fb__wrap { max-width: 720px; margin: 0; }
+.nx .fb__state h1 { font-size: clamp(2.2rem, min(5.6vw, 9.4vh), 4.6rem); font-weight: 700; line-height: 1; letter-spacing: -.04em; }
+.nx .fb__lead { margin-top: clamp(10px, 2vh, 20px); font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.1rem, min(1.7vw, 3vh), 1.45rem); line-height: 1.3; letter-spacing: -.02em; color: var(--ink); }
+.nx .fb__lead strong { color: inherit; }
+.nx .fb__state--center { padding-block: clamp(20px, 8vh, 96px); text-align: left; }
+.nx .fb__state--center .fb__lead { margin-inline: 0; }
+.nx .fb__sign, .nx .fb__private, .nx .fb__state > .form__hint, .nx .plan-agreed, .nx .plan-meta { color: var(--ink); }
+.nx .fb-share__more { border-radius: 16px; background: var(--yellow); }
+.nx .fb-nps__ends { color: var(--gray-600); }
+/* feedback and planner with their form open, on a computer. Anna, 27 Nov 2026: "must fit one screen".
+   Feedback: a title band, then ONE wide card whose questions stand in two columns (score, reason and the sharing tick on
+   the left; "did you know them", the private note and the button on the right), so nothing scrolls.
+   Planner: what you read on the left, the card on the right with "when" and "where" side by side. */
+@media (min-width: 901px) {
+  .nx .fb__wrap { max-width: none; }
+  .nx .fb__state--center { max-width: 780px; }
+  .nx .fb__state:not(.fb__state--center) { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); grid-template-rows: repeat(11, min-content) 1fr; align-items: start; column-gap: clamp(24px, 3.8vw, 64px); }
+  .nx .fb__state:not(.fb__state--center) > * { grid-column: 1; }
+  .nx .fb__state:not(.fb__state--center) > form.am-card { grid-column: 2; grid-row: 1 / -1; margin-top: 0; }
+  /* planner */
+  .nx .plan__card { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: clamp(10px, 2.2vh, 22px) clamp(18px, 2.4vw, 36px); padding: clamp(16px, 3vh, 30px) clamp(18px, 2.4vw, 34px); }
+  .nx .plan__card > .am-q { margin: 0; }
+  .nx .plan__card > .plan-bar { grid-column: 1 / -1; }
+}
+
+/* ---------- FEEDBACK FORM, designed again from nothing (Anna, 27 Nov 2026: "redo!", "you have to look at it from 0 to make
+   it work", after two arrangements of the old card that left holes).
+   It now speaks the homepage's language: there is no card. Everything sits on the yellow screen as white answers.
+     row 1  the score question, and its eleven answers 0 to 10 as big white squares across the whole width
+     row 2  three equal columns that always end on one line: the reason (a field that takes the height), "did you know
+            them" (four answers that take the height), the private note (a field that takes the height)
+     row 3  the sharing tick on the left, the button on the right; under them the two small lines
+   Because the fields and the answers stretch, no column can leave a hole. A picked answer turns dark, as everywhere.
+   On a phone the same pieces stack in one column. The form's markup and script are the live ones. ---------- */
+.nx #fbFormEl.am-card { margin-top: clamp(10px, 2.4vh, 28px); padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+.nx #fbFormEl .am-q legend, .nx #fbFormEl .am-q__label { margin-bottom: clamp(6px, 1.2vh, 12px); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, min(1.5vw, 2.7vh), 1.35rem); line-height: 1.2; letter-spacing: -.02em; color: var(--ink); }
+.nx #fbFormEl .form__hint { color: var(--gray-700); }
+.nx #fbFormEl .am-q .form__hint { margin: -2px 0 8px; }
+.nx #fbFormEl textarea, .nx #fbFormEl input[type="text"] { padding: 14px 18px; border: 0; border-radius: 18px; background: #FFFFFF; box-shadow: 0 2px 0 rgba(23, 23, 23, .07), 0 12px 20px -14px rgba(120, 66, 0, .55); font-size: 1.05rem; resize: none; }
+.nx #fbFormEl textarea:focus, .nx #fbFormEl input[type="text"]:focus { box-shadow: 0 0 0 3px var(--ink); }
+.nx #fbFormEl .am-option { border: 0; border-radius: 18px; background: #FFFFFF; box-shadow: 0 2px 0 rgba(23, 23, 23, .07), 0 12px 20px -14px rgba(120, 66, 0, .55); font-family: var(--font-heading); font-weight: 600; font-size: clamp(.95rem, 1.15vw, 1.1rem); letter-spacing: -.01em; }
+.nx #fbFormEl .am-option:has(input:checked) { background: var(--ink); color: #FFFFFF; }
+.nx #fbFormEl .am-option:has(input:focus-visible) { box-shadow: 0 0 0 3px var(--ink); }
+.nx #fbFormEl .fb-nps { gap: clamp(6px, .8vw, 12px); }
+.nx #fbFormEl .fb-nps .am-chip span { display: grid; place-items: center; height: clamp(40px, 8.2vh, 92px); padding: 0; border: 0; border-radius: clamp(14px, 1.4vw, 20px); background: #FFFFFF; box-shadow: 0 2px 0 rgba(23, 23, 23, .07), 0 12px 20px -14px rgba(120, 66, 0, .55); font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.15rem, min(2.2vw, 3.6vh), 2rem); letter-spacing: -.03em; color: var(--ink); transition: transform .2s cubic-bezier(.16, 1, .3, 1), background-color .15s ease, color .15s ease; }
+.nx #fbFormEl .fb-nps .am-chip input:checked + span { background: var(--ink); color: #FFFFFF; }
+.nx #fbFormEl .fb-nps .am-chip input:focus-visible + span { box-shadow: 0 0 0 3px var(--ink); }
+@media (hover: hover) { .nx #fbFormEl .fb-nps .am-chip span:hover { transform: translateY(-3px); } }
+.nx #fbFormEl .fb-nps__ends { margin-top: clamp(4px, .8vh, 8px); font-size: clamp(.8rem, 1.9vh, .92rem); color: var(--ink); }
+.nx #fbFormEl > .btn { min-height: clamp(42px, 6.6vh, 64px); padding-block: 0; font-size: clamp(1rem, 1.3vw, 1.2rem); }
+.nx #fbFormEl .fb-share__more { margin-top: 10px; padding: 0; background: none; }
+.nx #fbFormEl .fb-share__more .form__hint { margin: 0; }
+.nx #fbFormEl > .fb__private { margin-top: 6px; color: var(--gray-700); }
+@media (min-width: 901px) {
+  .nx-feedback .fb { padding-block: clamp(10px, 2.6vh, 56px); }
+  .nx #fbForm { display: block; }
+  .nx #fbForm > h1 { font-size: clamp(2rem, min(5vw, 8vh), 4.4rem); }
+  .nx #fbForm > .fb__lead { max-width: none; margin-top: clamp(4px, 1vh, 12px); font-size: clamp(1rem, min(1.5vw, 2.7vh), 1.35rem); }
+  .nx #fbFormEl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: row dense; gap: clamp(8px, 2vh, 24px) clamp(16px, 2.2vw, 32px); }
+  .nx #fbScore { display: contents; }
+  .nx #fbFormEl .am-q { margin: 0; }
+  .nx #fbFormEl .am-q legend, .nx #fbFormEl .am-q__label { margin-bottom: clamp(4px, 1vh, 12px); font-size: clamp(.98rem, min(1.5vw, 2.6vh), 1.35rem); }
+  .nx #fbFormEl .am-q .form__hint { margin: -2px 0 clamp(3px, .8vh, 8px); font-size: clamp(.78rem, 1.75vh, .85rem); }
+  /* row 1 */
+  .nx #fbScore > fieldset:first-of-type { grid-column: 1 / -1; grid-row: 1; }
+  .nx #fbScore > fieldset:first-of-type legend { font-size: clamp(1.1rem, min(2vw, 3.4vh), 1.8rem); letter-spacing: -.03em; }
+  /* row 2: three cells that end together */
+  .nx #fbScore > div.am-q:not(.fb-share) { grid-column: 1; grid-row: 2; display: flex; flex-direction: column; }
+  .nx #fbScore > fieldset:nth-of-type(2) { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; }
+  .nx #fbScore > fieldset:nth-of-type(2) .am-list { flex: 1 1 auto; grid-template-columns: minmax(0, 1fr); grid-auto-rows: minmax(clamp(28px, 4.6vh, 52px), 1fr); gap: clamp(5px, 1vh, 10px); }
+  .nx #fbFormEl .am-option { min-height: 0; padding: 4px clamp(12px, 1.2vw, 18px); font-size: clamp(.86rem, min(1.12vw, 2.05vh), 1.08rem); line-height: 1.2; }
+  .nx #fbFormEl > div.am-q { grid-column: 3; grid-row: 2; display: flex; flex-direction: column; }
+  .nx #fbFormEl textarea { flex: 1 1 auto; height: auto; min-height: clamp(52px, 13vh, 150px); padding: clamp(8px, 1.6vh, 14px) 18px; }
+  /* the rarer questions take a row of their own */
+  .nx #fbFormEl #fbCameQ, .nx #fbFormEl > #fbDecQ { grid-column: 1 / -1; }
+  .nx #fbFormEl #fbCameQ .am-list, .nx #fbFormEl > #fbDecQ .am-list { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(clamp(34px, 5.6vh, 56px), auto); }
+  .nx #fbFormEl > #fbWhyNot { grid-column: 1 / span 2; grid-row: 2; }
+  .nx #fbFormEl > #fbWhyNot .am-list { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(clamp(34px, 5.6vh, 56px), auto); }
+  /* row 3 */
+  .nx #fbScore > .fb-share { grid-column: 1 / span 2; }
+  .nx #fbScore > .fb-share > .am-option { min-height: clamp(42px, 6.6vh, 64px); align-items: center; }
+  .nx #fbScore > .fb-share > .am-option input { margin-top: 0; }
+  .nx #fbFormEl .fb-share__more { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nx #fbFormEl .fb-share__more .form__hint { grid-column: 1 / -1; }
+  .nx #fbFormEl > .btn { grid-column: 3; justify-self: stretch; }
+  .nx #fbFormEl > .nx-slow { grid-column: 3; margin: clamp(-8px, -1vh, -3px) 0 0; font-size: clamp(.8rem, 1.9vh, .92rem); }
+  .nx #fbFormEl > .fb__private { grid-column: 1 / span 2; margin: clamp(-8px, -1vh, -3px) 0 0; font-size: clamp(.78rem, 1.8vh, .85rem); }
+}
+@media (max-width: 900px) {
+  .nx #fbFormEl .am-q { margin-bottom: 22px; }
+  .nx #fbFormEl textarea { min-height: 110px; }
+  .nx #fbFormEl > .btn { width: 100%; }
+}
+
+/* the note under every button that saves to the Sheet (Anna, 27 Nov 2026: "the button is really slow, have patience") */
+.nx .nx-slow { margin: 8px 0 0; font-size: .92rem; line-height: 1.4; color: var(--gray-700); }
+.nx #amForm .nx-slow { display: none; text-align: right; }
+.nx #amForm .am-nav:has(#amSubmit:not([hidden])) + .nx-slow { display: block; }   /* only beside "Count me in", on the last step */
+.nx .nx-form.is-done > .nx-slow, .nx .am-wait.is-done .nx-slow { display: none; }
+.nx .fb__state .nx-slow { color: var(--ink); }
+.nx .am-card .nx-slow { color: var(--gray-700); }
+
+/* ---------- the page that is not there ---------- */
+.nx-404 .hero { display: flex; align-items: center; min-height: calc(100vh - var(--head)) !important; min-height: calc(100svh - var(--head)) !important; padding-block: clamp(24px, 6vh, 72px); border: 0; background: var(--yellow); text-align: left; }
+.nx-404 .hero h1 { max-width: 14ch; margin: 0; font-size: clamp(2.4rem, min(7vw, 11vh), 6rem); font-weight: 700; line-height: .98; letter-spacing: -.04em; }
+.nx-404 .hero__lede { max-width: 40ch; margin: clamp(12px, 2.6vh, 26px) 0 0; font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.12rem, 1.8vw, 1.5rem); line-height: 1.3; letter-spacing: -.02em; color: var(--ink); }
+.nx-404 .hero .container { width: 100%; }
+.nx-404 .hero__cta { justify-content: flex-start; }
+
+/* a short laptop window: the first step still has to fit, so its one-line intro steps aside (the line above the form says it) */
+@media (max-height: 700px) and (min-width: 901px) {
+  .nx .am-step[data-step="1"] .am-step__intro { display: none; }
+  .nx .section--join .am-step__title { margin-bottom: clamp(6px, 1.4vh, 12px); }
+}
+@media (max-width: 900px) {
+  /* Anna, 27 Nov 2026: "maybe skip it on mobile though, on mobile the form is the main thing" */
+  html[data-am-state="open"] .nx .hero--join .am-live { display: none; }
+  .nx .hero--join h1 { max-width: none; }
+}
+@media (max-width: 760px) {
+  .nx .page-hero { min-height: 0; padding-block: 24px 32px; }
+  .nx-read { grid-template-columns: minmax(0, 1fr); }
+  .nx .page-hero h1 { font-size: clamp(2.1rem, 10.4vw, 3.2rem); }
+  .nx .prose { display: block; }
+  .nx .prose > h2, .nx .prose > h2:first-child { margin-top: 32px; padding: 14px 0 0; }
+  .nx .prose > h2:first-child { margin-top: 0; }
+  .nx .prose > h2 + * { margin-top: 12px; padding-top: 0; padding-right: 0; border-top: 0; }
+  .nx .prose > :has(+ h2) { margin-bottom: 0; }
+  .nx .fb { display: block; min-height: 0; }
+  .nx-404 .hero { min-height: 70vh !important; }
+  .nx .am-step.is-active[data-step="1"] { grid-template-columns: minmax(0, 1fr); }
+  .nx .am-step[data-step="1"] > [data-q="email"] { grid-column: 1; }
+  .nx .section--join .am-card { padding: 18px 18px 22px; }
+  .nx .am-side .am-letter { font-size: .95rem; }
+}
+
+
+/* =====================================================================================================================
+   MOTION AND THINGS TO PRESS (Anna, 27 Nov 2026: "i also want more interactable and moving things if possible across
+   main pages"). The idea in one line: the page asks, things answer. A question rises into place; what answers it arrives
+   the way that thing does: bars are dealt in from the right, messages pop up from their tails like messages, the round's
+   timeline draws itself starting from today, ruled rows are drawn from left to right, the marker is drawn under the words.
+   To press: a heart under every message, the dates on the timeline, the last line of "Why bother?".
+   Everything is visible without JavaScript: next.js only hides what is still below the screen (.nx-wait) and lets it
+   arrive when it is scrolled to (.nx-go). With "reduce motion" on nothing moves (site.css switches animations off) and
+   next.js hides nothing.
+   ===================================================================================================================== */
+html { --out: cubic-bezier(.16, 1, .3, 1); --pop: cubic-bezier(.2, 1.28, .4, 1); }
+
+/* a question rises from behind its own baseline (the window stays where the line ends up, the words slide up into it) */
+@keyframes nxAsk { from { transform: translateY(100%); clip-path: inset(0 -1em 100% -1em); } to { transform: none; clip-path: inset(0 -1em -.25em -1em); } }
+@keyframes nxDeal { from { opacity: 0; transform: translateX(min(9vw, 120px)); } }
+@keyframes nxFade { from { opacity: 0; } }
+@keyframes nxPop { from { opacity: 0; transform: scale(.82) translateY(14px); } }
+@keyframes nxMark { from { background-size: 0% 100%; } }
+@keyframes nxDraw { from { transform: scaleX(0); } }
+@keyframes nxDot { from { transform: scale(0); } }
+@keyframes nxWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes nxPing { 0% { transform: scale(1); opacity: .75; } 70%, 100% { transform: scale(2.7); opacity: 0; } }
+@keyframes nxBeat { 0%, 100% { transform: scale(1); } 18% { transform: scale(1.24); } 36% { transform: scale(1); } 54% { transform: scale(1.14); } 72% { transform: scale(1); } }
+@keyframes nxOpen { from { opacity: 0; transform: translateY(-10px); } }
+@keyframes nxVtOut { to { opacity: 0; } }
+@keyframes nxVtIn { from { opacity: 0; transform: translateY(14px); } }
+
+.nx mark { background-repeat: no-repeat; }   /* so the marker can be drawn from the left */
+.nx-num { display: inline-block; text-align: right; font-variant-numeric: tabular-nums; }   /* a number that counts up keeps its width */
+
+/* ---------- from one page to the next: the new page fades up, the header stays where it is ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .nx-header { view-transition-name: nx-head; }
+}
+
+/* ---------- small things everywhere ---------- */
+.nx .logo img { transform-origin: 50% 60%; }
+.nx .btn:active:not([disabled]) { transform: scale(.97); transition-duration: .08s; }
+.nx-header .site-nav a:not(.btn) { padding-block: 4px; background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 2px; transition: background-size .3s var(--out); }
+@media (hover: hover) {
+  .nx .logo:hover img { animation: nxBeat .85s ease-in-out; }
+  .nx-header .site-nav a:not(.btn):hover { text-decoration: none; background-size: 100% 2px; }
+}
+.nx-else[open] > .nx-form, .nx .faq details[open] > p { animation: nxOpen .45s var(--out) backwards; }
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    html { interpolate-size: allow-keywords; }
+    .nx .faq details::details-content, .nx-else::details-content { block-size: 0; overflow-y: clip; transition: block-size .45s var(--out), content-visibility .45s allow-discrete; }
+    .nx .faq details[open]::details-content, .nx-else[open]::details-content { block-size: auto; }
+  }
+}
+
+/* ---------- hearts: the burst (drawn by next.js) and the heart under each message ---------- */
+.nx-sky { position: fixed; inset: 0; z-index: 70; overflow: hidden; pointer-events: none; }
+.nx-sky i { position: absolute; display: block; }
+.nx-sky svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+/* the heart hangs off the corner of the message, away from its tail, like a reaction in a chat. It shares the bubble's
+   grid cell, so it takes no room and no screen gets taller because of it. Half of it hangs below the bubble: clear of
+   the words in the bubble, and beside the name under it (names are short, the long line is the second one). */
+.nx-msg > blockquote, .nx-msg > .nx-photo, .nx-msg > .nx-love { grid-area: 1 / 1; }
+.nx-msg > figcaption { grid-area: 2 / 1; }
+.nx-love { z-index: 1; align-self: end; justify-self: end; display: grid; place-items: center; width: 40px; height: 40px; margin: 0 12px -22px 0; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; color: var(--ink); box-shadow: 0 1px 0 rgba(23, 23, 23, .06), 0 8px 16px -8px rgba(23, 23, 23, .55); cursor: pointer; touch-action: manipulation; }
+.nx-msg--b .nx-love, .nx-msg--d .nx-love { justify-self: start; margin: 0 0 -22px 12px; }
+.nx-love svg { width: 22px; height: 22px; fill: transparent; stroke: currentColor; stroke-width: 1.9; stroke-linejoin: round; transition: transform .3s var(--pop), fill .15s ease, stroke .15s ease; }
+.nx-love[aria-pressed="true"] svg { fill: var(--orange); stroke: var(--orange); }
+.nx-love:active svg { transform: scale(.82); transition-duration: .08s; }
+@media (hover: hover) { .nx-love:hover svg { transform: scale(1.18); } }
+@media (max-width: 900px) { .nx-msg--b .nx-love, .nx-msg--d .nx-love { justify-self: end; margin: 0 12px -22px 0; } }
+
+/* ---------- the messages: they lean a little under the pointer, and drift apart as it moves over them ---------- */
+.nx-msg blockquote, .nx-photo img { transition: transform .45s var(--out); }
+@media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+  .nx-msg { translate: calc(var(--mx, 0) * var(--d, 0) * 1px) calc(var(--my, 0) * var(--d, 0) * 1px); }
+  .nx-msg--a { --d: 9; } .nx-msg--b { --d: -7; } .nx-msg--c { --d: -11; } .nx-msg--d { --d: 8; } .nx-msg--photo { --d: 4; }
+  .nx-msg--a:hover blockquote, .nx-msg--c:hover blockquote { transform: rotate(-1.2deg) scale(1.02); }
+  .nx-msg--b:hover blockquote, .nx-msg--d:hover blockquote { transform: rotate(1.2deg) scale(1.02); }
+  .nx-msg--photo:hover img { transform: scale(1.04); }
+}
+
+/* ---------- the timeline: a date gets the marker under the pointer, and "today" keeps a quiet pulse ---------- */
+.nx-steps h3 { width: fit-content; max-width: 100%; background: linear-gradient(transparent 58%, rgba(255, 255, 255, .92) 58%, rgba(255, 255, 255, .92) 94%, transparent 94%) no-repeat 0 0 / 0% 100%; transition: background-size .45s var(--out); }
+.nx-steps li::before { transition: transform .3s var(--out); }
+@media (hover: hover) {
+  .nx-steps li:hover h3 { background-size: 100% 100%; }
+  .nx-steps li:hover::before { transform: scale(1.45); }
+}
+@media (min-width: 1101px) {
+  .nx-steps li:first-child::after { content: ""; position: absolute; left: 0; top: 0; width: 18px; height: 18px; border: 2px solid var(--ink); border-radius: 50%; opacity: 0; pointer-events: none; }
+  .nx-how.is-live .nx-steps li:first-child::after { animation: nxPing 2.6s cubic-bezier(.2, .6, .3, 1) 1.5s infinite; }
+}
+.nx-why__last mark { cursor: pointer; }   /* press it: hearts */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ---------- the first screen of the homepage: the question, then the three answers ---------- */
+  .nx-ask h1 span { animation: nxAsk .85s var(--out) backwards; }
+  .nx-ask h1 span:nth-child(2) { animation-delay: .08s; }
+  .nx-ask h1 span:nth-child(3) { animation-delay: .16s; }
+  .nx-ask .nx-bar { animation: nxDeal .75s var(--out) backwards; }
+  .nx-ask .nx-bar:nth-child(1) { animation-delay: .34s; }
+  .nx-ask .nx-bar:nth-child(2) { animation-delay: .42s; }
+  .nx-ask .nx-bar:nth-child(3) { animation-delay: .5s; }
+  .nx-ask__round { animation: nxFade .6s ease .95s backwards; }
+
+  /* ---------- the first screen of the other pages ---------- */
+  .nx .hero--join h1, .nx-404 .hero h1 { animation: nxAsk .85s var(--out) backwards; }
+  .nx .page-hero h1 { animation: nxRise .8s var(--out) backwards; }
+  .nx .page-hero .nx-read__text > p, .nx .hero--join .hero__lede, .nx .hero--join .am-live, .nx-404 .hero__lede, .nx-404 .hero__cta { animation: nxFade .6s ease .3s backwards; }
+  .nx .nx-read__card { transform-origin: 0 100%; animation: nxPop .7s var(--pop) .35s backwards; }
+  .nx .am-wrap--join > .am-card { animation: nxRise .75s var(--out) .15s backwards; }
+  .nx .am-side .am-letter { transform-origin: 0 100%; animation: nxPop .65s var(--pop) .4s backwards; }
+  .nx .am-said__photo { transform-origin: 0 100%; animation: nxPop .6s var(--pop) .85s backwards; }
+
+  /* ---------- waiting below the screen (only next.js puts .nx-wait on anything) ---------- */
+  .nx-wait .nx-wrap > h2, .nx-wait .nx-answer, .nx-wait .nx-msg, .nx-wait .nx-steps li > *, .nx-wait .nx-bars > *, .nx-wait .nx-why__lines > div, .nx-wait.nx-reply .nx-reply__in > *,
+  .nx .prose > h2.nx-wait, .nx .prose > h2.nx-wait + * { opacity: 0; }
+  .nx-wait .nx-steps::before { transform: scaleX(0); }
+  .nx-wait .nx-steps li::before { transform: scale(0); }
+
+  /* ---------- arriving: every screen asks its question the same way, and answers it in its own ---------- */
+  .nx-go .nx-wrap > h2 { animation: nxAsk .85s var(--out) backwards; }
+  /* how did it go: the number, then the messages, one after the other, each from its tail */
+  .nx-go .nx-answer { animation: nxFade .6s ease .25s backwards; }
+  .nx-go .nx-answer mark { animation: nxMark .8s var(--out) .6s backwards; }
+  .nx-go .nx-msg { transform-origin: 0 100%; animation: nxPop .6s var(--pop) backwards; }
+  .nx-go .nx-msg--b, .nx-go .nx-msg--d { transform-origin: 100% 100%; }
+  .nx-go .nx-msg--photo { transform-origin: 50% 100%; }
+  .nx-go .nx-msg--a { animation-delay: .32s; } .nx-go .nx-msg--a mark { animation: nxMark .7s var(--out) .72s backwards; }
+  .nx-go .nx-msg--photo { animation-delay: .46s; } .nx-go .nx-msg--photo mark { animation: nxMark .7s var(--out) .86s backwards; }
+  .nx-go .nx-msg--b { animation-delay: .6s; } .nx-go .nx-msg--b mark { animation: nxMark .7s var(--out) 1s backwards; }
+  .nx-go .nx-msg--c { animation-delay: .74s; } .nx-go .nx-msg--c mark { animation: nxMark .7s var(--out) 1.14s backwards; }
+  .nx-go .nx-msg--d { animation-delay: .88s; } .nx-go .nx-msg--d mark { animation: nxMark .7s var(--out) 1.28s backwards; }
+  /* how does it work: the line is drawn from today, each moment lands as the line reaches it */
+  .nx-go .nx-steps::before { transform-origin: 0 50%; animation: nxDraw 1.2s var(--out) .2s backwards; }
+  .nx-go .nx-steps li > * { animation: nxRise .6s var(--out) backwards; }
+  .nx-go .nx-steps li::before { animation: nxDot .45s var(--pop) backwards; }
+  .nx-go .nx-steps li:nth-child(1) > *, .nx-go .nx-steps li:nth-child(1)::before { animation-delay: .25s; }
+  .nx-go .nx-steps li:nth-child(2) > *, .nx-go .nx-steps li:nth-child(2)::before { animation-delay: .45s; }
+  .nx-go .nx-steps li:nth-child(3) > *, .nx-go .nx-steps li:nth-child(3)::before { animation-delay: .65s; }
+  .nx-go .nx-steps li:nth-child(4) > *, .nx-go .nx-steps li:nth-child(4)::before { animation-delay: .85s; }
+  .nx-go.nx-how .nx-bars > * { animation: nxDeal .75s var(--out) 1.05s backwards; }
+  /* why bother: each ruled row is drawn from the left, the marker comes last */
+  .nx-go .nx-why__lines > div { animation: nxWipe .9s var(--out) backwards; }
+  .nx-go .nx-why__lines > div:nth-child(1) { animation-delay: .2s; }
+  .nx-go .nx-why__lines > div:nth-child(2) { animation-delay: .34s; }
+  .nx-go .nx-why__lines > div:nth-child(3) { animation-delay: .48s; }
+  .nx-go .nx-why__lines mark { animation: nxMark .8s var(--out) 1.15s backwards; }
+  /* where are you: the same bars as the first screen, dealt in the same way */
+  .nx-go .nx-bars--where > * { animation: nxDeal .75s var(--out) .25s backwards; }
+  .nx-go .nx-bars--where > details { animation-delay: .37s; }
+  /* the reading pages: a ruled row is drawn when it is reached */
+  .nx .prose > h2.nx-go { animation: nxWipe .6s var(--out) backwards; }
+  .nx .prose > h2.nx-go + * { animation: nxWipe .7s var(--out) .12s backwards; }
+
+  /* ---------- between pages ---------- */
+  ::view-transition-old(root) { animation: nxVtOut .18s ease both; }
+  ::view-transition-new(root) { animation: nxVtIn .4s var(--out) both; }
+}
+
+
+/* =====================================================================================================================
+   SIGN-UP, FROM STEP 2 ON (Anna, 27 Nov 2026: "when you are at the step 2 and further - i want a different side menu or
+   page look", "and i dont want Ava's image on step 2 and further"). Step 1 has to win someone over: title, live count,
+   the letter, Ava's photo. From step 2 on the person is in, and the page's job is to get many answers picked fast. So:
+     - the title band, the letter and the photo step aside;
+     - the side becomes a menu of the four steps, in the page's big type, drawn like the timeline on the homepage: a line
+       with a dot per step. A step you have done has a tick and takes you back when pressed; the one you are on is dark,
+       pulses and carries its one-line intro; the ones to come are hollow;
+     - the form card gets the width: the questions stand in two columns of small answer cells, so a step that was three
+       screens long is about one.
+   next.js puts .nx-later on the body while a step after the first is showing (and after "Count me in"). Without it the
+   page keeps the look of step 1. On a phone only the first two points apply and the side is simply left out.
+   Also here: the "Other" industry field and the folded data box in the new look.
+   ===================================================================================================================== */
+.nx-way { display: none; }
+.nx-way ol { margin: 0; padding: 0; list-style: none; }
+.nx-way ol > li { position: relative; padding: 0 0 clamp(16px, 3.4vh, 34px) 38px; }
+.nx-way ol > li::before { content: ""; position: absolute; left: 0; top: .28em; width: 18px; height: 18px; border: 2px solid var(--ink); border-radius: 50%; background: #FFFFFF; transition: background-color .25s ease; }
+.nx-way ol > li:not(:last-child)::after { content: ""; position: absolute; left: 8px; top: calc(.28em + 18px); bottom: -.28em; width: 2px; background: var(--ink); }
+.nx-way ol > li[data-state="now"]::before { background: var(--ink); }
+.nx-way ol > li[data-state="done"]::before { background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 11px no-repeat; }
+.nx-way button { display: inline; padding: 0; border: 0; background: linear-gradient(transparent 58%, rgba(255, 255, 255, .92) 58%, rgba(255, 255, 255, .92) 94%, transparent 94%) no-repeat 0 0 / 0% 100%; color: var(--ink); font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.2rem, min(1.85vw, 3.3vh), 1.7rem); line-height: 1.12; letter-spacing: -.03em; text-align: left; text-wrap: balance; cursor: pointer; -webkit-box-decoration-break: clone; box-decoration-break: clone; transition: background-size .45s var(--out), opacity .25s ease; }
+.nx-way button:disabled { cursor: default; }
+.nx-way ol > li[data-state="next"] button { opacity: .5; }
+.nx-way ol > li[data-state="now"] button { background-size: 100% 100%; }
+.nx-way ol > li p { display: none; max-width: 26ch; margin: clamp(4px, 1vh, 8px) 0 0; font-size: clamp(.92rem, min(1.1vw, 2.1vh), 1.02rem); line-height: 1.4; color: var(--ink); text-wrap: pretty; }
+.nx-way ol > li[data-state="now"] p { display: block; animation: nxOpen .45s var(--out) backwards; }
+/* the round's two dates stay in sight on every step (outside review, 27 Nov 2026: "make the signup deadline and match
+   delivery date visually prominent throughout the process, not just on the first step") */
+.nx-way__dates { display: grid; gap: clamp(10px, 1.8vh, 16px); margin: 0; padding: clamp(10px, 2vh, 16px) 0 0; border-top: 2px solid var(--ink); list-style: none; }
+.nx-way__dates li { display: grid; gap: 2px; }
+.nx-way__dates span { font-size: .92rem; line-height: 1.3; color: var(--ink); }
+.nx-way__dates strong { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.05rem, min(1.5vw, 2.8vh), 1.35rem); line-height: 1.15; letter-spacing: -.03em; white-space: nowrap; }
+.nx-way__dates li:has(strong:empty) { display: none; }
+@media (hover: hover) {
+  .nx-way ol > li[data-state="done"] button:hover { background-size: 100% 100%; }
+}
+/* the step you are on keeps the same quiet pulse as "today" on the homepage's timeline */
+.nx-way ol > li[data-state="now"] button::before { content: ""; position: absolute; left: 0; top: .28em; width: 18px; height: 18px; border: 2px solid var(--ink); border-radius: 50%; opacity: 0; pointer-events: none; animation: nxPing 2.6s cubic-bezier(.2, .6, .3, 1) .6s infinite; }
+
+/* the "Other" industry field: one more cell in the list, right after "Other" */
+.nx .am-other input[type="text"] { min-height: 100%; border: 1.5px solid var(--ink); border-radius: 16px; font-size: inherit; }
+.nx .am-other:not([hidden]) { animation: nxOpen .35s var(--out) backwards; }
+/* the data box: a row to press, like the answers around it */
+.nx .am-datanote { border: 1.5px solid var(--gray-300); border-radius: 16px; background: #FFFFFF; }
+.nx .am-datanote summary { padding: 12px 16px; border-radius: inherit; font-family: var(--font-body); font-weight: 600; font-size: .95rem; color: var(--ink); }
+.nx .am-datanote summary::after { font-family: var(--font-heading); font-size: 1.5rem; color: var(--ink); }
+.nx .am-datanote[open] { border-color: var(--ink); }
+.nx .am-datanote ul { margin: 0 16px 16px; color: var(--gray-800); }
+.nx .am-datanote[open] > ul { animation: nxOpen .45s var(--out) backwards; }
+@media (hover: hover) { .nx .am-datanote:not([open]):hover { border-color: var(--ink); } }
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    .nx .am-datanote::details-content { block-size: 0; overflow-y: clip; transition: block-size .45s var(--out), content-visibility .45s allow-discrete; }
+    .nx .am-datanote[open]::details-content { block-size: auto; }
+  }
+}
+
+/* ---------- AIRY (Anna, 27 Nov 2026, on the first version of these steps: "steps look good but very clunky crowded, make
+   design more airy?"). The first version squeezed every step onto one laptop screen: four columns of small boxes with
+   borders, radio dots and 14px text. Now:
+     - a question is set in the heading face, bigger, with room above it;
+     - an answer is a calm tinted cell, no border and no dot. A picked one turns dark, like a bar on the homepage. Only
+       where several can be picked does a cell keep a little box to tick;
+     - one question runs across the card at a time (the long lists in three columns, so no answer needs two lines);
+     - Back and Next stay at the bottom of the window while a long step scrolls under them.
+   The price of the air: on a laptop steps 2 and 3 are longer than the screen again. ---------- */
+.nx-later .section--join .am-q legend, .nx-later .section--join .am-q__label { margin-bottom: 10px; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.1rem, 1.35vw, 1.3rem); line-height: 1.2; letter-spacing: -.02em; color: var(--ink); }
+.nx-later .section--join .am-q__opt { font-family: var(--font-body); font-weight: 400; font-size: .92rem; letter-spacing: 0; }
+.nx-later .section--join .am-q .form__hint { margin: -4px 0 12px; font-size: .92rem; }
+.nx-later .section--join .am-q .am-option + .form__hint { margin: 10px 0 0; }
+.nx-later .section--join .am-list { gap: 8px; }
+.nx-later .section--join .am-option { position: relative; min-height: 52px; padding: 10px 18px; border: 0; border-radius: 16px; background: #FFF6DC; background: color-mix(in srgb, var(--yellow) 24%, #FFFFFF); font-size: 1rem; font-weight: 500; line-height: 1.25; transition: background-color .15s ease, color .15s ease; }
+.nx-later .section--join .am-option:has(input:checked) { background: var(--ink); color: #FFFFFF; }
+.nx-later .section--join .am-option input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.nx-later .section--join .am-option input[type="checkbox"] { -webkit-appearance: none; appearance: none; flex: none; width: 22px; height: 22px; margin: 0; border: 1.5px solid var(--ink); border-radius: 7px; background: #FFFFFF; cursor: pointer; }
+.nx-later .section--join .am-option input[type="checkbox"]:checked { border-color: var(--yellow); background: var(--yellow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171717' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 13px no-repeat; }
+@media (hover: hover) {
+  .nx-later .section--join .am-option:not(:has(input:checked)):hover { background: #FFEBB3; background: color-mix(in srgb, var(--yellow) 48%, #FFFFFF); }
+}
+.nx-later .section--join .am-q input[type="text"], .nx-later .section--join .am-q textarea { min-height: 52px; padding: 12px 18px; border-radius: 16px; font-size: 1rem; }
+.nx-later .section--join .am-other input[type="text"] { min-height: 52px; }
+.nx-later .section--join .am-datanote { border: 0; background: #FFF6DC; background: color-mix(in srgb, var(--yellow) 24%, #FFFFFF); }
+.nx-later .section--join .am-datanote summary { min-height: 52px; padding: 10px 18px; font-size: 1rem; font-weight: 500; }
+.nx-later .section--join .am-datanote ul { margin: 4px 18px 18px; font-size: .95rem; }
+.nx-later .section--join .am-note { padding: 16px 18px; font-size: .98rem; line-height: 1.45; }
+
+/* "Want to stay in for the next rounds?" (Anna, 27 Nov 2026: "make this more highlighted, it's an importand button", "maybe
+   even make it obligatory question with Yes/No type of answer but friendly?"): a pink band of its own, the question in
+   the big type, the two answers as white bars. */
+.nx .am-keep { padding: clamp(18px, 3.2vh, 28px) clamp(18px, 2.4vw, 30px); border-radius: 22px; background: var(--pink); color: var(--ink); }
+.nx .am-keep .am-q__label, .nx-later .section--join .am-keep .am-q__label { margin: 0 0 6px; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.3rem, min(2vw, 3.6vh), 1.8rem); line-height: 1.1; letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.nx .am-keep .form__hint, .nx-later .section--join .am-keep .form__hint { max-width: 46ch; margin: 0; font-size: 1rem; line-height: 1.45; color: var(--ink); text-wrap: pretty; }
+.nx .am-keep .am-list { margin-top: 14px; gap: 10px; }
+.nx .am-keep .am-option, .nx-later .section--join .am-keep .am-option { justify-content: center; min-height: 60px; border: 0; background: #FFFFFF; font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.02rem, 1.3vw, 1.2rem); letter-spacing: -.02em; text-align: center; box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 14px 22px -16px rgba(23, 23, 23, .55); }
+.nx .am-keep .am-option:has(input:checked), .nx-later .section--join .am-keep .am-option:has(input:checked) { background: var(--ink); color: #FFFFFF; }
+.nx .am-keep .am-option input[type="radio"] { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+/* the missing-answer line: a plain white note, red-on-pink would not read (Anna, 27 Nov 2026, on the bold line under the
+   small text: "this is a bit too weird") */
+.nx .am-keep .am-error { width: fit-content; margin-top: 12px; padding: 8px 14px; border-radius: 12px; background: #FFFFFF; color: var(--ink); font-size: .95rem; font-weight: 600; }
+@media (hover: hover) {
+  .nx .am-keep .am-option:not(:has(input:checked)):hover, .nx-later .section--join .am-keep .am-option:not(:has(input:checked)):hover { background: #FFF0F6; }
+}
+
+@media (max-width: 900px) {
+  .nx-later .am-side { display: none; }   /* on a phone the form is the main thing; the bar in the card says which step it is */
+}
+@media (min-width: 901px) {
+  /* the band is still there for screen readers, it just takes no room */
+  .nx-later .hero--join { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  html[data-am-state="open"] .nx-join.nx-later main { justify-content: flex-start; padding-block: clamp(14px, 3.4vh, 36px) clamp(28px, 6vh, 64px); }
+  html[data-am-state="open"] .nx-join.nx-sent main { justify-content: center; }   /* after "Count me in" the short last screen sits in the middle */
+  .nx-later .am-wrap--join { grid-template-columns: minmax(0, clamp(220px, 19vw, 280px)) minmax(0, 1fr); align-items: start; gap: clamp(24px, 3.4vw, 56px); }
+  .nx-later .am-letter, .nx-later .am-said { display: none; }
+  .nx-later .nx-way { display: block; animation: nxRise .55s var(--out) backwards; }
+  .nx-later .nx-way ol > li { padding-bottom: clamp(20px, 4vh, 40px); }
+  .nx-later .am-wrap--join > .am-side { padding-top: clamp(24px, 4.8vh, 46px); }   /* the menu starts on the line of the card's first question */
+  /* the card: the menu says where you are, so the bar and the step's own title step aside (screen readers still get the title) */
+  .nx-later .section--join .am-card { --cp: clamp(26px, 3.2vw, 52px); padding: clamp(24px, 4.8vh, 46px) var(--cp) 8px; }
+  .nx-later .section--join .am-progress { display: none; }
+  .nx-later .am-step__title, .nx-later .am-step__intro { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .nx-later .section--join .am-step > .am-q, .nx-later .section--join .am-step > .am-datanote, .nx-later .section--join .am-step > .am-note { margin: 0 0 clamp(26px, 4.6vh, 42px); }
+  /* Back and Next: the foot of the card, and of the window while a long step scrolls under it */
+  .nx-later .section--join .am-nav { position: sticky; bottom: 0; z-index: 2; margin: 0 calc(var(--cp) * -1); padding: 14px var(--cp); border-top: 1px solid var(--gray-200); border-radius: 0 0 clamp(20px, 2.4vw, 32px) clamp(20px, 2.4vw, 32px); background: #FFFFFF; }
+  .nx-later .section--join .am-card .nx-slow { margin: 0 0 12px; text-align: right; }
+}
+@media (min-width: 1101px) {
+  .nx-later .am-step.is-active { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(26px, 4.6vh, 42px) clamp(24px, 3vw, 44px); align-items: start; padding-bottom: clamp(26px, 4.6vh, 42px); }
+  .nx-later .section--join .am-step > .am-q, .nx-later .section--join .am-step > .am-datanote, .nx-later .section--join .am-step > .am-note { margin: 0; }
+  /* step 2: one question across the card at a time; only the two short text fields share a row */
+  .nx-later .am-step[data-step="2"] > * { grid-column: 1 / -1; }
+  .nx-later .am-step[data-step="2"] > [data-q="jobTitle"] { grid-column: 1; }
+  .nx-later .am-step[data-step="2"] > [data-q="company"] { grid-column: 2; }
+  .nx-later .am-step[data-step="2"] > [data-q="jobFunction"] .am-list, .nx-later .am-step[data-step="2"] > [data-q="industry"] .am-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nx-later .am-step[data-step="2"] > [data-q="seniority"] .am-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* step 3: the same, in the order the questions are asked. What follows from the city (areas, the typed city and
+     country, the travel questions) opens under it. */
+  .nx-later .am-step[data-step="3"] > * { grid-column: 1 / -1; }
+  .nx-later .am-step[data-step="3"] > [data-q="city"] .am-list, .nx-later .am-step[data-step="3"] > [data-q="areas"] .am-list, .nx-later .am-step[data-step="3"] > [data-q="activities"] .am-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .nx-later .am-step[data-step="3"] > [data-q="format"] .am-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nx-later .am-step[data-step="3"] > [data-q="cityOther"], .nx-later .am-step[data-step="3"] > [data-q="travelHelsinki"] { grid-column: 1; }
+  .nx-later .am-step[data-step="3"] > [data-q="country"], .nx-later .am-step[data-step="3"] > [data-q="travelTampere"] { grid-column: 2; }
+  /* "Somewhere else in Finland": the note about the Helsinki region stands beside the typed city instead of under it */
+  .nx-later .am-step[data-step="3"] > [data-q="cityOther"]:not([hidden]) + [data-q="country"][hidden] + [data-q="cityNote"] { grid-column: 2; align-self: end; }
+  /* step 4: wishes beside the free text; the "stay in" question across the card; the data box beside the tick that
+     agrees to it; the heads-up last */
+  .nx-later .am-step[data-step="4"] > [data-q="meetingCriteria"] { grid-area: 1 / 1; }
+  .nx-later .am-step[data-step="4"] > [data-q="feedback"] { grid-area: 1 / 2; align-self: stretch; display: flex; flex-direction: column; }
+  .nx-later .am-step[data-step="4"] > [data-q="feedback"] textarea { flex: 1 1 auto; min-height: 96px; }
+  .nx-later .am-step[data-step="4"] > [data-q="keepIn"] { grid-area: 2 / 1 / auto / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); align-items: center; gap: 10px clamp(20px, 3vw, 44px); }
+  .nx-later .am-step[data-step="4"] > [data-q="keepIn"] .am-list { margin-top: 0; }
+  .nx-later .am-step[data-step="4"] > [data-q="keepIn"] .am-error { grid-column: 1 / -1; margin-top: 0; }
+  .nx-later .am-step[data-step="4"] > .am-datanote { grid-area: 3 / 1; }
+  .nx-later .am-step[data-step="4"] > [data-q="agreeData"] { grid-area: 3 / 2; }
+  .nx-later .am-step[data-step="4"] > .am-ghosting { grid-area: 4 / 1 / auto / -1; }
+}
+
+/* ---------- the "take me off the list" page (leave/): the two choices are answers, so they are the page's white bars ---------- */
+.nx .lv__choices { justify-items: stretch; gap: clamp(8px, 1.6vh, 14px); max-width: 780px; margin: clamp(16px, 3.4vh, 34px) 0 clamp(12px, 2.4vh, 22px); }
+.nx .lv__choices .btn { justify-content: flex-start; min-height: clamp(62px, 10vh, 92px); padding: 12px clamp(20px, 2.8vw, 36px); border: 0; border-radius: clamp(20px, 2.2vw, 28px); background: #FFFFFF; color: var(--ink); font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.15rem, min(2.2vw, 3.8vh), 1.9rem); line-height: 1.1; letter-spacing: -.03em; text-align: left; box-shadow: 0 2px 0 rgba(23, 23, 23, .06), 0 18px 30px -20px rgba(120, 66, 0, .6); transition: transform .32s var(--out), background-color .16s ease, color .16s ease; }
+.nx .lv__choices .btn:active { transform: scale(.985); }
+@media (hover: hover) { .nx .lv__choices .btn:hover { transform: translateX(10px); background: #FFFFFF; color: var(--ink); } }
+.nx-leave .fb__private { max-width: 56ch; }
+
+/* ---------- the coffee button (Anna's own embed) steps up above the docked button on a phone, as it did on the old homepage ---------- */
+@media (max-width: 760px) {
+  .nx-dock.is-up ~ #bmc-wbtn { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+  .nx-dock.is-up ~ #bmc-wbtn + div { bottom: calc(82px + env(safe-area-inset-bottom)) !important; }
+}
+/* On the sign-up page the coffee button and its message sat on top of "Next" (bottom right of the bar that stays at the
+   foot of the window), so they step aside while steps 2 to 4 are being filled in and are back on "You're in!". */
+.nx-later:not(.nx-sent) #bmc-wbtn, .nx-later:not(.nx-sent) #bmc-wbtn + div { display: none !important; }
+/* the round's line on the first screen sits bottom left, clear of the coffee button in the bottom right corner */
+.nx-ask__foot { justify-content: flex-start; }
+/* on a phone the coffee button sits bottom right of the first screen too: the round's line stays above it */
+@media (max-width: 760px) {
+  .nx-ask__in { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+}

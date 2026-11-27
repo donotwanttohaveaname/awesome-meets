@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFD166">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-60GBR73KYC"></script>
   <script>
@@ -13,14 +14,14 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.65">
+  <meta name="am-version" content="2.70">
   <title>One-to-one networking in Helsinki | Awesome Meets</title>
-  <meta name="description" content="Awesome Meets is one-to-one networking in Helsinki. We introduce you to someone new from your field, and you meet over lunch, coffee or a walk.">
+  <meta name="description" content="Awesome Meets is monthly one-to-one networking in Helsinki. Every month we introduce you to someone new, and you meet over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/">
   <!-- LAUNCH: remove this line once the old page redirects here (see README) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Awesome Meets: one-to-one networking in Helsinki">
-  <meta property="og:description" content="Awesome Meets is one-to-one networking in Helsinki. We introduce you to someone new from your field, and you meet over lunch, coffee or a walk.">
+  <meta property="og:description" content="Awesome Meets is monthly one-to-one networking in Helsinki. Every month we introduce you to someone new, and you meet over lunch, coffee or a walk.">
   <meta property="og:image" content="https://awesomemeets.com/assets/img/og-home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -38,247 +39,201 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <!-- 'js' lets sections fade in as you scroll. If the homepage script never arrives, show everything after 4 seconds. -->
-  <script>document.documentElement.className = 'js'; setTimeout(function () { if (!window.AMHome) document.documentElement.className = ''; }, 4000);</script>
-  <link rel="stylesheet" href="assets/css/site.css?v=2.65">
-  <link rel="stylesheet" href="assets/css/home.css?v=2.65">
+  <link rel="stylesheet" href="assets/css/site.css?v=2.70">
+  <link rel="stylesheet" href="assets/css/next.css?v=2.70">
 </head>
-<body class="home has-dock">
+<body class="nx no-topbar">
 
-<div class="scrollbar" aria-hidden="true"><span id="scrollFill"></span></div>
-
-<header class="site-header">
+<header class="site-header nx-header">
   <div class="container site-header__in">
     <a class="logo" href="./" aria-label="Awesome Meets, home">
       <img src="assets/img/heart.png" alt="" width="30" height="30">
       <span class="logo__word">Awesome <span>Meets</span></span>
     </a>
     <nav class="site-nav" aria-label="Main">
-      <a href="#what">What we do</a>
+      <a href="#how">How it works</a>
       <a href="about/">About</a>
-      <a class="btn btn--primary btn--sm" href="#waitlist" data-show="waitlist">Join the waitlist for <span data-am="label">December</span></a>
+      <a class="btn btn--primary btn--sm" href="#reply" data-show="waitlist">Join the waitlist</a>
       <a class="btn btn--primary btn--sm" href="join/" data-show="open" hidden>Sign up</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <!-- 1. THE QUESTION, one line on what Awesome Meets is, and one button. -->
-  <section class="ask-hero" id="top">
-    <div class="ask-hero__in">
-      <h1>When did you last meet someone from your field who <span class="grad">isn't a colleague?</span></h1>
-      <p class="ask-hero__sub"><span>Awesome Meets is <i class="nb">one-to-one</i> networking.</span> <span>We introduce you to someone new for a real conversation.</span></p>
-      <div class="hero__cta ask-hero__cta" data-show="waitlist"><a class="btn btn--primary" href="#waitlist">Join the waitlist for <span data-am="label">December</span></a></div>
-      <div class="hero__cta ask-hero__cta" data-show="open" hidden><a class="btn btn--primary" href="join/">Sign up</a></div>
-      <!-- Countdown to the close of sign-ups (Anna, 6 Oct 2026: "add countdown to the website"). Filled by site.js while a round is open. -->
-      <div class="countdown" data-countdown role="timer" aria-live="off" hidden></div>
-    </div>
-    <a class="ask-hero__cue" href="#why" aria-label="Read on">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-    </a>
-  </section>
-
-  <!-- 2. THE CASE. Anna's text, reworked after copy feedback on 30 Sep 2026: the point is meeting someone new, not finding a job. One screen. -->
-  <section class="case screen" id="why">
-    <div class="case__in">
-      <p class="reveal" style="--i:0"><strong>We all know people at work.</strong> But how often do you meet someone genuinely new? Meetups and conferences give you plenty of names and LinkedIn connections. A good conversation is harder to come by.</p>
-      <p class="reveal" style="--i:1"><strong>Networking isn't saying &ldquo;Hello, my name is&rdquo; at a meetup or a conference.</strong> It's a proper conversation with someone you'd probably never have met otherwise.</p>
-      <p class="reveal" style="--i:2"><strong>It might never lead to a job.</strong> It might lead to something much better. Some people become clients. Some become collaborators. Some become friends. Some just make your Tuesday lunch much more interesting.</p>
-      <p class="reveal" style="--i:3"><strong>It's the part of work life you can't turn into KPIs.</strong> Unless your KPI is happiness.</p>
-      <p class="again reveal" style="--i:4">So, again: when was the last time you <span class="grad">truly networked?</span></p>
+  <!-- 1. THE QUESTION, asked for real. The three bars are links to the reply below, so the page works without JavaScript;
+       next.js turns a press into an answer (the reply changes its first line and its colour). -->
+  <section class="nx-ask" id="top" aria-labelledby="askTitle">
+    <div class="nx-wrap nx-ask__in">
+      <h1 id="askTitle"><span>When did you last</span> <span>meet someone who</span> <span>isn’t a colleague?</span></h1>
+      <div class="nx-bars" role="group" aria-label="Pick your answer">
+        <a class="nx-bar" href="#reply" data-answer="week"><span>Last week</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="nx-bar" href="#reply" data-answer="months"><span>A few months&nbsp;ago</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="nx-bar" href="#reply" data-answer="never"><span>I can’t remember</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="nx-ask__foot">
+        <p class="nx-ask__round" data-show="open" data-nx="roundShort" hidden></p>
+      </div>
     </div>
   </section>
 
-  <!-- 3. WHAT WE DO, and the two waitlists -->
-  <section class="what screen" id="what">
-    <div class="what__in">
-      <h2 class="reveal">We match. You meet.</h2>
-      <p class="what__lede reveal" style="--i:1">You tell us a little about yourself. We find someone you'll actually want to talk to.</p>
-      <ol class="flow">
-        <li class="flow__step reveal" style="--i:0">
-          <div class="flow__text">
-            <span class="flow__num" aria-hidden="true">1</span>
-            <h3>Tell us a little about yourself</h3>
-            <p>Your interests, industry and profession. It takes a few minutes.</p>
-          </div>
-          <div class="flow__art" aria-hidden="true">
-            <div class="art-form">
-              <span class="art-label">Interests</span>
-              <div class="art-pills"><i class="on" style="--w:96px"></i><i style="--w:72px"></i><i class="on" style="--w:118px"></i><i style="--w:64px"></i></div>
-              <span class="art-label">Industry</span>
-              <div class="art-pills"><i class="on" style="--w:150px"></i></div>
-              <span class="art-label">Profession</span>
-              <div class="art-pills"><i class="on" style="--w:124px"></i></div>
-            </div>
-          </div>
-        </li>
-        <li class="flow__step reveal" style="--i:1">
-          <div class="flow__text">
-            <span class="flow__num" aria-hidden="true">2</span>
-            <h3>We check everyone</h3>
-            <p>Every person in the community is reviewed before they're matched with anyone.</p>
-          </div>
-          <div class="flow__art" aria-hidden="true">
-            <div class="art-card">
-              <span class="art-face"></span>
-              <span class="art-lines"><i style="--w:124px"></i><i style="--w:86px"></i></span>
-              <span class="art-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-            </div>
-          </div>
-        </li>
-        <li class="flow__step reveal" style="--i:2">
-          <div class="flow__text">
-            <span class="flow__num" aria-hidden="true">3</span>
-            <h3>We find your match</h3>
-            <p>We look for the overlap in your interests, industry and profession. No random matches.</p>
-          </div>
-          <div class="flow__art" aria-hidden="true">
-            <div class="art-pair">
-              <span class="art-face art-face--a"></span>
-              <img class="art-heart" src="assets/img/heart.png" alt="" width="64" height="64">
-              <span class="art-face art-face--b"></span>
-            </div>
-          </div>
-        </li>
-        <li class="flow__step reveal" style="--i:3">
-          <div class="flow__text">
-            <span class="flow__num" aria-hidden="true">4</span>
-            <h3>You meet in person</h3>
-            <p>One-to-one or in a trio, over lunch, coffee or a walk. No stage, no crowd, no awkward networking circle.</p>
-          </div>
-          <div class="flow__art" aria-hidden="true">
-            <div class="art-ticket">
-              <div class="art-icons">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v6a3 3 0 0 0 6 0V3"/><path d="M8 3v18"/><path d="M18 3v18"/><path d="M18 3c-2.2 1.8-3.2 4.4-3.2 8H18"/></svg></span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3v3"/><path d="M12 3v3"/></svg></span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.7"/><path d="M9.5 21l2.2-6.2-2.4-2.6 1.2-4.7 3.2 3 3 1"/><path d="M10.5 7.5L7.5 9.2 6.8 12"/><path d="M12 15l2.6 2.2.9 3.8"/></svg></span>
-              </div>
-              <strong>Lunch</strong>
-              <span class="art-when">Helsinki · Tuesday at 12PM</span>
-            </div>
-          </div>
-        </li>
-      </ol>
-      <p class="what__aim reveal" style="--i:4">The goal isn't to find someone similar. <strong>It's to find someone interesting.</strong></p>
+  <!-- 2. THE REPLY: what this is, when the running round is matched, and the way in. Its first line and its colour depend
+       on the answer; without an answer it shows the first line below. -->
+  <section class="nx-reply nx-view" id="reply" aria-labelledby="replyTitle">
+    <div class="nx-wrap nx-reply__in">
+      <h2 id="replyTitle" tabindex="-1" data-default="Whenever it was, here’s the next&nbsp;one." data-week="Good for you. Fancy another&nbsp;one?" data-months="Then it’s about&nbsp;time." data-never="Then this is for&nbsp;you.">Whenever it was, here’s the next&nbsp;one.</h2>
+      <p class="nx-reply__what">Awesome Meets is monthly one-to-one networking. Every month we introduce you to someone new for a proper conversation over lunch, coffee or a&nbsp;walk.</p>
 
+      <div class="nx-ticket" data-show="open" hidden>
+        <ol class="nx-dates">
+          <li><span>Sign up by</span><strong data-am="closesLong">the cut-off date</strong></li>
+          <li><span>Your match arrives by</span><strong data-am="matchedByLong">the match date</strong></li>
+          <li><span>You meet in</span><strong data-am="meetWindow">the weeks after</strong></li>
+        </ol>
+        <a class="btn btn--primary nx-cta" href="join/">Count me in</a>
+      </div>
+      <p class="nx-reply__note" data-show="open" hidden>It takes a couple of minutes. I check every sign-up and every match by&nbsp;hand.</p>
+
+      <div class="nx-ticket nx-ticket--form" id="waitlist" data-show="waitlist">
+        <p class="nx-ticket__closed">Sign-ups for <span data-am="lastLabel">the last round</span> are closed. Leave your email and I’ll tell you when <span data-am="label">the next round</span>&nbsp;opens.</p>
+        <div class="js-waitlist nx-form">
+          <form novalidate>
+            <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
+            <label>Your email<input type="email" placeholder="you@company.com" autocomplete="email"></label>
+            <button type="submit" class="btn btn--primary nx-cta">Join the waitlist</button>
+          </form>
+          <p class="form__hint nx-slow">The button is really slow, have patience 🌚</p>
+          <p class="nx-form__note">Only your email, used only for that invitation. <a href="data/">Data policy</a></p>
+          <p class="nx-form__done">You’re on the waitlist for <span data-am="label">the next round</span> 🧡 I’ll email you when it&nbsp;opens.</p>
+          <p class="am-status" role="alert"></p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 3b. WHAT PEOPLE SAID (Anna, 3 Nov 2026: "add two public happy feedback things to the website ... find a cool way to display
-       feedback", "do mention who they are"). Both ticked "I'm happy for Anna to share this feedback publicly" in the October feedback
-       form and confirmed the name, job and company shown here (tab "Feedback"). Varsha's "Grat" is corrected to "Great". -->
-  <section class="said screen" id="said">
-    <div class="said__in">
-      <h2 class="reveal">How did it go?</h2>
-      <!-- Anna, 26 Nov 2026: "straight from the feedback" is icky and the big 100+ under the quotes "looks out of place", so the
-           numbers live in this one sentence. 100+ = sign-ups per round: 40 October + 42 November + 31 December on 26 Nov = 113.
-           93% (Anna, 26 Nov: "say XX% rated the meeting at 9 or 10"): tab "Feedback" on 26 Nov has 27 scores for the question
-           "how likely are you to recommend" (17 October, 10 November), 25 of them a 9 or a 10 (21 tens, 4 nines, one 8, one 6).
-           Counted per meetup, so the line says "meetups". As an NPS that is 89. Recount when new feedback comes in. -->
-      <p class="said__lede reveal" style="--i:1"><strong>100+ people</strong> have signed up so far. <strong>93%</strong> of the meetups they rated got a 9 or 10 out of 10.</p>
-      <!-- Five messages: four quotes and a photo. Everyone ticked "I'm happy for Anna to share this feedback publicly" and confirmed
-           the name, job and company shown (tab "Feedback"), or sent the photo to be shared (Ava). Varsha's "Grat" is corrected to
-           "Great". Charlotte wrote "to get to know Alina": her match's name is replaced with "my match", because Alina has not
-           been asked. Delfin and Charlotte were added on 26 Nov 2026 (Anna: "also add Delfin's and Chatlotte's public feedback"). -->
-      <div class="said__chat said__chat--five">
-        <figure class="said__msg said__msg--a reveal" style="--i:2">
-          <blockquote class="said__bubble"><p>Awesome match. I love how it went and <mark>chatted longer than planned.</mark></p></blockquote>
-          <figcaption class="said__who">
-            <span class="said__face said__face--a" aria-hidden="true">IB</span>
-            <span><strong>Iryna Baranivska</strong><br>Marketing Lead at an early-stage startup</span>
-          </figcaption>
+  <!-- 3. HOW DID IT GO? Real feedback, the same five messages as on the live homepage (see the notes there: everyone ticked the
+       public box or sent the photo to be shared; Charlotte wrote her match's name where this says "my match").
+       100+ = 40 October + 42 November + 31 December sign-ups on 26 Nov 2026; 93% = 25 of 27 meetup ratings were a 9 or a 10. -->
+  <section class="nx-said nx-view" id="said" aria-labelledby="saidTitle">
+    <div class="nx-wrap">
+      <h2 id="saidTitle">How did it&nbsp;go?</h2>
+      <p class="nx-answer"><mark><strong>93%</strong> rated their meetup 9 or 10 out of&nbsp;10.</mark> <strong>100+ people</strong> have signed up so&nbsp;far.</p>
+      <div class="nx-chat" role="group" aria-label="What people said">
+        <figure class="nx-msg nx-msg--a">
+          <blockquote><p>Awesome match. I love how it went and <mark>chatted longer than&nbsp;planned.</mark></p></blockquote>
+          <figcaption><span class="nx-face nx-face--y" aria-hidden="true">IB</span><span class="nx-who"><strong>Iryna Baranivska</strong><span>Marketing Lead at an early-stage&nbsp;startup</span></span></figcaption>
         </figure>
-        <figure class="said__msg said__msg--b reveal" style="--i:3">
-          <blockquote class="said__bubble"><p>Great way to meet <mark>new people from various different backgrounds.</mark></p></blockquote>
-          <figcaption class="said__who">
-            <span class="said__face said__face--c" aria-hidden="true">VS</span>
-            <span><strong>Varsha Saraogi</strong><br>Content Manager at Kemppi</span>
-          </figcaption>
+        <figure class="nx-msg nx-msg--b">
+          <blockquote><p>Great way to meet <mark>new&nbsp;people from&nbsp;various different&nbsp;backgrounds.</mark></p></blockquote>
+          <figcaption><span class="nx-face nx-face--o" aria-hidden="true">VS</span><span class="nx-who"><strong>Varsha Saraogi</strong><span>Content Manager at&nbsp;Kemppi</span></span></figcaption>
         </figure>
-        <figure class="said__msg said__msg--c reveal" style="--i:4">
-          <blockquote class="said__bubble"><p>It was <mark>so much fun</mark> to get to know my match and learn more about her.</p></blockquote>
-          <figcaption class="said__who">
-            <span class="said__face said__face--b" aria-hidden="true">C</span>
-            <span><strong>Charlotte</strong><br>Business Area Director at Valve One Growth</span>
-          </figcaption>
-        </figure>
-        <figure class="said__msg said__msg--d reveal" style="--i:5">
-          <blockquote class="said__bubble"><p>Match with like-minded folks and <mark>great discussion that extended for 3 hours.</mark></p></blockquote>
-          <figcaption class="said__who">
-            <span class="said__face said__face--a" aria-hidden="true">DV</span>
-            <span><strong>Delfin Vassallo</strong><br>Global Head of Marketing</span>
-          </figcaption>
-        </figure>
-        <!-- Anna, 26 Nov 2026: "add this picture to the website with "Meeting update: it was a blast!" by Ava Kiiski" (November round,
-             group 9). The photo is a re-encoded copy without any camera data (assets/img/meetup-ava-november.jpg, 1400 x 1050). -->
-        <figure class="said__msg said__msg--photo reveal" style="--i:6">
-          <div class="said__bubble said__bubble--photo">
-            <img class="said__photo" src="assets/img/meetup-ava-november.jpg" width="1400" height="1050" loading="lazy" decoding="async"
-                 alt="Ava Kiiski taking a selfie at a café table with two other people, one holding a curly brown dog. Everyone is smiling.">
-            <p>Meeting update: <mark>it was a blast!</mark></p>
+        <figure class="nx-msg nx-msg--photo">
+          <div class="nx-photo">
+            <img src="assets/img/meetup-ava-november.jpg" width="1400" height="1050" loading="lazy" decoding="async" alt="Ava Kiiski taking a selfie at a café table with two other people, one holding a curly brown dog. Everyone is smiling.">
+            <p>Meeting update: <mark>it was a&nbsp;blast!</mark></p>
           </div>
-          <figcaption class="said__who">
-            <span class="said__face said__face--b" aria-hidden="true">AK</span>
-            <span><strong>Ava Kiiski</strong><br>November round</span>
-          </figcaption>
+          <figcaption><span class="nx-face nx-face--p" aria-hidden="true">AK</span><span class="nx-who"><strong>Ava Kiiski</strong><span>November round</span></span></figcaption>
+        </figure>
+        <figure class="nx-msg nx-msg--c">
+          <blockquote><p>It was <mark>so much fun</mark> to get to know my match and learn more about&nbsp;her.</p></blockquote>
+          <figcaption><span class="nx-face nx-face--p" aria-hidden="true">C</span><span class="nx-who"><strong>Charlotte</strong><span>Business Area Director at Valve One&nbsp;Growth</span></span></figcaption>
+        </figure>
+        <figure class="nx-msg nx-msg--d">
+          <blockquote><p>Match with like‑minded folks and <mark>great discussion that extended for 3&nbsp;hours.</mark></p></blockquote>
+          <figcaption><span class="nx-face nx-face--y" aria-hidden="true">DV</span><span class="nx-who"><strong>Delfin Vassallo</strong><span>Global Head of&nbsp;Marketing</span></span></figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <!-- 4. WHERE ARE YOU? Finland and not in Finland (Anna, 15 Oct 2026: "make it finland and not in finland now";
-       it was Helsinki and Not in Helsinki). The other-country waitlist shows whether a round is open or not. -->
-  <section class="where screen" id="where">
-    <div class="where__in">
-        <h2 class="reveal">Where are you?</h2>
-        <div class="cities">
+  <!-- 4. HOW DOES IT WORK? The running round as four moments with its real dates (they come from config.js, so January's
+       appear by themselves after December's cut-off). -->
+  <section class="nx-how nx-view" id="how" aria-labelledby="howTitle">
+    <div class="nx-wrap">
+      <span id="what"></span>
+      <h2 id="howTitle">How does it&nbsp;work?</h2>
+      <ol class="nx-steps">
+        <li>
+          <h3>Today</h3>
+          <p><strong>You fill in the form.</strong> What you do, where you are and how you’d like to meet. It takes a couple of&nbsp;minutes.</p>
+        </li>
+        <li>
+          <h3 data-nx="closesDay">The cut-off</h3>
+          <p><strong data-nx="cutoffLead">The round’s cut-off.</strong> <span data-nx="cutoffText">I check every sign-up, then match everyone who’s in. There’s a new round every&nbsp;month.</span></p>
+        </li>
+        <li>
+          <h3 data-nx="matchedByShort">A few days later</h3>
+          <p><strong>Your match lands in your inbox.</strong> One person, or two if you chose a trio. No random matches: I match by what you do and who you’d like to&nbsp;meet.</p>
+        </li>
+        <li>
+          <h3 data-nx="meetWindow">After that</h3>
+          <p><strong>You meet.</strong> <span data-nx="meetHow">You pick the day and the place together: lunch, an after-work coffee or a&nbsp;walk.</span></p>
+        </li>
+      </ol>
+      <div class="nx-bars">
+        <a class="nx-bar" href="join/" data-show="open" hidden><span>Sounds good, count me&nbsp;in</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="nx-bar" href="#reply" data-show="waitlist"><span>Sounds good, tell me when it&nbsp;opens</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
 
-          <div class="city city--here reveal" id="waitlist" style="--i:1">
-            <h3>Finland</h3>
-            <div data-show="waitlist">
-              <p class="city__text">Sign-ups for <span data-am="lastLabel">November</span> are closed. Leave your email and you'll be first to know when <span data-am="label">December</span> opens.</p>
-              <div class="js-waitlist">
-                <form novalidate>
-                  <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
-                  <label>Your email<input type="email" placeholder="you@company.com" autocomplete="email"></label>
-                  <button type="submit" class="btn btn--primary">Join the waitlist for <span data-am="label">December</span></button>
-                </form>
-                <p class="city__note">Only your email, used only for that invitation. <a href="data/">Data policy</a></p>
-                <p class="city__done">You're on the waitlist for <span data-am="label">December</span> 🧡 I'll email you when it opens.</p>
-                <p class="am-status" role="alert"></p>
-              </div>
-              <p class="city__fact"><strong data-am="lastSignups">42</strong> people signed up for <span data-am="lastLabel">November</span>. The next round is in <span data-am="label">December</span>.</p>
-            </div>
-            <div data-show="open" hidden>
-              <p class="city__text" data-am="openUntil"></p>
-              <p class="city__text">You can sign up from anywhere in Finland. I can't promise a meetup in your own city, but if enough people from your area sign up, I'll match you there.</p>
-              <div class="hero__cta" style="justify-content:flex-start"><a class="btn btn--primary" href="join/">Sign up</a></div>
-            </div>
-          </div>
-
-          <div class="city reveal" id="elsewhere" style="--i:2">
-            <h3>Not in Finland?</h3>
-            <div>
-            <p class="city__text">Tell us where you are. If Awesome Meets comes to your city, you'll be the first to know.</p>
-            <div class="js-citylist">
-              <form novalidate>
-                <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
-                <label>Your email<input type="email" name="email" placeholder="you@company.com" autocomplete="email" maxlength="160" required></label>
-                <label>Your LinkedIn profile<input type="url" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300" required></label>
-                <div class="two">
-                  <label>City<input type="text" name="city" autocomplete="address-level2" maxlength="80" required></label>
-                  <label>Country<input type="text" name="country" autocomplete="country-name" maxlength="60" required></label>
-                </div>
-                <button type="submit" class="btn btn--primary">Bring Awesome Meets to my city</button>
-              </form>
-              <p class="city__note">We'll only use your details to let you know when Awesome Meets launches in your city. <a href="data/">Data policy</a></p>
-              <p class="city__done">Got it 🧡 If Awesome Meets comes to <span data-city>your city</span>, you'll be the first to know.</p>
-              <p class="am-status" role="alert"></p>
-            </div>
-            </div>
-          </div>
-
+  <!-- 5. WHY BOTHER? Anna's own text on real networking, tightened on 26 Nov 2026 (copy review). -->
+  <section class="nx-why nx-view" id="why" aria-labelledby="whyTitle">
+    <div class="nx-wrap">
+      <h2 id="whyTitle">Why bother?</h2>
+      <div class="nx-why__lines">
+        <div>
+          <h3>We all know people at&nbsp;work.</h3>
+          <p>Meeting someone new is rarer. Meetups and conferences give you plenty of names and LinkedIn connections. A good conversation is harder to come&nbsp;by.</p>
         </div>
+        <div>
+          <h3>It might never lead to a&nbsp;job.</h3>
+          <p>It might lead to something much better: a client, a collaborator, a friend, or a much more interesting Tuesday&nbsp;lunch.</p>
+        </div>
+        <div class="nx-why__last">
+          <h3><span>It’s the part of work life you can’t turn into&nbsp;KPIs.</span> <span><mark>Unless your KPI is&nbsp;happiness.</mark></span></h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. WHERE ARE YOU? The same bars as the first screen: Finland goes to the form, anywhere else opens the city form. -->
+  <section class="nx-where nx-view" id="where" aria-labelledby="whereTitle">
+    <div class="nx-wrap">
+      <h2 id="whereTitle">Where are&nbsp;you?</h2>
+      <div class="nx-bars nx-bars--where">
+        <a class="nx-bar nx-bar--tall" href="join/" data-show="open" hidden>
+          <span><b>In Finland</b><small>For now I can only guarantee a match in the Helsinki region. Anywhere else in Finland, I keep your sign-up until I find you a proper match&nbsp;nearby.</small></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="nx-bar nx-bar--tall" href="#reply" data-show="waitlist">
+          <span><b>In Finland</b><small>Leave your email and I’ll tell you when the next round&nbsp;opens.</small></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <details class="nx-else" id="elsewhere">
+          <summary>
+            <span class="nx-bar nx-bar--tall">
+              <span><b>Somewhere else</b><small>Tell me where you are. If Awesome Meets comes to your city, you’ll be the first to&nbsp;know.</small></span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+            </span>
+          </summary>
+          <div class="js-citylist nx-form nx-form--city">
+            <form novalidate>
+              <label class="am-hp" aria-hidden="true">Leave this empty<input type="text" class="js-trap" tabindex="-1" autocomplete="off"></label>
+              <label>Your email<input type="email" name="email" placeholder="you@company.com" autocomplete="email" maxlength="160" required></label>
+              <label>Your LinkedIn profile<input type="url" name="linkedin" placeholder="linkedin.com/in/yourname" maxlength="300" required></label>
+              <div class="two">
+                <label>City<input type="text" name="city" autocomplete="address-level2" maxlength="80" required></label>
+                <label>Country<input type="text" name="country" autocomplete="country-name" maxlength="60" required></label>
+              </div>
+              <button type="submit" class="btn btn--primary nx-cta">Bring Awesome Meets to my city</button>
+            </form>
+            <p class="form__hint nx-slow">The button is really slow, have patience 🌚</p>
+            <p class="nx-form__note">I’ll only use your details to tell you if Awesome Meets comes to your city. <a href="data/">Data policy</a></p>
+            <p class="nx-form__done">Got it 🧡 If Awesome Meets comes to <span data-city>your city</span>, you’ll be the first to&nbsp;know.</p>
+            <p class="am-status" role="alert"></p>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 </main>
@@ -294,7 +249,7 @@
         <p class="site-footer__by">by the creators of <a href="https://awesomemarketers.fi/">The Awesome Marketers</a></p>
       </div>
       <nav aria-label="Footer">
-        <a href="join/" data-am-cta>Join the waitlist for December</a>
+        <a href="join/" data-am-cta>Sign up</a>
         <a href="about/">About the creators</a>
         <a href="data/">Your data</a>
         <a href="https://www.linkedin.com/company/awesome-meets/">LinkedIn</a>
@@ -305,14 +260,15 @@
   </div>
 </footer>
 
-<div class="dock" id="dock">
-  <a class="btn btn--primary" href="#waitlist" data-show="waitlist">Join the waitlist for <span data-am="label">December</span></a>
-  <a class="btn btn--primary" href="join/" data-show="open" hidden>Sign up</a>
+<!-- the button that stays within reach on a phone once the first screen has gone by -->
+<div class="nx-dock" id="nxDock" hidden>
+  <a class="btn btn--primary" href="join/" data-show="open" hidden>Count me in</a>
+  <a class="btn btn--primary" href="#reply" data-show="waitlist">Join the waitlist</a>
 </div>
 
-<script src="assets/js/config.js?v=2.65"></script>
-<script src="assets/js/site.js?v=2.65"></script>
-<script src="assets/js/home.js?v=2.65"></script>
+<script src="assets/js/config.js?v=2.70"></script>
+<script src="assets/js/site.js?v=2.70"></script>
+<script src="assets/js/next.js?v=2.70"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

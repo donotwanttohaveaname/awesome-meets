@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFD166">
   <!-- The feedback form people reach from the buttons in the "how did it go?" email (sent 3 hours after a meetup).
        It lives here, and not on the Google script's own address, because a script link shows a Google Drive error
        ("Sorry, unable to open the file at this time") to anyone signed into more than one Google account.
        On purpose this page has NO Google Analytics, NO Ahrefs and NO Buy Me a Coffee button: the address carries
        a personal link code, and that code should not travel to any other service. Not in the sitemap, not indexed. -->
-  <meta name="am-version" content="2.65">
+  <meta name="am-version" content="2.70">
   <title>How did it go? | Awesome Meets</title>
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
@@ -20,11 +21,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.65">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.70">
+  <link rel="stylesheet" href="../assets/css/next.css?v=2.70">
 </head>
-<body class="fb-page">
+<body class="fb-page nx nx-page nx-feedback">
 
-<header class="site-header">
+<header class="site-header nx-header">
   <div class="container site-header__in">
     <a class="logo" href="../" aria-label="Awesome Meets, home">
       <img src="../assets/img/heart.png" alt="" width="30" height="30">
@@ -34,7 +36,7 @@
 </header>
 
 <main>
-  <section class="section fb">
+  <section class="section fb" id="top">
     <div class="container">
       <div class="am-wrap fb__wrap">
 
@@ -157,7 +159,8 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.65"></script>
-<script src="../assets/js/feedback.js?v=2.65"></script>
+<script src="../assets/js/config.js?v=2.70"></script>
+<script src="../assets/js/feedback.js?v=2.70"></script>
+<script src="../assets/js/next.js?v=2.70"></script>
 </body>
 </html>
