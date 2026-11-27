@@ -23,7 +23,7 @@
   var OPTIONS = {
     jobFunction: ['Founder / CEO', 'Marketing', 'Sales and business development', 'Product', 'Customer success and support', 'Communications and PR', 'HR and people', 'Design and creative', 'Engineering and IT', 'Data and analytics', 'Operations', 'Finance', 'Consulting', 'Other'],
     industry: ['B2B SaaS', 'B2B services', 'E-commerce and retail', 'Consumer brands', 'Finance and insurance', 'Health', 'Public sector and non-profit', 'Media and entertainment', 'Gaming', 'Industrial and manufacturing', 'Travel and hospitality', 'Agency', 'Other'],
-    seniority: ['Junior', 'Mid', 'Senior', 'Lead', 'Head of / Director', 'C-level / VP', 'Founder'],
+    seniority: ['Junior', ['Mid', 'Mid-level'], 'Senior', 'Lead', 'Head of / Director', 'C-level / VP', 'Founder'],
     city: [[HELSINKI, 'Helsinki region (Helsinki, Espoo, Vantaa)'], 'Tampere', 'Turku', 'Oulu', 'Jyväskylä', 'Kuopio', 'Lahti', 'Pori', 'Joensuu', 'Lappeenranta', 'Vaasa', [OTHER, 'Somewhere else in Finland'], [ABROAD, 'Not in Finland']],
     areas: ['Helsinki center', 'Ruoholahti and Jätkäsaari', 'Espoo Keilaniemi', 'Vantaa Tikkurila', 'Pasila', 'Hakaniemi', 'Sörnäinen', 'Kalasatama'],
     travelHelsinki: ['Yes', 'No'],
@@ -241,6 +241,7 @@
       done.hidden = false;
       doneTitle.textContent = 'You\'re in! 🧡';
       doneOk.hidden = false;
+      showDonePromise(city());
       retry.hidden = true;
       saveState.textContent = 'Test run: nothing was saved.';
       done.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -285,12 +286,21 @@
     startSaving(payload);
   });
 
+  // Outside the Helsinki region a match is not promised, on the last screen as in the confirmation email (27 Nov 2026).
+  function showDonePromise(where) {
+    var sure = document.getElementById('amDoneMatch'), maybe = document.getElementById('amDoneAway');
+    if (!sure || !maybe) return;   // a page from before this change
+    var away = !!where && where !== HELSINKI;
+    sure.hidden = away;
+    maybe.hidden = !away;
+  }
   function startSaving(payload) {
     lastPayload = payload;
     form.hidden = true;
     done.hidden = false;
     doneTitle.textContent = 'You\'re in! 🧡';
     doneOk.hidden = false;
+    showDonePromise(payload.city);
     retry.hidden = true;
     saveState.textContent = 'Saving your answers…';
     done.scrollIntoView({ behavior: 'smooth', block: 'center' });

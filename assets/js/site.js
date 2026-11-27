@@ -162,7 +162,7 @@
       if (AM.state() === 'open') {
         var left = round.closesAt - Date.now();
         var days = Math.floor(left / 86400000), hours = Math.floor(left / 3600000), mins = Math.ceil(left / 60000);
-        var forRound = ' left for ' + (round.label || 'this round');
+        var forRound = ' left to sign up';   // was "left for January", which could be read as "until January" (outside review, 27 Nov 2026)
         if (left > 172800000) { rightNum.textContent = days; rightLabel.textContent = 'days' + forRound; }
         else if (hours >= 1) { rightNum.textContent = hours; rightLabel.textContent = (hours === 1 ? 'hour' : 'hours') + forRound; }
         else { rightNum.textContent = Math.max(1, mins); rightLabel.textContent = 'minutes' + forRound; }   // rounded down, never promises extra time

@@ -13,7 +13,7 @@
     gtag('config', 'G-60GBR73KYC');
   </script>
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="cfnnZfeMKl9oOXrEyxjwuw" async></script>
-  <meta name="am-version" content="2.64">
+  <meta name="am-version" content="2.65">
   <title>Sign up | Awesome Meets</title>
   <meta name="description" content="Sign up for Awesome Meets. We introduce you to someone new in Helsinki for a one-to-one conversation over lunch, coffee or a walk.">
   <link rel="canonical" href="https://awesomemeets.com/join/">
@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2.64">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2.65">
 </head>
 <body>
 
@@ -284,7 +284,7 @@
               <details class="am-datanote">
                 <summary>Your data in Awesome Meets</summary>
                 <ul>
-                  <li><strong>Who has access:</strong> only me, Anna. No one else can see your answers. I use Claude, an AI assistant, to help me find good matches.</li>
+                  <li><strong>Who has access:</strong> only me, Anna: no other person sees your answers. Claude, an AI assistant made by Anthropic, processes them to help me find good matches, and I decide every match myself.</li>
                   <li><strong>What it's used for:</strong> matching you with one person, or two for a trio. In the next rounds too, but only if you say yes above. Nothing else.</li>
                   <li><strong>What your match sees:</strong> your name, job title, company, LinkedIn and email address, so you can get in touch.</li>
                   <li><strong>How you'll hear from me:</strong> by email, from anna@meet.awesomemarketers.fi, sent through Resend, an email delivery service. Replies land in my normal inbox.</li>
@@ -295,6 +295,7 @@
               </details>
               <div class="am-q" data-q="agreeData">
                 <label class="am-option"><input type="checkbox" id="agreeData" name="agreeData"> I agree that my answers are stored and used as described above</label>
+                <p class="form__hint">Every detail is in the <a href="../data/" target="_blank" rel="noopener">data policy</a>.</p>
                 <p class="am-error">I can only match you if you're OK with this.</p>
               </div>
               <!-- Anna, 14 Oct 2026: "mention before the final submit button that we will be introducing ghisting penalty of
@@ -316,7 +317,8 @@
           <div class="am-done" id="amDone" hidden>
             <h2 id="amDoneTitle">You're in! 🧡</h2>
             <div id="amDoneOk">
-              <p>You're in for <span data-am="label">this round</span>. By <span data-am="matchedByLong">then</span> I'll email you your match.</p>
+              <p id="amDoneMatch">You're in for <span data-am="label">this round</span>. By <span data-am="matchedByLong">then</span> I'll email you your match.</p>
+              <p id="amDoneAway" hidden>You're in for <span data-am="label">this round</span>. By <span data-am="matchedByLong">then</span> I'll email you if I've found you a match: for now I can only guarantee one in the Helsinki&nbsp;region.</p>
               <p>A confirmation email is on its way. Can't see it? Peek in your spam folder.</p>
             </div>
             <p class="am-save" id="amSaveState" aria-live="polite"></p>
@@ -381,9 +383,9 @@
   </div>
 </footer>
 
-<script src="../assets/js/config.js?v=2.64"></script>
-<script src="../assets/js/site.js?v=2.64"></script>
-<script src="../assets/js/form.js?v=2.64"></script>
+<script src="../assets/js/config.js?v=2.65"></script>
+<script src="../assets/js/site.js?v=2.65"></script>
+<script src="../assets/js/form.js?v=2.65"></script>
 <!-- Buy Me a Coffee button (Anna's own embed code, 30 Sep 2026). Its phone position and message style are adjusted in site.css. -->
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="awesomemeets" data-description="Support me on Buy me a coffee!" data-message="Support Awesome Meets, one coffee at a time ☕️" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>

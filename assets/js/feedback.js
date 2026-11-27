@@ -142,7 +142,7 @@
       var lead = $('fbLead'), rest = lead.textContent, b = document.createElement('strong');
       b.textContent = res.quick;
       lead.textContent = '';
-      lead.appendChild(document.createTextNode('Recorded: '));
+      lead.appendChild(document.createTextNode('Got it: '));
       lead.appendChild(b);
       lead.appendChild(document.createTextNode('. ' + rest));
     }
