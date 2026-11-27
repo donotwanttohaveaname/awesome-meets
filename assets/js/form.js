@@ -88,13 +88,13 @@
   function q(name) { return form.querySelector('[data-q="' + name + '"]'); }
   function setError(name, bad) { var n = q(name); if (n) n.classList.toggle('has-error', bad); return bad; }
 
-  // TEST RUN, on this computer only (Anna, 27 Nov 2026: "these are obligatory but can you make it so if i type "1" in
-  // each of these, it would take me to the next screen (and the answer won't be recorded)?"). With 1 as the name, the
-  // email and the LinkedIn profile, every step lets you through with nothing filled in, and "Count me in" shows the last
-  // screen without sending or keeping anything. It works on localhost only: on the real site a 1 is refused like any
-  // other wrong answer, so no visitor can end up on "You're in!" without being signed up.
-  var IS_LOCAL = ['localhost', '127.0.0.1', '[::1]'].indexOf(location.hostname) > -1;
-  function testRun() { return IS_LOCAL && value('fullName') === '1' && value('email') === '1' && value('linkedin') === '1'; }
+  // TEST RUN (Anna, 27 Nov 2026: "these are obligatory but can you make it so if i type "1" in each of these, it would take
+  // me to the next screen (and the answer won't be recorded)?"). With 1 as the name, the email and the LinkedIn profile,
+  // every step lets you through with nothing filled in, and "Count me in" shows the last screen without sending or
+  // keeping anything; that screen says "Test run: nothing was saved." It was for this computer only at first; since
+  // the same day it works on the real site too (Anna: "can you keep 1 1 1 as a test answer so i can always look at
+  // further steps?"). Nobody types 1 into all three by accident, and the last screen says plainly that nothing was saved.
+  function testRun() { return value('fullName') === '1' && value('email') === '1' && value('linkedin') === '1'; }
   function passes(n) {
     if (!testRun()) return checks[n]();
     [].forEach.call(steps[n - 1].querySelectorAll('.has-error'), function (el) { el.classList.remove('has-error'); });
